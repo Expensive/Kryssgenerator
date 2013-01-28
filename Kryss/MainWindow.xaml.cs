@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 namespace Kryss
 {
     /// <summary>
@@ -22,51 +23,20 @@ namespace Kryss
     {
         public MainWindow()
         {
-            
-            //ObservableCollection<Peoples> GPeoples;
-            //var Peoples = new ObservableCollection<Person>(search.Peoples());
+            Databas dokument; // Deklarerar klassen dokument
 
-            //comboPeople.ItemsSource = comboP;
-            //GPeoples = Peoples;
+            dokument = new Databas(); // Anropar klassen Databas.cs
 
-            StreamReader f = new StreamReader("Personer.txt");
-            //Räknar hur många rader det är i textfilen
-            int x = File.ReadAllLines("Personer.txt").Length;
-            
-            string[] a = null;
-            Person[] people = new Person[x];
-            int antal = 0;
-            while (true)
-            {
-                string rad = f.ReadLine();
-                if (rad == null)
-                    break;
-                a = rad.Split();
-                people[antal] = new Person(a[0], a[1]);
-                antal++;
-            }
-            InitializeComponent();
-            comboPeople.ItemsSource = people;
-            Binding nameBinding = new Binding("FirstName");
-            lblFName.SetBinding(ContentProperty, nameBinding);
-            Binding lnameBinding = new Binding("LastName");
-            lbllName.SetBinding(ContentProperty, lnameBinding);
-       
+            dokument.DBConnect; // Kör metoden Dokument
         }
 
         private void Random_knapp_Click(object sender, RoutedEventArgs e)
         {
-            //Startar random funktion
-           Random random = new Random();
+            Slump slump; // Deklarerar klassen Slump
 
-            //Väljer mellan alla i listboxen
-           int rnd = comboPeople.Items.Count;
+            slump = new Slump(); // Anropar klassen Slump.cs
 
-            //Randomar vilken den väljer i listan
-           int choseItem = random.Next(rnd);
-
-            //Visar den slumpmässiga deltagaren
-           comboPeople.SelectedIndex = choseItem;
+            slump.KorSlump(); // Kör metoden KorSlump i Slump.cs
 
         }
         //Lägga till en person i textboxen
@@ -78,12 +48,12 @@ namespace Kryss
 
             //comboPeople.Items.Add(item);
 
-            addPeople secondForm = new addPeople();
+            //addPeople secondForm = new addPeople();
 
-            if (secondForm.ShowDialog() == DialogResult)
-            {
-                comboPeople.Items.Add(secondForm.comboPeople.ToArray());
-            }
+            //if (secondForm.ShowDialog() == DialogResult)
+            //{
+            //    comboPeople.Items.Add(secondForm.comboPeople.ToArray());
+            //}
         
         }
 
