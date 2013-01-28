@@ -1,0 +1,13 @@
+﻿<Window x:Class="Kryss.addPeople"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="addPeople" Height="342" Width="443">
+    <Grid>
+        <TextBox Height="41" HorizontalAlignment="Left" Margin="91,42,0,0" Name="txtBoxFornamn" VerticalAlignment="Top" Width="228" />
+        <TextBox Height="44" HorizontalAlignment="Left" Margin="87,104,0,0" Name="txtBoxEfternamn" VerticalAlignment="Top" Width="232" />
+        <Label Content="Förnamn:" Height="24" HorizontalAlignment="Left" Margin="12,42,0,0" Name="lblFornamn" VerticalAlignment="Top" Width="73" />
+        <Label Content="Efternamn:" Height="27" HorizontalAlignment="Left" Margin="11,104,0,0" Name="lblEfternamn" VerticalAlignment="Top" Width="74" />
+        <Button Content="Lägg till" Height="64" HorizontalAlignment="Left" Margin="50,194,0,0" Name="addP_Btn" VerticalAlignment="Top" Width="99" Click="addP_Btn_Click" />
+        <Button Content="Avbryt" Height="63" HorizontalAlignment="Left" Margin="206,194,0,0" Name="cancel_Btn" VerticalAlignment="Top" Width="113" Click="cancel_Btn_Click" />
+    </Grid>
+</Window>
