@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
+using System.Data;
+
 namespace Kryss
 {
     /// <summary>
@@ -22,51 +25,53 @@ namespace Kryss
     {
         public MainWindow()
         {
-            
-            //ObservableCollection<Peoples> GPeoples;
-            //var Peoples = new ObservableCollection<Person>(search.Peoples());
-
-            //comboPeople.ItemsSource = comboP;
-            //GPeoples = Peoples;
-
-            StreamReader f = new StreamReader("Personer.txt");
-            //Räknar hur många rader det är i textfilen
-            int x = File.ReadAllLines("Personer.txt").Length;
-            
-            string[] a = null;
-            Person[] people = new Person[x];
-            int antal = 0;
-            while (true)
-            {
-                string rad = f.ReadLine();
-                if (rad == null)
-                    break;
-                a = rad.Split();
-                people[antal] = new Person(a[0], a[1]);
-                antal++;
-            }
             InitializeComponent();
-            comboPeople.ItemsSource = people;
-            Binding nameBinding = new Binding("FirstName");
-            lblFName.SetBinding(ContentProperty, nameBinding);
-            Binding lnameBinding = new Binding("LastName");
-            lbllName.SetBinding(ContentProperty, lnameBinding);
-       
+        }
+
+        DataSet myData;
+        MySqlDataAdapter Namn;
+
+        private void Importera_knapp_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Anslut till databasen
+            string connStr = @"Server = projweb.hj.se; Database = olde1103; Uid = olde1103; Pwd = Tdlf278; Port = 3306;";
+            MySqlConnection conn = new MySqlConnection(connStr);
+
+            try
+            {
+                conn.Open(); // Öppnar anslutningen
+                myData = new DataSet(); // Där datan ska sparas
+
+                // Laddar djur tabellen
+                Namn = new MySqlDataAdapter();
+                Namn.SelectCommand = new MySqlCommand("SELECT * FROM Namn", conn);
+                Namn.Fill(myData, "Namn");
+                
+
+                this.DataContext = myData;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close(); // Avslutar anslutningen
+            }
         }
 
         private void Random_knapp_Click(object sender, RoutedEventArgs e)
         {
-            //Startar random funktion
-           Random random = new Random();
+            //Slump slump; // Deklarerar klassen Slump
 
-            //Väljer mellan alla i listboxen
-           int rnd = comboPeople.Items.Count;
+            //slump = new Slump(); // Anropar klassen Slump.cs
 
-            //Randomar vilken den väljer i listan
-           int choseItem = random.Next(rnd);
-
-            //Visar den slumpmässiga deltagaren
-           comboPeople.SelectedIndex = choseItem;
+            //slump.KorSlump(); // Kör metoden KorSlump i Slump.cs
 
         }
         //Lägga till en person i textboxen
@@ -78,12 +83,12 @@ namespace Kryss
 
             //comboPeople.Items.Add(item);
 
-            addPeople secondForm = new addPeople();
+            //addPeople secondForm = new addPeople();
 
-            if (secondForm.ShowDialog() == DialogResult)
-            {
-                comboPeople.Items.Add(secondForm.comboPeople.ToArray());
-            }
+            //if (secondForm.ShowDialog() == DialogResult)
+            //{
+            //    comboPeople.Items.Add(secondForm.comboPeople.ToArray());
+            //}
         
         }
 
