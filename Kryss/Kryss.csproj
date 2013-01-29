@@ -85,6 +85,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Databas.cs" />
+    <Compile Include="Databas_2.cs" />
     <Compile Include="Slump.cs" />
     <Page Include="addPeople.xaml">
       <SubType>Designer</SubType>

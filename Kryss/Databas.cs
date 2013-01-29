@@ -5,26 +5,37 @@ using System.Text;
 using System.IO;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using System.Windows;
+using System.Data;
 
 namespace Kryss
 {
-    class Databas
-    {        
+    public partial class Databas
+    {   
+        // Deklarerar för vidare användning
+        public MySqlConnection connection;
+        public DataSet myData;
+        public MySqlDataAdapter namn;
 
-        public DBConnect()
+        public Databas()
         {
             Initialize();
             OpenConnection();
+            LoadDoc();
         }
 
-        MySqlDataAdapter namn;
-
-        //Initialize values
+        // Kopplar samman alla metoder nedan
+        public void DBConnect()
+        {
+            Initialize();
+            OpenConnection();
+            LoadDoc();
+        }
         private void Initialize()
         {
             string connectionString = @"Server=projweb.hj.se;Database=guni1189;Uid=guni1189;Pwd=Bkij614;Port=3306;";
 
-            string connection = new MySqlConnection(connectionString);
+            connection = new MySqlConnection(connectionString);
         }
 
         //open connection to database
@@ -71,14 +82,17 @@ namespace Kryss
             }
         }
 
-        //Insert statement
-        public void Insert()
+        private void LoadDoc()
         {
-        }
+            // Laddar in namn på personer
+            string cmdStr = string.Empty;
+            myData = new DataSet();
 
-        //Select statement
-        public List <string> [] Select()
-        {
+            namn = new MySqlDataAdapter();
+            namn.SelectCommand = new MySqlCommand("SELECT * FROM Namn", connection);
+            namn.Fill(myData, "Namn");
+
+            //this.DataContext = myData;
         }
 
         private void ImporteraDokument()
@@ -124,5 +138,7 @@ namespace Kryss
             //Binding lnameBinding = new Binding("LastName");
             //lbllName.SetBinding(ContentProperty, lnameBinding);
         }
+
+        public DataSet DataContext { get; set; }
     }
 }

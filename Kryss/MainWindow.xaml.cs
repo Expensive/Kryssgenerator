@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace Kryss
 {
@@ -23,20 +25,53 @@ namespace Kryss
     {
         public MainWindow()
         {
-            Databas dokument; // Deklarerar klassen dokument
+            InitializeComponent();
+        }
 
-            dokument = new Databas(); // Anropar klassen Databas.cs
+        DataSet myData;
+        MySqlDataAdapter Namn;
 
-            dokument.DBConnect; // Kör metoden Dokument
+        private void Importera_knapp_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Anslut till databasen
+            string connStr = @"Server = projweb.hj.se; Database = olde1103; Uid = olde1103; Pwd = Tdlf278; Port = 3306;";
+            MySqlConnection conn = new MySqlConnection(connStr);
+
+            try
+            {
+                conn.Open(); // Öppnar anslutningen
+                myData = new DataSet(); // Där datan ska sparas
+
+                // Laddar djur tabellen
+                Namn = new MySqlDataAdapter();
+                Namn.SelectCommand = new MySqlCommand("SELECT * FROM Namn", conn);
+                Namn.Fill(myData, "Namn");
+                
+
+                this.DataContext = myData;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close(); // Avslutar anslutningen
+            }
         }
 
         private void Random_knapp_Click(object sender, RoutedEventArgs e)
         {
-            Slump slump; // Deklarerar klassen Slump
+            //Slump slump; // Deklarerar klassen Slump
 
-            slump = new Slump(); // Anropar klassen Slump.cs
+            //slump = new Slump(); // Anropar klassen Slump.cs
 
-            slump.KorSlump(); // Kör metoden KorSlump i Slump.cs
+            //slump.KorSlump(); // Kör metoden KorSlump i Slump.cs
 
         }
         //Lägga till en person i textboxen
