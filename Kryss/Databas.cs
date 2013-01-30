@@ -13,132 +13,48 @@ namespace Kryss
     public partial class Databas
     {   
         // Deklarerar för vidare användning
-        public MySqlConnection connection;
         public DataSet myData;
-        public MySqlDataAdapter namn;
+        public MySqlDataAdapter Namn;
+        public DataSet DataContext { get; set; }
 
-        public Databas()
+        public void DBload()
         {
             Initialize();
-            OpenConnection();
-            LoadDoc();
+            //ChangePerson();
         }
 
-        // Kopplar samman alla metoder nedan
-        public void DBConnect()
-        {
-            Initialize();
-            OpenConnection();
-            LoadDoc();
-        }
         private void Initialize()
         {
-            string connectionString = @"Server=projweb.hj.se;Database=guni1189;Uid=guni1189;Pwd=Bkij614;Port=3306;";
+            // Anslut till databasen
+            string connStr = @"Server = projweb.hj.se; Database = olde1103; Uid = olde1103; Pwd = Tdlf278; Port = 3306;";
+            MySqlConnection conn = new MySqlConnection(connStr);
 
-            connection = new MySqlConnection(connectionString);
-        }
-
-        //open connection to database
-        private bool OpenConnection()
-        {
             try
             {
-                connection.Open();
-                return true;
-            }
-            catch (MySqlException ex)
-            {
-                //When handling errors, you can your application's response based 
-                //on the error number.
-                //The two most common error numbers when connecting are as follows:
-                //0: Cannot connect to server.
-                //1045: Invalid user name and/or password.
-                switch (ex.Number)
-                {
-                    case 0:
-                        MessageBox.Show("Cannot connect to server.  Contact administrator");
-                        break;
+                conn.Open(); // Öppnar anslutningen
+                myData = new DataSet(); // Där datan ska sparas
 
-                    case 1045:
-                        MessageBox.Show("Invalid username/password, please try again");
-                        break;
-                }
-                return false;
-            }
-        }
+                // Laddar Namn tabellen
+                Namn = new MySqlDataAdapter();
+                Namn.SelectCommand = new MySqlCommand("SELECT * FROM Namn", conn);
+                Namn.Fill(myData, "Namn");
 
-        //Close connection
-        private bool CloseConnection()
-        {
-            try
-            {
-                connection.Close();
-                return true;
+
+                this.DataContext = myData;
             }
-            catch (MySqlException ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                return false;
+            }
+            finally
+            {
+                conn.Close(); // Avslutar anslutningen
             }
         }
 
-        private void LoadDoc()
+        private void ChangePerson()
         {
-            // Laddar in namn på personer
-            string cmdStr = string.Empty;
-            myData = new DataSet();
-
-            namn = new MySqlDataAdapter();
-            namn.SelectCommand = new MySqlCommand("SELECT * FROM Namn", connection);
-            namn.Fill(myData, "Namn");
-
-            //this.DataContext = myData;
+            // Utför ändringar på deltagare 
         }
-
-        private void ImporteraDokument()
-        {
-
-
-
-            //public string FirstName { get; set; }
-            //public string LastName { get; set; }
-            
-            //public Deltagare(string fName, string lName)
-            //{
-            //    FirstName = fName;
-            //    LastName = lName;
-            //}
-
-            ////ObservableCollection<Peoples> GPeoples;
-            ////var Peoples = new ObservableCollection<Person>(search.Peoples());
-
-            ////comboPeople.ItemsSource = comboP;
-            ////GPeoples = Peoples;
-
-            //StreamReader f = new StreamReader("Personer.txt");
-            ////Räknar hur många rader det är i textfilen
-            //int x = File.ReadAllLines("Personer.txt").Length;
-
-            //string[] a = null;
-            //Person[] people = new Person[x];
-            //int antal = 0;
-            //while (true)
-            //{
-            //    string rad = f.ReadLine();
-            //    if (rad == null)
-            //        break;
-            //    a = rad.Split();
-            //    people[antal] = new Person(a[0], a[1]);
-            //    antal++;
-            //}
-            //InitializeComponent();
-            //comboPeople.ItemsSource = people;
-            //Binding nameBinding = new Binding("FirstName");
-            //lblFName.SetBinding(ContentProperty, nameBinding);
-            //Binding lnameBinding = new Binding("LastName");
-            //lbllName.SetBinding(ContentProperty, lnameBinding);
-        }
-
-        public DataSet DataContext { get; set; }
     }
 }

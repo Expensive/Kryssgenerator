@@ -27,42 +27,17 @@ namespace Kryss
         {
             InitializeComponent();
         }
-
-        DataSet myData;
-        MySqlDataAdapter Namn;
+        
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {   
+            // Skapar en lokal kopia load som anropar DBload i Databas.cs
+            Databas load = new Databas();
+            load.DBload();
+        }
 
         private void Importera_knapp_Click(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            // Anslut till databasen
-            string connStr = @"Server = projweb.hj.se; Database = olde1103; Uid = olde1103; Pwd = Tdlf278; Port = 3306;";
-            MySqlConnection conn = new MySqlConnection(connStr);
-
-            try
-            {
-                conn.Open(); // Öppnar anslutningen
-                myData = new DataSet(); // Där datan ska sparas
-
-                // Laddar djur tabellen
-                Namn = new MySqlDataAdapter();
-                Namn.SelectCommand = new MySqlCommand("SELECT * FROM Namn", conn);
-                Namn.Fill(myData, "Namn");
-                
-
-                this.DataContext = myData;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                conn.Close(); // Avslutar anslutningen
-            }
         }
 
         private void Random_knapp_Click(object sender, RoutedEventArgs e)
