@@ -29,6 +29,7 @@ namespace Kryss
         {
             // Anslut till databasen
             string connStr = @"Server = projweb.hj.se; Database = olde1103; Uid = olde1103; Pwd = Tdlf278; Port = 3306;";
+            //string connStr = @"Server = kryss-154741.mysql.binero.se; Database = 154741-kryss; Uid = 154741_oz70400; Pwd = 123456789; Port = 3306;";
             conn = new MySqlConnection(connStr);
 
         }
@@ -42,7 +43,7 @@ namespace Kryss
 
                 // Laddar deltagare tabellen
                 Namn = new MySqlDataAdapter();
-                Namn.SelectCommand = new MySqlCommand("SELECT * FROM Namn", conn);
+                Namn.SelectCommand = new MySqlCommand("SELECT Namn FROM Kryss", conn);
                 Namn.Fill(myData, "Namn");
 
 
