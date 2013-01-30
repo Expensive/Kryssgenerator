@@ -16,25 +16,31 @@ namespace Kryss
         public DataSet myData;
         public MySqlDataAdapter Namn;
         public DataSet DataContext { get; set; }
+        public MySqlConnection conn;
 
         public void DBload()
         {
-            Initialize();
+            OpenConn();
+            GetMembers();
             //ChangePerson();
         }
 
-        private void Initialize()
+        public void OpenConn()
         {
             // Anslut till databasen
             string connStr = @"Server = projweb.hj.se; Database = olde1103; Uid = olde1103; Pwd = Tdlf278; Port = 3306;";
-            MySqlConnection conn = new MySqlConnection(connStr);
+            conn = new MySqlConnection(connStr);
 
+        }
+
+        private void GetMembers()
+        {
             try
             {
                 conn.Open(); // Öppnar anslutningen
                 myData = new DataSet(); // Där datan ska sparas
 
-                // Laddar Namn tabellen
+                // Laddar deltagare tabellen
                 Namn = new MySqlDataAdapter();
                 Namn.SelectCommand = new MySqlCommand("SELECT * FROM Namn", conn);
                 Namn.Fill(myData, "Namn");
@@ -54,7 +60,25 @@ namespace Kryss
 
         private void ChangePerson()
         {
-            // Utför ändringar på deltagare 
+            // Utför ändringar på deltagare
+            try
+            {
+                conn.Open();
+                myData = new DataSet();
+
+                Namn = new MySqlDataAdapter();
+                Namn.SelectCommand = new MySqlCommand("INSERT INTO Namn VALUES ('Kalle Olsson')", conn);
+
+                this.DataContext = myData;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 }
