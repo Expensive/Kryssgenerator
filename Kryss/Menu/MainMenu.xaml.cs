@@ -20,13 +20,9 @@ namespace KryssGenerator
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            // Skapar en lokal kopia load som anropar DBload i Databas.cs
+            // Laddar in kopia med deltagare från databasen.
             Databas load = new Databas();
-            this.DataContext = load.DBload();
-
-            //Anropar ChangePerson i Databas.cs
-            //Databas Change = new Databas();
-            //this.DataContext = Change.ChangePerson();
+            this.DataContext = load.FirstLoad();
         }
 
         // Knappar för att ta sig till andra sidor i programmet.

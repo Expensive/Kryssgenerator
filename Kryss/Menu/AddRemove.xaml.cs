@@ -17,6 +17,14 @@ namespace KryssGenerator
             InitializeComponent();
         }
 
+        private void Uppdatera_Click(object sender, RoutedEventArgs e)
+        {
+            Databas uppdatera = new Databas();
+            uppdatera.OpenConn(); // Startar anslutning
+            uppdatera.ChangePerson(); // Redigerar deltagare
+        }
+
+        //Ignorera.
         #region ISwitchable Members
         public void UtilizeState(object state)
         {

@@ -20,17 +20,9 @@
 
         <!-- Listbox där deltagare hamnar -->
         <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
-            <Label FontSize="21" Content="Deltagare" HorizontalAlignment="Left"/>
-            <ListBox Name="comboPeople" Margin="3,0,0,3" Padding="5" FontSize="14" HorizontalAlignment="Left" Width="auto" IsSynchronizedWithCurrentItem="False" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" Background="{x:Null}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="TextBlockID" Text="{Binding Path=ID}" Padding="0,2,6,2" />
-                            <TextBlock x:Name="TextBlockDeltagare" Text="{Binding Path=Deltagare}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Padding="0,2,6,2" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <Label FontSize="21" Content="Lägg till deltagare som fattas i listan (För- och efternamn)." HorizontalAlignment="Left"/>
+            <TextBox Name="TextBoxAdd" />
+            <Button Content="Updatera listan" Name="Uppdatera" Click="Uppdatera_Click" />
         </StackPanel>
     </DockPanel>
 </UserControl>

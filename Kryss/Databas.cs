@@ -17,12 +17,7 @@ namespace KryssGenerator
         public MySqlConnection conn;
         public DataSet DataContext { get; set; }
 
-        public DataSet DBload()
-        {
-            OpenConn();
-            return GetMembers();
-        }
-
+        // Skapar en anslutning till databasen.
         public void OpenConn()
         {
             // Anslut till databasen
@@ -30,8 +25,10 @@ namespace KryssGenerator
             //conn = new MySqlConnection(@"Server = kryss-154741.mysql.binero.se; Database = 154741-kryss; Uid = 154741_oz70400; Pwd = 123456789; Port = 3306;");
         }
 
-        private DataSet GetMembers()
+        // Kör första gången för att ladda in deltagare.
+        public DataSet FirstLoad()
         {
+            OpenConn(); // Anslutning till databasen
             try
             {
                 conn.Open(); // Öppnar anslutningen
@@ -56,6 +53,7 @@ namespace KryssGenerator
             return myData;
         }
 
+        // Lägga till en deltagare i databasen.
         public DataSet ChangePerson()
         {
             // Utför ändringar på deltagare
@@ -65,7 +63,7 @@ namespace KryssGenerator
                 myData = new DataSet();
 
                 Deltagare = new MySqlDataAdapter();
-                Deltagare.SelectCommand = new MySqlCommand("INSERT INTO Namn VALUES ('Kalle Olsson')", conn);
+                Deltagare.InsertCommand = new MySqlCommand("INSERT INTO Namn VALUES ('Kalle Olsson')", conn);
 
             }
             catch (Exception ex)
@@ -78,6 +76,5 @@ namespace KryssGenerator
             }
             return myData;
         }
-
     }
 }
