@@ -8,30 +8,29 @@
 	d:DesignWidth="1000" d:DesignHeight="500">
 
     <DockPanel x:Name="AddRemoveLayoutRoot">
+        <!-- Knappar för att ta sig runt på sidan -->
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="10">
-            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="100" Content="&lt; Back" Height="25" Click="Button_Click"/>
+            <Button Height="30" Padding="5" Margin="5,0" Content="&lt; Tillbaka" Click="Button_Click"/>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
-            <Label FontSize="32">Kryssgenerator</Label>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
 
-            <ListBox Name="comboPeople" Margin="3,0,0,3" Padding="5" FontSize="14" Width="auto" IsSynchronizedWithCurrentItem="False" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" Background="{x:Null}" BorderThickness="0">
+        <!-- Huvudrubrik -->
+        <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="3,0,0,0">
+            <Label FontSize="32" HorizontalAlignment="Center">Kryssgenerator - Lägg till/Ta bort</Label>
+        </StackPanel>
+
+        <!-- Listbox där deltagare hamnar -->
+        <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
+            <Label FontSize="21" Content="Deltagare" HorizontalAlignment="Left"/>
+            <ListBox Name="comboPeople" Margin="3,0,0,3" Padding="5" FontSize="14" HorizontalAlignment="Left" Width="auto" IsSynchronizedWithCurrentItem="False" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" Background="{x:Null}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Name="TextBlockID" Text="{Binding Path=ID}" Padding="0,2,6,2" />
                             <TextBlock x:Name="TextBlockDeltagare" Text="{Binding Path=Deltagare}"  HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Padding="0,2,6,2" />
-                            <CheckBox x:Name="CheckBox" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="6" />
-                            <CheckBox x:Name="CheckBox2" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="6" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-
-            <!--<StackPanel Name="sp" Margin="10, 5" DataContext="{Binding ElementName=comboPeople, Path=SelectedItem}" Width="300" Background="AliceBlue">
-
-            </StackPanel>-->
         </StackPanel>
     </DockPanel>
 </UserControl>
