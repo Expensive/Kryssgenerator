@@ -31,8 +31,36 @@ namespace Kryss
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {   
             // Skapar en lokal kopia load som anropar DBload i Databas.cs
-            Databas load = new Databas();
-            load.DBload();
+            //Databas load = new Databas();
+            //load.DBload();
+
+            // ********** Allt nedan skall egentligen ligga i Databas.cs . Kopplingen fungerar inte. **********
+            DataSet myData;
+            MySqlDataAdapter Deltagare;
+            MySqlConnection conn;
+            conn = new MySqlConnection(@"Server = projweb.hj.se; Database = olde1103; Uid = olde1103; Pwd = Tdlf278; Port = 3306;");
+
+            try
+            {
+                conn.Open(); // Öppnar anslutningen
+                myData = new DataSet(); // Där datan ska sparas
+
+                // Laddar deltagare tabellen
+                Deltagare = new MySqlDataAdapter();
+                Deltagare.SelectCommand = new MySqlCommand("SELECT * FROM Namn", conn); // Väljer ID och Namn från tabellen Namn
+                Deltagare.Fill(myData, "Namn");
+
+                this.DataContext = myData;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close(); // Avslutar anslutningen
+            }
+            // ******************************************************************************************************
         }
 
         private void Importera_knapp_Click(object sender, RoutedEventArgs e)

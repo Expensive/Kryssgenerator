@@ -10,11 +10,11 @@ Title="Kryssningsslumpare" Height="496" Width="1102" MaxHeight="800" MaxWidth="1
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
 
 
-            <ListBox Name="comboPeople" Margin="5" Padding="8" FontSize="10" Width="550" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}">
+            <ListBox Name="comboPeople" Margin="5" Padding="8" FontSize="10" Width="550" IsSynchronizedWithCurrentItem="True" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="TextBlock" Text="{Binding Path=Namn}"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,10" FontSize="26.667" TextWrapping="Wrap" Padding="8" />
+                            <TextBlock x:Name="TextBlock" Text="{Binding Path=Deltagare}"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,0,10" FontSize="26.667" TextWrapping="Wrap" Padding="8" />
                             <CheckBox x:Name="CheckBox"   HorizontalAlignment="Center" VerticalAlignment="Center" Padding="8" />
                             <CheckBox x:Name="CheckBox2"   HorizontalAlignment="Center" VerticalAlignment="Center" Padding="8" />
 
@@ -30,8 +30,6 @@ Title="Kryssningsslumpare" Height="496" Width="1102" MaxHeight="800" MaxWidth="1
             </ListBox>
 
             <StackPanel Name="sp" Margin="10, 5" DataContext="{Binding ElementName=comboPeople, Path=SelectedItem}" Width="300" Background="AliceBlue">
-                <Label Name="lblFName" FontWeight="Bold"/>
-                <Label Name="lbllName"/>
 
             </StackPanel>
         </StackPanel>
