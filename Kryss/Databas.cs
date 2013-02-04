@@ -2,27 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO;
-using MySql.Data;
-using MySql.Data.MySqlClient;
 using System.Windows;
 using System.Data;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 
-namespace Kryss
+namespace KryssGenerator
 {
     public partial class Databas
-    {   
+    {
         // Deklarerar för vidare användning
         public DataSet myData;
         public MySqlDataAdapter Deltagare;
         public MySqlConnection conn;
         public DataSet DataContext { get; set; }
 
-        public void DBload()
+        public DataSet DBload()
         {
             OpenConn();
-            GetMembers();
-            //ChangePerson();
+            return GetMembers();
         }
 
         public void OpenConn()
@@ -32,7 +30,7 @@ namespace Kryss
             //conn = new MySqlConnection(@"Server = kryss-154741.mysql.binero.se; Database = 154741-kryss; Uid = 154741_oz70400; Pwd = 123456789; Port = 3306;");
         }
 
-        private void GetMembers()
+        private DataSet GetMembers()
         {
             try
             {
@@ -44,8 +42,6 @@ namespace Kryss
                 Deltagare.SelectCommand = new MySqlCommand("SELECT * FROM Namn", conn); // Väljer ID och Namn från tabellen Namn
                 Deltagare.Fill(myData, "Namn");
 
-                this.DataContext = myData;
-
             }
             catch (Exception ex)
             {
@@ -54,10 +50,13 @@ namespace Kryss
             finally
             {
                 conn.Close(); // Avslutar anslutningen
+
             }
+            // Returnerar den data som hämtas till myData
+            return myData;
         }
 
-        private void ChangePerson()
+        public DataSet ChangePerson()
         {
             // Utför ändringar på deltagare
             try
@@ -68,7 +67,6 @@ namespace Kryss
                 Deltagare = new MySqlDataAdapter();
                 Deltagare.SelectCommand = new MySqlCommand("INSERT INTO Namn VALUES ('Kalle Olsson')", conn);
 
-                this.DataContext = myData;
             }
             catch (Exception ex)
             {
@@ -78,6 +76,7 @@ namespace Kryss
             {
                 conn.Close();
             }
+            return myData;
         }
 
     }

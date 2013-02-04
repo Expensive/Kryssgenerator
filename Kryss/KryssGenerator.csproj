@@ -85,27 +85,48 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Databas.cs" />
-    <Compile Include="Slump.cs" />
-    <Page Include="addPeople.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="addPeople.xaml.cs">
-      <DependentUpon>addPeople.xaml</DependentUpon>
+    <Compile Include="ISwitchable.cs" />
+    <Compile Include="Menu\AddRemove.xaml.cs">
+      <DependentUpon>AddRemove.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Menu\LoadGame.xaml.cs">
+      <DependentUpon>LoadGame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Menu\Questions.xaml.cs">
+      <DependentUpon>Questions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageSwitcher.xaml.cs">
+      <DependentUpon>PageSwitcher.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Slump.cs" />
+    <Compile Include="Switcher.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Person.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
+    <Page Include="Menu\AddRemove.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Menu\LoadGame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Menu\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Menu\Questions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageSwitcher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -125,7 +146,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Kryss_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
