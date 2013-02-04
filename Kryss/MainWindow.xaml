@@ -10,7 +10,7 @@ Title="Kryssningsslumpare" Height="496" Width="1102" MaxHeight="800" MaxWidth="1
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
 
 
-            <ListBox Name="comboPeople" Margin="5" Padding="8" FontSize="10" Width="550" Background="Bisque" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}">
+            <ListBox Name="comboPeople" Margin="5" Padding="8" FontSize="10" Width="550" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -21,6 +21,12 @@ Title="Kryssningsslumpare" Height="496" Width="1102" MaxHeight="800" MaxWidth="1
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
+                <ListBox.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFA2C5F0" Offset="0" />
+                        <GradientStop Color="#FF20518B" Offset="1" />
+                    </LinearGradientBrush>
+                </ListBox.Background>
             </ListBox>
 
             <StackPanel Name="sp" Margin="10, 5" DataContext="{Binding ElementName=comboPeople, Path=SelectedItem}" Width="300" Background="AliceBlue">

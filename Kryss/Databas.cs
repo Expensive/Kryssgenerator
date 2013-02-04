@@ -43,7 +43,7 @@ namespace Kryss
 
                 // Laddar deltagare tabellen
                 Namn = new MySqlDataAdapter();
-                Namn.SelectCommand = new MySqlCommand("SELECT Namn FROM Kryss", conn);
+                Namn.SelectCommand = new MySqlCommand("SELECT * FROM Namn", conn); // Väljer ID och Namn från tabellen Namn
                 Namn.Fill(myData, "Namn");
 
 
