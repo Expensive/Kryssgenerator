@@ -45,6 +45,7 @@ namespace Kryss
                 Deltagare.Fill(myData, "Namn");
 
                 this.DataContext = myData;
+
             }
             catch (Exception ex)
             {
