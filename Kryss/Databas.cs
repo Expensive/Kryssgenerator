@@ -22,16 +22,16 @@ namespace KryssGenerator
         {
             // Anslut till databasen
             conn = new MySqlConnection(@"Server = projweb.hj.se; Database = olde1103; Uid = olde1103; Pwd = Tdlf278; Port = 3306;");
+            conn.Open();
             //conn = new MySqlConnection(@"Server = kryss-154741.mysql.binero.se; Database = 154741-kryss; Uid = 154741_oz70400; Pwd = 123456789; Port = 3306;");
         }
 
-        // Kör första gången för att ladda in deltagare.
-        public DataSet FirstLoad()
+        // Uppdaterar databasen för att ladda in deltagare.
+        public DataSet UpdateDatabase()
         {
             OpenConn(); // Anslutning till databasen
             try
             {
-                conn.Open(); // Öppnar anslutningen
                 myData = new DataSet(); // Där datan ska sparas
 
                 // Laddar deltagare tabellen
@@ -54,16 +54,14 @@ namespace KryssGenerator
         }
 
         // Lägga till en deltagare i databasen.
-        public DataSet ChangePerson()
+        public void ChangePerson()
         {
-            // Utför ändringar på deltagare
+            OpenConn();
             try
             {
-                conn.Open();
-                myData = new DataSet();
+                // HÄR HÄNDER DET SAKER
 
-                Deltagare = new MySqlDataAdapter();
-                Deltagare.InsertCommand = new MySqlCommand("INSERT INTO Namn VALUES ('Kalle Olsson')", conn);
+                Deltagare.InsertCommand = new MySqlCommand("INSERT Namn (Namn) VALUES (Kalle Olsson)", conn);
 
             }
             catch (Exception ex)
@@ -72,9 +70,8 @@ namespace KryssGenerator
             }
             finally
             {
-                conn.Close();
+                UpdateDatabase();
             }
-            return myData;
         }
     }
 }

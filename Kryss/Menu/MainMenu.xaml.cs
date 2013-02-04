@@ -22,7 +22,7 @@ namespace KryssGenerator
         {
             // Laddar in kopia med deltagare från databasen.
             Databas load = new Databas();
-            this.DataContext = load.FirstLoad();
+            this.DataContext = load.UpdateDatabase();
         }
 
         // Knappar för att ta sig till andra sidor i programmet.
