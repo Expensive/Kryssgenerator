@@ -84,6 +84,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CheckBoxes.cs" />
     <Compile Include="Databas.cs" />
     <Compile Include="ISwitchable.cs" />
     <Compile Include="Menu\AddRemove.xaml.cs">
