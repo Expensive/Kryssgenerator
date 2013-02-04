@@ -22,8 +22,7 @@
         </StackPanel>
         
         <!-- Listbox där deltagare hamnar -->
-        <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
-            <Label FontSize="21" Content="Deltagare" HorizontalAlignment="Left"/>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
             <ListBox Name="comboPeople" Margin="3,0,0,3" Padding="5" FontSize="14" HorizontalAlignment="Left" Width="auto" IsSynchronizedWithCurrentItem="False" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" Background="{x:Null}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -34,6 +33,13 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            
+            <!-- Datagrid där alla checkboxar hamnar -->
+            <DataGrid AutoGenerateColumns="False" Name="dataGrid1" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}"  />
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
         
     </DockPanel>
