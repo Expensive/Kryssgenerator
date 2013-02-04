@@ -6,18 +6,20 @@ Title="Kryssningsslumpare" Height="496" Width="1102" MaxHeight="800" MaxWidth="1
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="10">
             <Button Content="Slumpa" Height="23" Name="Random_knapp" Width="75" Click="Random_knapp_Click"/>
             <Button Content="Importera dokument" Name="Importera_knapp" Click="Importera_knapp_Click" />
+            <TextBox Height="23" Name="AntalFragor" Width="113" />
+            <Button Content="OK" Height="23" Name="OK" Width="31" Click="OK_Click" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
 
 
-            <ListBox Name="comboPeople" Margin="5" Padding="8" FontSize="7" Width="auto" IsSynchronizedWithCurrentItem="True" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}">
+            <ListBox Name="comboPeople" Margin="5" Padding="8" FontSize="7" Width="321" IsSynchronizedWithCurrentItem="True" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" Height="369" SelectionChanged="comboPeople_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="TextBlock" Text="{Binding Path=Deltagare}"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,0,0,3" FontSize="14" TextWrapping="Wrap" Padding="6" />
-                            <TextBlock x:Name="TextBlockID" Text="{Binding Path=ID}" />
-                            <CheckBox x:Name="CheckBox"   HorizontalAlignment="Center" VerticalAlignment="Center" Padding="6" />
-                            <CheckBox x:Name="CheckBox2"   HorizontalAlignment="Center" VerticalAlignment="Center" Padding="6" />
+                            <TextBlock x:Name="TextBlock" Text="{Binding Path=Deltagare}"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,0,0,3" FontSize="12" TextWrapping="Wrap" Padding="2" />
+                            
+                            <!--<CheckBox x:Name="CheckBox"   HorizontalAlignment="Center" VerticalAlignment="Center" Padding="6" />
+                            <CheckBox x:Name="CheckBox2"   HorizontalAlignment="Center" VerticalAlignment="Center" Padding="6" />-->
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -28,7 +30,13 @@ Title="Kryssningsslumpare" Height="496" Width="1102" MaxHeight="800" MaxWidth="1
                     </LinearGradientBrush>
                 </ListBox.Background>
             </ListBox>
-
+            <DataGrid AutoGenerateColumns="False" Name="dataGrid1" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}"  />
+                    
+                </DataGrid.Columns>
+            </DataGrid>
+            <!--<DataGrid AutoGenerateColumns="False" Height="392" Name="dataGrid1" Width="504"/>-->
             <!--<StackPanel Name="sp" Margin="10, 5" DataContext="{Binding ElementName=comboPeople, Path=SelectedItem}" Width="300" Background="AliceBlue">
 
             </StackPanel>-->
