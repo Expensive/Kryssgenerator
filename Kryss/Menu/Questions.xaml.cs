@@ -23,13 +23,13 @@ namespace KryssGenerator
         int sv;
         public DataGrid dataGrid1;
 
-        // Kollar så att inmatat är ett nummer. Borde kanske ligga i en annan klass.
-        public void OK_Click(object sender, RoutedEventArgs e)
+        // Knappen för att spara antal frågor
+        public void NrSave_Click(object sender, RoutedEventArgs e)
         {
+            // Kollar så att man endast matar in int.
             if (System.Text.RegularExpressions.Regex.IsMatch("[^0-9]", NrBoxes.Text))
             {
-
-                MessageBox.Show("Please enter only numbers.");
+                MessageBox.Show("Skriv in endast nummer!");
                 NrBoxes.Text.Remove(NrBoxes.Text.Length - 1);
             }
             else
@@ -37,15 +37,16 @@ namespace KryssGenerator
                 sv = int.Parse(NrBoxes.Text);
                 MessageBox.Show("Värdet är:" + sv);
             }
+
+            //Anropar metoden som sparar antal frågor
+            dt();
         }
 
         // Själva räknaren som kollar hur många deltagare/frågor det finns. Ska hämta sina max värden någon annanstans. 
-        private void comboPeople_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void dt()
         {
             int x_len = 30; // x_len and y_len can be any size >= 0
             int y_len = 4;
-
-
 
             CheckBox[,] checkBoxes = new CheckBox[x_len, y_len];
             List<checkedBoxIte> item = new List<checkedBoxIte>();
@@ -54,7 +55,6 @@ namespace KryssGenerator
             {
                 DataGridCheckBoxColumn col = new DataGridCheckBoxColumn();
                 DataGridTextColumn hihi = new DataGridTextColumn();
-
 
                 col.Header = x.ToString();
                 hihi.Header = sv.ToString();
@@ -78,8 +78,8 @@ namespace KryssGenerator
                 item.Add(ite);
             }
             dataGrid1.ItemsSource = item;
-
         }
+
         public class checkedBoxIte
         {
             public string MyString { get; set; }

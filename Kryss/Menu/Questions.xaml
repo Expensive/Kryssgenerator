@@ -20,8 +20,9 @@
 
         <!-- Listbox där deltagare hamnar -->
         <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
-            <Label FontSize="21" Content="Deltagare" HorizontalAlignment="Left"/>
-            <TextBlock Name="NrBoxes" />
+            <Label FontSize="21" Content="Antal frågor" HorizontalAlignment="Left"/>
+            <TextBox Name="NrBoxes" />
+            <Button Name="NrSave" Content="Spara" Click="NrSave_Click" />
         </StackPanel>
     </DockPanel>
 </UserControl>
