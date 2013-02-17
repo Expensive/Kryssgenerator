@@ -9,13 +9,14 @@ using MySql.Data.MySqlClient;
 
 namespace KryssGenerator
 {
-    public partial class Databas
+    public partial class Databas: AddRemove
     {
         // Deklarerar för vidare användning
         public DataSet myData;
         public MySqlDataAdapter Deltagare;
         public MySqlConnection conn;
         public DataSet DataContext { get; set; }
+        
 
         // Skapar en anslutning till databasen.
         public void OpenConn()
@@ -57,21 +58,27 @@ namespace KryssGenerator
         public void ChangePerson()
         {
             OpenConn();
-            try
-            {
-                // HÄR HÄNDER DET SAKER
 
-                Deltagare.InsertCommand = new MySqlCommand("INSERT Namn (Namn) VALUES (Kalle Olsson)", conn);
+                try
+                {
+                    // HÄR HÄNDER DET SAKER
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                UpdateDatabase();
-            }
+                    string sql = "INSERT INTO Namn(Deltagare) VALUES (Deltagare)";
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    cmd.Parameters.Add("chattextbox");
+                    cmd.ExecuteNonQuery();
+                    //Deltagare.InsertCommand = new MySqlCommand("INSERT INTO Namn (Namn)" + "VALUES (Kalle Olsson)", conn);
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    UpdateDatabase();
+                }
+            conn.Close();
         }
     }
 }

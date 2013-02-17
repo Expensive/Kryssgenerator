@@ -12,12 +12,14 @@ namespace KryssGenerator
 {
     public partial class AddRemove : UserControl, ISwitchable
     {
+        public string chattextbox;
+
         public AddRemove()
         {
             InitializeComponent();
         }
 
-        private void Uppdatera_Click(object sender, RoutedEventArgs e)
+        public void Uppdatera_Click(object sender, RoutedEventArgs e)
         {
             Databas uppdatera = new Databas();
             uppdatera.ChangePerson(); // Redigerar deltagare
@@ -35,5 +37,10 @@ namespace KryssGenerator
             Switcher.Switch(new MainMenu());
         }
         #endregion
+
+        public void TextBoxAdd_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            chattextbox = TextBoxAdd.Text;
+        }
     }
 }

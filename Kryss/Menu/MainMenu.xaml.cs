@@ -24,9 +24,9 @@ namespace KryssGenerator
             Databas load = new Databas();
             this.DataContext = load.UpdateDatabase();
 
-            // Laddar in en kopia med antal frågor från Questions.xaml.cs
-            Questions q = new Questions();
-            this.DataContext = q.NrSave_Click();
+            //// Laddar in en kopia med antal frågor från Questions.xaml.cs
+            //Questions q = new Questions();
+            //this.DataContext = q.NrSave_Click();
         }
 
         // Knappar för att ta sig till andra sidor i programmet.

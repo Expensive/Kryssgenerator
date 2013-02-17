@@ -21,7 +21,7 @@
         <!-- Listbox där deltagare hamnar -->
         <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
             <Label FontSize="21" Content="Lägg till deltagare som fattas i listan (För- och efternamn)." HorizontalAlignment="Left"/>
-            <TextBox Name="TextBoxAdd" />
+            <TextBox Name="TextBoxAdd" TextChanged="TextBoxAdd_TextChanged" />
             <Button Content="Updatera listan" Name="Uppdatera" Click="Uppdatera_Click" />
         </StackPanel>
     </DockPanel>
