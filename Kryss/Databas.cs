@@ -65,7 +65,6 @@ namespace KryssGenerator
 
                     string sql = "INSERT INTO Namn(Deltagare) VALUES (Deltagare)";
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    cmd.Parameters.Add("chattextbox");
                     cmd.ExecuteNonQuery();
                     //Deltagare.InsertCommand = new MySqlCommand("INSERT INTO Namn (Namn)" + "VALUES (Kalle Olsson)", conn);
 
