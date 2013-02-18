@@ -37,7 +37,7 @@ namespace KryssGenerator
 
                 // Laddar deltagare tabellen
                 Deltagare = new MySqlDataAdapter();
-                Deltagare.SelectCommand = new MySqlCommand("SELECT * FROM Namn", conn); // Väljer ID och Namn från tabellen Namn
+                Deltagare.SelectCommand = new MySqlCommand("SELECT * FROM Namn", conn); // Väljer ID och Deltagare från tabellen Namn
                 Deltagare.Fill(myData, "Namn");
 
             }
@@ -57,17 +57,23 @@ namespace KryssGenerator
         // Lägga till en deltagare i databasen.
         public void ChangePerson()
         {
+            string sqlIns = "INSERT INTO Namn (Deltagare) VALUES (@Deltagare)";
             OpenConn();
-
-                try
+            
+            try
                 {
-                    // HÄR HÄNDER DET SAKER
+                    MySqlCommand cmdIns = new MySqlCommand(sqlIns, conn);
+                    cmdIns.Parameters.AddWithValue("@Deltagare", chattextbox);
+                    cmdIns.ExecuteNonQuery();
 
-                    string sql = "INSERT INTO Namn(Deltagare) VALUES (Deltagare)";
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    cmd.ExecuteNonQuery();
-                    //Deltagare.InsertCommand = new MySqlCommand("INSERT INTO Namn (Namn)" + "VALUES (Kalle Olsson)", conn);
+                    cmdIns.Parameters.Clear();
+                    cmdIns.CommandText = "SELECT @@IDENTITY";
 
+                    // Get the last inserted id.
+                    int insertID = Convert.ToInt32(cmdIns.ExecuteScalar());
+
+                    cmdIns.Dispose();
+                    cmdIns = null;
                 }
                 catch (Exception ex)
                 {
@@ -77,7 +83,6 @@ namespace KryssGenerator
                 {
                     UpdateDatabase();
                 }
-            conn.Close();
         }
     }
 }
