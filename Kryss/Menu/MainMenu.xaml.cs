@@ -29,15 +29,15 @@ namespace KryssGenerator
             //this.DataContext = q.NrSave_Click();
         }
 
+        private void Slumpa_Click(object sender, RoutedEventArgs e)
+        {
+            // Inget just nu
+        }
+
         // Knappar för att ta sig till andra sidor i programmet.
         private void newGameButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             Switcher.Switch(new AddRemove());
-        }
-
-        private void loadGameButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            Switcher.Switch(new LoadGame());
         }
 
         private void optionButton_Click(object sender, System.Windows.RoutedEventArgs e)

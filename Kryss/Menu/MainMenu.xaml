@@ -11,8 +11,8 @@
     <DockPanel x:Name="mainMenuLayoutRoot">
         <!-- Knappar för att ta sig runt på sidan -->
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="10">
+            <Button Content="Slumpa" Height="30" Padding="5" Margin="5,0"  x:Name="Slumpa" Click="Slumpa_Click" />
             <Button Content="Lägg till/Ta bort" Height="30" Padding="5" Margin="5,0" x:Name="Random_knapp" Click="newGameButton_Click"/>
-            <Button Content="Importera dokument" Height="30" Padding="5" Margin="5,0"  x:Name="Importera_knapp" Click="loadGameButton_Click" />
             <Button Content="Antal frågor" Height="30" Padding="5" Margin="5,0"  x:Name="optionButton" Click="optionButton_Click" />
         </StackPanel>
         
@@ -38,6 +38,16 @@
             <DataGrid AutoGenerateColumns="False" Name="dataGrid1" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding ID}"  />
+                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
+                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
+                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
+                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
+                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
+                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
+                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
+                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
+                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
+                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
