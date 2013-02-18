@@ -22,8 +22,8 @@
         </StackPanel>
         
         <!-- Listbox där deltagare hamnar -->
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-            <ListBox Name="comboPeople" Margin="3,0,0,3" Padding="5" FontSize="14" HorizontalAlignment="Left" Width="auto" IsSynchronizedWithCurrentItem="False" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" Background="{x:Null}">
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" Margin="3,0,0,3">
+            <!--<ListBox Name="comboPeople" Margin="3,0,0,3" Padding="5" FontSize="14" HorizontalAlignment="Left" Width="auto" IsSynchronizedWithCurrentItem="False" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" Background="{x:Null}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -32,22 +32,17 @@
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-            </ListBox>
+            </ListBox>-->
             
-            <!-- Datagrid där alla checkboxar hamnar -->
-            <DataGrid AutoGenerateColumns="False" Name="dataGrid1" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True">
+            <!-- Datagrid där deltagare och checkboxar hamnar -->
+            <DataGrid AutoGenerateColumns="False" Name="dataGrid1" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Background="Transparent" BorderBrush="Transparent">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding ID}"  />
-                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
-                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
-                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
-                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
-                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
-                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
-                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
-                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
-                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
-                    <DataGridCheckBoxColumn></DataGridCheckBoxColumn>
+                    <DataGridTextColumn Binding="{Binding Deltagare}"></DataGridTextColumn>
+                    <DataGridCheckBoxColumn Header="Uppg 1"></DataGridCheckBoxColumn>
+                    <DataGridCheckBoxColumn Header="Uppg 2"></DataGridCheckBoxColumn>
+                    <DataGridCheckBoxColumn Header="Uppg 3"></DataGridCheckBoxColumn>
+                    <DataGridCheckBoxColumn Header="Uppg 4"></DataGridCheckBoxColumn>
+                    <DataGridCheckBoxColumn Header="Uppg 5"></DataGridCheckBoxColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
