@@ -23,6 +23,11 @@ namespace KryssGenerator
         int sv;
         public DataGrid dataGrid1;
 
+        public DataGrid numberCheckboxes()
+        {
+            return dataGrid1;
+        }
+
         // Knappen för att spara antal frågor
         public void NrSave_Click(object sender, RoutedEventArgs e)
         {
@@ -53,12 +58,12 @@ namespace KryssGenerator
 
             for (int x = 0; x <= checkBoxes.GetUpperBound(0); x++)
             {
-                DataGridCheckBoxColumn col = new DataGridCheckBoxColumn();
-                DataGridTextColumn hihi = new DataGridTextColumn();
+                DataGridCheckBoxColumn xLed = new DataGridCheckBoxColumn();
+                DataGridTextColumn yLed = new DataGridTextColumn();
 
-                col.Header = x.ToString();
-                hihi.Header = sv.ToString();
-                dataGrid1.Columns.Add(col);
+                xLed.Header = x.ToString();
+                yLed.Header = sv.ToString();
+                dataGrid1.Columns.Add(xLed);
 
 
                 for (int y = 0; y <= checkBoxes.GetUpperBound(1); y++)
