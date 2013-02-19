@@ -25,8 +25,8 @@ namespace KryssGenerator
             this.DataContext = load.UpdateDatabase();
 
             // Laddar in en kopia med antal frågor från Questions.xaml.cs
-            Questions q = new Questions();
-            this.DataContext = q.numberCheckboxes();
+            //Questions q = new Questions();
+            //this.DataContext = q.numberCheckboxes();
         }
 
         private void Slumpa_Click(object sender, RoutedEventArgs e)

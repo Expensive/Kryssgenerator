@@ -38,11 +38,7 @@
             <DataGrid AutoGenerateColumns="False" Name="dataGrid1" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Background="Transparent" BorderBrush="Transparent">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Deltagare}"></DataGridTextColumn>
-                    <DataGridCheckBoxColumn Header="Uppg 1"></DataGridCheckBoxColumn>
-                    <DataGridCheckBoxColumn Header="Uppg 2"></DataGridCheckBoxColumn>
-                    <DataGridCheckBoxColumn Header="Uppg 3"></DataGridCheckBoxColumn>
-                    <DataGridCheckBoxColumn Header="Uppg 4"></DataGridCheckBoxColumn>
-                    <DataGridCheckBoxColumn Header="Uppg 5"></DataGridCheckBoxColumn>
+                    <DataGridCheckBoxColumn  Binding="{Binding MyBool}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
