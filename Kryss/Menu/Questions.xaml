@@ -7,22 +7,25 @@
 	x:Class="KryssGenerator.Questions"
 	d:DesignWidth="1000" d:DesignHeight="500">
 
-    <DockPanel x:Name="QuestionsLayoutRoot">
-        <!-- Knappar för att ta sig runt på sidan -->
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="10">
-            <Button Height="30" Padding="5" Margin="5,0" Content="&lt; Tillbaka" Click="Button_Click"/>
-        </StackPanel>
+    <!-- Gör så att allt är centrerat på skärmen oavsett storlekt på fönstret -->
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="500">
+        <DockPanel x:Name="QuestionsLayoutRoot">
+            <!-- Knappar för att ta sig runt på sidan -->
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0, 5">
+                <Button Height="30" Padding="5" Content="&lt; Tillbaka" Click="Button_Click" Margin="0,0,5,0"/>
+                <Button Name="NrSave" Content="Spara" Click="NrSave_Click" Margin="0,0,5,0" Padding="5" />
+            </StackPanel>
 
-        <!-- Huvudrubrik -->
-        <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="3,0,0,0">
-            <Label FontSize="32" HorizontalAlignment="Center">Kryssgenerator - Frågor</Label>
-        </StackPanel>
+            <!-- Huvudrubrik -->
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="3,0,0,0">
+                <Label FontSize="40" HorizontalAlignment="Center" FontWeight="SemiBold">Kryssgenerator</Label>
+            </StackPanel>
 
-        <!-- Listbox där deltagare hamnar -->
-        <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
-            <Label FontSize="21" Content="Antal frågor" HorizontalAlignment="Left"/>
-            <TextBox Name="NrBoxes" />
-            <Button Name="NrSave" Content="Spara" Click="NrSave_Click" />
-        </StackPanel>
-    </DockPanel>
+            <!-- Listbox där deltagare hamnar -->
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
+                <Label FontSize="14" Content="Antal frågor" HorizontalAlignment="Left" Margin="0,0,0,5"/>
+                <TextBox Name="NrBoxes" />
+            </StackPanel>
+        </DockPanel>
+    </StackPanel>
 </UserControl>
