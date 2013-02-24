@@ -14,8 +14,8 @@
         <!-- Knappar för att ta sig runt på sidan -->
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0, 5" HorizontalAlignment="Left">
             <Button Content="Slumpa" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="Slumpa" Click="Slumpa_Click" />
-            <Button Content="Lägg till/Ta bort" Height="30" Padding="5" Margin="0,0,5,0" x:Name="Random_knapp" Click="newGameButton_Click"/>
-            <Button Content="Antal frågor" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="optionButton" Click="optionButton_Click" />
+            <Button Content="Lägg till/Ta bort" Height="30" Padding="5" Margin="0,0,5,0" x:Name="LaggTillTaBort" Click="LaggTillTaBort_Click"/>
+            <Button Content="Antal frågor" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="antalFragor" Click="antalFragor_Click" />
         </StackPanel>
         
         <!-- Huvudrubrik -->
@@ -30,7 +30,7 @@
             <!-- Datagrid där deltagare och checkboxar hamnar -->
             <DataGrid AutoGenerateColumns="False" Name="dataGrid1" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Background="Transparent" BorderBrush="Transparent">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Deltagare" Binding="{Binding Deltagare}" FontSize="14" FontWeight="Normal"></DataGridTextColumn>
+                    <DataGridTextColumn x:Name="Deltagare" Header="Deltagare" Binding="{Binding Deltagare}" FontSize="14" FontWeight="Normal"></DataGridTextColumn>
                     <DataGridCheckBoxColumn Header="{Binding MyString}"  Binding="{Binding MyBool}"/>
                     </DataGrid.Columns>
             </DataGrid>

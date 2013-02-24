@@ -12,7 +12,6 @@ namespace KryssGenerator
 {
     public partial class MainMenu : UserControl, ISwitchable
     {
-
         public MainMenu()
         {
             InitializeComponent();
@@ -23,24 +22,23 @@ namespace KryssGenerator
             // Laddar in kopia med deltagare från databasen.
             Databas load = new Databas();
             this.DataContext = load.UpdateDatabase();
-
-            // Laddar in en kopia med antal frågor från Questions.xaml.cs
-            //Questions q = new Questions();
-            //this.DataContext = q.numberCheckboxes();
         }
 
+        // Startar slumpfunktionen
         private void Slumpa_Click(object sender, RoutedEventArgs e)
         {
-            // Inget just nu
+            RandomName doRand = new RandomName();
+            doRand.Start();
         }
 
-        // Knappar för att ta sig till andra sidor i programmet.
-        private void newGameButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        // Skickar användaren till sidan för att lägga till eller ta bort deltagare ur listan
+        private void LaggTillTaBort_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             Switcher.Switch(new AddRemove());
         }
 
-        private void optionButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        // Skickar användaren vidare till sidan för att ange antal uppgifter
+        private void antalFragor_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             Switcher.Switch(new Questions());
         }
@@ -66,6 +64,5 @@ namespace KryssGenerator
             throw new NotImplementedException();
         }
         #endregion
-
     }
 }
