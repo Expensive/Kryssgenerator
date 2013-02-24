@@ -8,6 +8,9 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+
 
 namespace KryssGenerator
 {
@@ -17,74 +20,29 @@ namespace KryssGenerator
         {
             // Required to initialize variables
             InitializeComponent();
+            
         }
         
-        // Variabler som behövs. 
-        int sv;
-        //public DataGrid dataGrid1;
-
-        // Knappen för att spara antal frågor
-        public void NrSave_Click(object sender, RoutedEventArgs e)
-        {
-            // Kollar så att man endast matar in int.
-            if (System.Text.RegularExpressions.Regex.IsMatch("[^0-9]", NrBoxes.Text))
-            {
-                MessageBox.Show("Skriv in endast nummer!");
-                NrBoxes.Text.Remove(NrBoxes.Text.Length - 1);
-            }
-            else
-            {
-                sv = int.Parse(NrBoxes.Text);
-                MessageBox.Show("Värdet är:" + sv);
-            }
-
-            //Anropar metoden som sparar antal frågor
-            dt();
-        }
+  
 
         // Själva räknaren som kollar hur många deltagare/frågor det finns. Ska hämta sina max värden någon annanstans. 
-        private void dt()
-        {
-            int x_len = 30; // x_len and y_len can be any size >= 0
-            int y_len = 4;
+        //public DataSet dt()
+        //{     
 
-            CheckBox[,] checkBoxes = new CheckBox[x_len, y_len];
-            List<checkedBoxIte> item = new List<checkedBoxIte>();
-
-            for (int x = 0; x <= checkBoxes.GetUpperBound(0); x++)
-            {
-                DataGridCheckBoxColumn xLed = new DataGridCheckBoxColumn();
-                DataGridTextColumn yLed = new DataGridTextColumn();
-
-                xLed.Header = x.ToString();
-                yLed.Header = sv.ToString();
-                //dataGrid1.Columns.Add(xLed);
+        //    List<checkedBoxIte> item = new List<checkedBoxIte>();
 
 
-                for (int y = 0; y <= checkBoxes.GetUpperBound(1); y++)
-                {
-                    CheckBox cb = new CheckBox();
-                    cb.Tag = String.Format("x={1}/y={1}", x, y);
-                    checkBoxes[x, y] = cb;
+            
+        //    for (int i = 0; i < 5; i++)
+        //    {
+        //        checkedBoxIte ite = new checkedBoxIte();
+        //        ite.MyString = i.ToString();
+        //        item.Add(ite);
+        //    }
+        //    dataGrid1.ItemsSource = item;
+        //}
 
-                }
-
-
-            }
-            for (int i = 0; i < 5; i++)
-            {
-                checkedBoxIte ite = new checkedBoxIte();
-                ite.MyString = i.ToString();
-                item.Add(ite);
-            }
-            //dataGrid1.ItemsSource = item;
-        }
-
-        public class checkedBoxIte
-        {
-            public string MyString { get; set; }
-            public bool MyBool { get; set; }
-        }
+  
 
         // Ignorera.
         #region ISwitchable Members

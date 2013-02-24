@@ -5,17 +5,16 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	mc:Ignorable="d"
 	x:Class="KryssGenerator.MainMenu"
-	d:DesignWidth="1000" d:DesignHeight="500"
-    Loaded="UserControl_Loaded">
+	d:DesignWidth="1000" d:DesignHeight="500" Loaded="UserControl_Loaded">
     
     <!-- Gör så att allt är centrerat på skärmen oavsett storlekt på fönstret -->
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="500">
     <DockPanel x:Name="mainMenuLayoutRoot">
         <!-- Knappar för att ta sig runt på sidan -->
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0, 5" HorizontalAlignment="Left">
-            <Button Content="Slumpa" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="Slumpa" Click="Slumpa_Click" />
-            <Button Content="Lägg till/Ta bort" Height="30" Padding="5" Margin="0,0,5,0" x:Name="Random_knapp" Click="newGameButton_Click"/>
-            <Button Content="Antal frågor" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="optionButton" Click="optionButton_Click" />
+            <Button Content="Slumpa" Height="30" Padding="5" Margin="0,0,5,0"  />
+            <Button Content="Lägg till/Ta bort" Height="30" Padding="5" Margin="0,0,5,0"  />
+            <Button Content="Antal frågor" Height="30" Padding="5" Margin="0,0,5,0"   />
         </StackPanel>
         
         <!-- Huvudrubrik -->
@@ -28,13 +27,24 @@
             <Label Content="Deltagare för dagens kryssuppgift. Markera de uppgifter du vill vara med på." FontSize="14" Margin="0,0,0,5" />
              
             <!-- Datagrid där deltagare och checkboxar hamnar -->
-            <DataGrid AutoGenerateColumns="False" Name="dataGrid1" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Background="Transparent" BorderBrush="Transparent">
+                
+                    <DataGrid AutoGenerateColumns="False" Name="dataGrid2" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Background="Transparent" BorderBrush="Transparent" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Deltagare" Binding="{Binding Deltagare}" FontSize="14" FontWeight="Normal"></DataGridTextColumn>
-                    <DataGridCheckBoxColumn Header="{Binding MyString}"  Binding="{Binding MyBool}"/>
+                    
                     </DataGrid.Columns>
-            </DataGrid>
-            </StackPanel>
+                </DataGrid>
+              
+                    <DataGrid AutoGenerateColumns="False" Name="dataGrid1"  IsSynchronizedWithCurrentItem="True" Background="Transparent" BorderBrush="Transparent" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Deltagare" Binding="{Binding Deltagare}" FontSize="14" FontWeight="Normal"></DataGridTextColumn>
+                        <DataGridCheckBoxColumn Header="Alla"  Binding="{Binding MyBool}"/>
+                        
+                    </DataGrid.Columns>
+                   
+                </DataGrid>
+                </StackPanel>
+            
         </DockPanel>
     </StackPanel>
 </UserControl>

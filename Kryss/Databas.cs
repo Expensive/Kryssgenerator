@@ -7,6 +7,7 @@ using System.Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 
+
 namespace KryssGenerator
 {
     public partial class Databas: AddRemove
@@ -15,7 +16,7 @@ namespace KryssGenerator
         public DataSet myData;
         public MySqlDataAdapter Deltagare;
         public MySqlConnection conn;
-        public DataSet DataContext { get; set; }
+        //public DataSet DataContext { get; set; }
         
 
         // Skapar en anslutning till databasen.

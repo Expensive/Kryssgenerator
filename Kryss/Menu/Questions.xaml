@@ -13,7 +13,7 @@
             <!-- Knappar för att ta sig runt på sidan -->
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0, 5">
                 <Button Height="30" Padding="5" Content="&lt; Tillbaka" Click="Button_Click" Margin="0,0,5,0"/>
-                <Button Name="NrSave" Content="Spara" Click="NrSave_Click" Margin="0,0,5,0" Padding="5" />
+                <Button Name="NrSave" Content="Spara" Margin="0,0,5,0" Padding="5" />
             </StackPanel>
 
             <!-- Huvudrubrik -->
