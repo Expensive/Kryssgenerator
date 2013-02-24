@@ -17,6 +17,10 @@ namespace KryssGenerator
             InitializeComponent();
         }
 
+        // Fråga om 
+        // Public dataset, går det att ställa in så det blir int. DataGridView.Item Property (Int32, Int32)
+        // Hur fungerar det med hämta klasser, {get; set;} osv ??
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             // Laddar in kopia med deltagare från databasen.
