@@ -12,10 +12,50 @@ namespace KryssGenerator
 {
     public partial class MainMenu : UserControl, ISwitchable
     {
+        System.Collections.Generic.List<checkedBoxIte> item = new System.Collections.Generic.List<checkedBoxIte>();
         public MainMenu()
         {
+            // ========= Skall egentligen hämtas från Question.cs men som vanligt krånglar skiten ===========
             InitializeComponent();
+            int x_len = 10; // x_len and y_len can be any size >= 0
+            int y_len = 4;
+            CheckBox[,] checkBoxes = new CheckBox[x_len, y_len];
+            for (int x = 1; x <= checkBoxes.GetUpperBound(0); x++)
+            {
+                DataGridCheckBoxColumn xLed = new DataGridCheckBoxColumn();
+                DataGridTextColumn yLed = new DataGridTextColumn();
+
+                xLed.Header = x.ToString();
+
+                dataGrid1.Columns.Add(xLed);
+
+
+                for (int y = 0; y <= checkBoxes.GetUpperBound(1); y++)
+                {
+                    yLed.Header = y.ToString();
+                    CheckBox cb = new CheckBox();
+                    cb.Tag = String.Format("x={1}/y={1}", x, y);
+                    checkBoxes[x, y] = cb;
+
+                }
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                checkedBoxIte ite = new checkedBoxIte();
+                ite.MyString = i.ToString();
+                item.Add(ite);
+            }
+            dataGrid1.ItemsSource = item;
         }
+
+        public class checkedBoxIte
+        {
+            public string MyString { get; set; }
+            public bool MyBool { get; set; }
+        }
+
+        // ========= OVAN SKALL EGENTLIGEN VARA I QUESTION.CS ====================
 
         // Fråga om 
         // Public dataset, går det att ställa in så det blir int. DataGridView.Item Property (Int32, Int32)
