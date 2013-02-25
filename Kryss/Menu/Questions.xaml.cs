@@ -19,13 +19,12 @@ namespace KryssGenerator
         {
             // Required to initialize variables
             InitializeComponent();
-
         }
         public void NrSave_Click(object sender, RoutedEventArgs e)
         {
 
             // Kollar så att man endast matar in int.
-            if (System.Text.RegularExpressions.Regex.IsMatch("[^0-9]", NrBoxes.Text))
+            if (System.Text.RegularExpressions.Regex.IsMatch(@"^-*[0-9,\.]+$", NrBoxes.Text))
             {
                 MessageBox.Show("Skriv in endast nummer!");
                 NrBoxes.Text.Remove(NrBoxes.Text.Length - 1);
@@ -35,7 +34,39 @@ namespace KryssGenerator
                 sv = int.Parse(NrBoxes.Text);
                 MessageBox.Show("Värdet är:" + sv);
             }
+            AddCheckboxes();
+        }
 
+        private void AddCheckboxes()
+        {
+            //int x_len = Questions.sv +1; // x_len and y_len can be any size >= 0
+            //int y_len = 4;
+            //CheckBox[,] checkBoxes = new CheckBox[x_len, y_len];
+            //for (int x = 1; x <= checkBoxes.GetUpperBound(0); x++)//Räknar upp hur många checkbox kolumner som ska skrivas ut
+            //{
+            //    DataGridCheckBoxColumn xLed = new DataGridCheckBoxColumn();
+            //    DataGridTextColumn yLed = new DataGridTextColumn();
+
+            //    xLed.Header = x.ToString();
+                
+            //    dataGrid1.Columns.Add(xLed);//lägger till checkbox kolumner till datagriden
+
+            //    for (int y = 0; y <= checkBoxes.GetUpperBound(1); y++)//Räknar upp hur många textbox columner som ska skrivas ut
+            //    {
+            //        yLed.Header = y.ToString();
+            //        CheckBox cb = new CheckBox();
+            //        cb.Tag = String.Format("x={1}/y={1}", x, y);
+            //        checkBoxes[x, y] = cb;
+            //    }
+            //}
+
+            //for (int i = 0; i < 5; i++)//lägger till items till listan
+            //{
+            //    checkedBoxIte ite = new checkedBoxIte();
+            //    ite.MyString = i.ToString();
+            //    item.Add(ite); 
+            //}
+            ////dataGrid1.ItemsSource = item; VAD GÖR DENNA =!=!=#="¤("#=¤?
         }
         // Ignorera.
         #region ISwitchable Members
