@@ -17,7 +17,7 @@ namespace KryssGenerator
         {
             // ========= Skall egentligen hämtas från Question.cs men som vanligt krånglar skiten ===========
             InitializeComponent();
-            int x_len = 10; // x_len and y_len can be any size >= 0
+            int x_len = Questions.sv; // x_len and y_len can be any size >= 0
             int y_len = 4;
             CheckBox[,] checkBoxes = new CheckBox[x_len, y_len];
             for (int x = 1; x <= checkBoxes.GetUpperBound(0); x++)
