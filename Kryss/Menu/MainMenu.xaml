@@ -12,10 +12,11 @@
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="500">
     <DockPanel x:Name="mainMenuLayoutRoot">
         <!-- Knappar för att ta sig runt på sidan -->
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0, 5" HorizontalAlignment="Left">
-            <Button Content="Slumpa" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="Slumpa" Click="Slumpa_Click" />
-            <Button Content="Lägg till/Ta bort" Height="30" Padding="5" Margin="0,0,5,0" x:Name="LaggTillTaBort" Click="LaggTillTaBort_Click"/>
-            <Button Content="Antal frågor" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="antalFragor" Click="antalFragor_Click" />
+            <StackPanel DockPanel.Dock="Bottom" Margin="0, 5" Orientation="Horizontal">
+            <Button Content="Slumpa" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="Slumpa" Click="Slumpa_Click" HorizontalAlignment="Left" />
+                <TextBox Height="30" Width="120" Name="AddPeople" Text="Lägg till deltagare" TextAlignment="Center" ToolTip="Hur många uppgifter?" Padding="1,5,1,1" Margin="0,0,5,0" HorizontalAlignment="Right" />
+                <TextBox Height="30" Width="120" Name="RemovePeople" Text="Ta bort deltagare" TextAlignment="Center" ToolTip="Hur många uppgifter?" Padding="1,5,1,1" Margin="0,0,5,0" HorizontalAlignment="Right" />
+                <TextBox Height="30" Width="120" Name="changeNrQuestions" Text="Antal frågor" GotFocus="changeNrQuestions_GotFocus" LostFocus="changeNrQuestions_LostFocus" TextAlignment="Center" ToolTip="Hur många uppgifter?" Padding="1,5,1,1" KeyDown="changeNrQuestions_KeyDown" Margin="0,0,5,0" HorizontalAlignment="Right" />
         </StackPanel>
         
         <!-- Huvudrubrik -->
