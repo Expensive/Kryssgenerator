@@ -12,8 +12,9 @@ namespace KryssGenerator
     public class Databas : AddRemove
     {
         // Deklarerar för vidare användning
-        public DataSet myData;
-        public MySqlDataAdapter Deltagare;
+        public String OurTable;
+        public DataSet OurData;
+        public MySqlDataAdapter DataAdapterSaveToDeltagare;
 
         public static MySqlCommand Command;
         public static MySqlDataReader DataReader;
@@ -27,23 +28,24 @@ namespace KryssGenerator
             Command = Connection.CreateCommand();
             Command.CommandText = cmd;
             Connection.Open();
-            DataReader = Command.ExecuteReader();
-            Connection.Close();
         }
 
         // Uppdaterar databasen för att ladda in deltagare.
         public DataSet UpdateDatabase()
         {
-            OpenConn("SELECT * FROM Namn");
+            OpenConn("SELECT Deltagare FROM Namn"); // Väljer Deltagare från tabellen Namn
             // Anslutning till databasen
             try
             {
-                myData = new DataSet(); // Där datan ska sparas
+                OurData = new DataSet(); // Sparar datan i OurData
 
                 // Laddar deltagare tabellen
-                Deltagare = new MySqlDataAdapter();
-                Deltagare.SelectCommand = Command; // Väljer ID och Deltagare från tabellen Namn
-                Deltagare.Fill(myData, "Namn");
+                DataAdapterSaveToDeltagare = new MySqlDataAdapter();
+                DataAdapterSaveToDeltagare.SelectCommand = Command;
+                DataAdapterSaveToDeltagare.Fill(OurData, "Namn");
+                
+                // Lägga till en kolumn i databasen
+                //OurData.Tables["Namn"].Columns.Add();
             }
             catch (Exception ex)
             {
@@ -54,8 +56,8 @@ namespace KryssGenerator
                 Connection.Close(); // Avslutar anslutningen
 
             }
-            // Returnerar den data som hämtas till myData
-            return myData;
+            // Returnerar den data som hämtas till OurData
+            return OurData;
         }
 
         // Lägga till en deltagare i databasen.

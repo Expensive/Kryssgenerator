@@ -37,10 +37,6 @@ namespace KryssGenerator
             }
 
         }
-
-
-
-
         // Ignorera.
         #region ISwitchable Members
         public void UtilizeState(object state)

@@ -31,7 +31,7 @@
             <DataGrid AutoGenerateColumns="False" Name="dataGrid1" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Background="Transparent" BorderBrush="Transparent">
                 <DataGrid.Columns>
                     <DataGridTextColumn x:Name="Deltagare" Header="Deltagare" Binding="{Binding Deltagare}" FontSize="14" FontWeight="Normal"></DataGridTextColumn>
-                    <DataGridCheckBoxColumn Header="{Binding MyString}"  Binding="{Binding MyBool}"/>
+                    
                     </DataGrid.Columns>
             </DataGrid>
             </StackPanel>
