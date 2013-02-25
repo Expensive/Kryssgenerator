@@ -21,8 +21,44 @@ namespace KryssGenerator
 
         public void Uppdatera_Click(object sender, RoutedEventArgs e)
         {
-            Databas uppdatera = new Databas();
-            uppdatera.ChangePerson(); // Redigerar deltagare
+            //Databas uppdatera = new Databas();
+            //uppdatera.ChangePerson(); // Redigerar deltagare
+
+            //string pass = TextBoxAdd.Text;
+            //sql = new SqlConnection(@"Data Source=PC-PC\PC;Initial Catalog=P3;Integrated Security=True");
+            //SqlCommand cmd = new SqlCommand();
+            //cmd.Connection = sql;
+            //cmd.CommandText = ("Insert [MyTable] ([MyColumn]) Values (@pass)");
+            //cmd.Parameters.AddWithValue("@pass", pass);
+            //sql.Open();
+            //cmd.ExecuteNonQuery();
+            //sql.Close();
+
+            //OpenConn("INSERT INTO Namn (Deltagare) VALUES (@Deltagare)");
+
+            //try
+            //{
+            //    Deltagare.SelectCommand = Command;
+            //    cmdIns.Parameters.AddWithValue("@Deltagare", chattextbox);
+            //    cmdIns.ExecuteNonQuery();
+
+            //    cmdIns.Parameters.Clear();
+            //    cmdIns.CommandText = "SELECT @@IDENTITY";
+
+            //    // Get the last inserted id.
+            //    int insertID = Convert.ToInt32(cmdIns.ExecuteScalar());
+
+            //    cmdIns.Dispose();
+            //    cmdIns = null;
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+            //finally
+            //{
+            //    UpdateDatabase();
+            //}
         }
 
         //Ignorera.
