@@ -20,17 +20,17 @@ namespace KryssGenerator
             int x_len = Questions.sv; // x_len and y_len can be any size >= 0
             int y_len = 4;
             CheckBox[,] checkBoxes = new CheckBox[x_len, y_len];
-            for (int x = 1; x <= checkBoxes.GetUpperBound(0); x++)
+            for (int x = 1; x <= checkBoxes.GetUpperBound(0); x++)//Räknar upp hur många checkbox kolumner som ska skrivas ut
             {
                 DataGridCheckBoxColumn xLed = new DataGridCheckBoxColumn();
                 DataGridTextColumn yLed = new DataGridTextColumn();
 
                 xLed.Header = x.ToString();
 
-                dataGrid1.Columns.Add(xLed);
+                dataGrid1.Columns.Add(xLed);//lägger till checkbox kolumner till datagriden
 
 
-                for (int y = 0; y <= checkBoxes.GetUpperBound(1); y++)
+                for (int y = 0; y <= checkBoxes.GetUpperBound(1); y++)//Räknar upp hur många textbox columner som ska skrivas ut
                 {
                     yLed.Header = y.ToString();
                     CheckBox cb = new CheckBox();
@@ -40,16 +40,16 @@ namespace KryssGenerator
                 }
             }
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 5; i++)//lägger till items till listan
             {
                 checkedBoxIte ite = new checkedBoxIte();
                 ite.MyString = i.ToString();
-                item.Add(ite);
+                item.Add(ite); 
             }
             dataGrid1.ItemsSource = item;
         }
 
-        public class checkedBoxIte
+        public class checkedBoxIte // klass som anger bool värdena till listan
         {
             public string MyString { get; set; }
             public bool MyBool { get; set; }
