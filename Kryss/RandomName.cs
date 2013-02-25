@@ -15,22 +15,21 @@ namespace KryssGenerator
 
         private void DoRandom()
         {
-            //int comboPeople;
+            MainMenu del = new MainMenu();
+            
+            int comboPeople = dataGrid1.Items.Count;
 
-            //MainMenu del = new MainMenu();
-            //comboPeople = del.Deltagare;
+            //Startar random funktion
+            Random random = new Random();
 
-            ////Startar random funktion
-            //Random random = new Random();
+            //Väljer mellan alla i listboxen
+            int rnd = comboPeople;
 
-            ////Väljer mellan alla i listboxen
-            //int rnd = comboPeople;
+            //Randomar vilken den väljer i listan
+            int choseItem = random.Next(rnd);
 
-            ////Randomar vilken den väljer i listan
-            //int choseItem = random.Next(rnd);
-
-            ////Visar den slumpmässiga deltagaren
-            //comboPeople = choseItem;
+            //Visar den slumpmässiga deltagaren
+            comboPeople = choseItem;
         }
     }
 }
