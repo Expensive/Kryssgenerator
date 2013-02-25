@@ -65,7 +65,7 @@ namespace KryssGenerator
         }
         public static void GetNumberOfQuestions()
         {
-
+            // I said chill man!
         }
     }
 }
