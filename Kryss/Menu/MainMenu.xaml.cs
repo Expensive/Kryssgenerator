@@ -25,7 +25,7 @@ namespace KryssGenerator
         {
             // Laddar in kopia med deltagare från databasen.
             load = new Databas();
-            this.DataContext = load.UpdateDatabase(0);
+            this.DataContext = load.UpdateDatabase(0); // 0 för att man är tvungen att skicka med ett "värde"
         }
 
         // Startar slumpfunktionen
