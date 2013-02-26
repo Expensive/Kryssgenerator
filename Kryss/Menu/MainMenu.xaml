@@ -16,6 +16,7 @@
             <Button Content="Slumpa" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="Slumpa" Click="Slumpa_Click" />
             <Button Content="Lägg till/Ta bort" Height="30" Padding="5" Margin="0,0,5,0" x:Name="LaggTillTaBort" Click="LaggTillTaBort_Click"/>
             <Button Content="Antal frågor" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="antalFragor" Click="antalFragor_Click" />
+                <TextBox Name="NrOfQuestions" Text="Antal uppgifter" Width="120" Height="30" HorizontalContentAlignment="Center" GotFocus="NrOfQuestions_GotFocus" LostFocus="NrOfQuestions_LostFocus" Padding="1,5,1,1" Margin="0,0,5,0"></TextBox>
         </StackPanel>
         
         <!-- Huvudrubrik -->
