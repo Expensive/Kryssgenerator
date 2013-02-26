@@ -79,7 +79,7 @@ namespace KryssGenerator
         {
             System.Collections.Generic.List<checkedBoxIte> item = new System.Collections.Generic.List<checkedBoxIte>();
             int inMatNr = Convert.ToInt32(NrOfQuestions.Text) +1; // Inmatat nr + 1 för att inte skriva ut 0
-            int y_len = 8;
+            int y_len = 4;
             CheckBox[,] checkBoxes = new CheckBox[inMatNr, y_len];
             
             for (int x = 1; x <= checkBoxes.GetUpperBound(0); x++)//Räknar upp hur många checkbox kolumner som ska skrivas ut
