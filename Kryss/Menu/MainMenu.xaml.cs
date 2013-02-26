@@ -77,35 +77,39 @@ namespace KryssGenerator
 
         private void NrOfQuestions_LostFocus(object sender, RoutedEventArgs e)
         {
-            System.Collections.Generic.List<checkedBoxIte> item = new System.Collections.Generic.List<checkedBoxIte>();
-            int inMatNr = Convert.ToInt32(NrOfQuestions.Text) +1; // Inmatat nr + 1 för att inte skriva ut 0
-            int y_len = 4;
-            CheckBox[,] checkBoxes = new CheckBox[inMatNr, y_len];
-            
-            for (int x = 1; x <= checkBoxes.GetUpperBound(0); x++)//Räknar upp hur många checkbox kolumner som ska skrivas ut
+            if (NrOfQuestions.Text != "" || NrOfQuestions == string)
             {
-                DataGridCheckBoxColumn xLed = new DataGridCheckBoxColumn();
-                DataGridTextColumn yLed = new DataGridTextColumn();
+                System.Collections.Generic.List<checkedBoxIte> item = new System.Collections.Generic.List<checkedBoxIte>();
+                int inMatNr = Convert.ToInt32(NrOfQuestions.Text) + 1; // Inmatat nr + 1 för att inte skriva ut 0
+                int y_len = 4;
+                CheckBox[,] checkBoxes = new CheckBox[inMatNr, y_len];
 
-                xLed.Header = x.ToString();
-
-                dataGrid1.Columns.Add(xLed);//lägger till checkbox kolumner till datagriden
-
-                for (int y = 0; y <= checkBoxes.GetUpperBound(1); y++)//Räknar upp hur många textbox columner som ska skrivas ut
+                for (int x = 1; x <= checkBoxes.GetUpperBound(0); x++)//Räknar upp hur många checkbox kolumner som ska skrivas ut
                 {
-                    yLed.Header = y.ToString();
-                    CheckBox cb = new CheckBox();
-                    cb.Tag = String.Format("x={1}/y={1}", x, y);
-                    checkBoxes[x, y] = cb;
+                    DataGridCheckBoxColumn xLed = new DataGridCheckBoxColumn();
+                    DataGridTextColumn yLed = new DataGridTextColumn();
+
+                    xLed.Header = x.ToString();
+
+                    dataGrid1.Columns.Add(xLed);//lägger till checkbox kolumner till datagriden
+
+                    for (int y = 0; y <= checkBoxes.GetUpperBound(1); y++)//Räknar upp hur många textbox columner som ska skrivas ut
+                    {
+                        yLed.Header = y.ToString();
+                        CheckBox cb = new CheckBox();
+                        cb.Tag = String.Format("x={1}/y={1}", x, y);
+                        checkBoxes[x, y] = cb;
+                    }
+                }
+
+                for (int i = 0; i < 5; i++)//lägger till items till listan
+                {
+                    checkedBoxIte ite = new checkedBoxIte();
+                    ite.MyString = i.ToString();
+                    item.Add(ite);
                 }
             }
-
-            for (int i = 0; i < 5; i++)//lägger till items till listan
-            {
-                checkedBoxIte ite = new checkedBoxIte();
-                ite.MyString = i.ToString();
-                item.Add(ite); 
-            }
+            
         }
 
         public class checkedBoxIte // klass som anger bool värdena till listan
