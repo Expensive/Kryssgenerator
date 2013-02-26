@@ -13,3 +13,7 @@ Milstolpar
 2013-01-28 Fungerande Databaskoppling.
 
 2013-02-17 Lägga till person i databas.
+
+2013-02-24 Design ändring
+
+2013-02-26 Antal kryssuppgifter går att ändra
