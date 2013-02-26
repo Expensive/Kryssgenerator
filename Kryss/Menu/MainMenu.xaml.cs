@@ -12,20 +12,20 @@ namespace KryssGenerator
 {
     public partial class MainMenu : UserControl, ISwitchable
     {
+        // Variabler
+        int inMatNr = -1; // Döljer uppgifter vid start
+        Databas load = null;
+
         public MainMenu()
         {
             InitializeComponent();
         }
 
-        // Fråga om 
-        // Public dataset, går det att ställa in så det blir int. DataGridView.Item Property (Int32, Int32)
-        // Hur fungerar det med hämta klasser, {get; set;} osv ??
-
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             // Laddar in kopia med deltagare från databasen.
-            Databas load = new Databas();
-            this.DataContext = load.UpdateDatabase();
+            load = new Databas();
+            this.DataContext = load.UpdateDatabase(0);
         }
 
         // Startar slumpfunktionen
@@ -71,51 +71,37 @@ namespace KryssGenerator
 
         private void NrOfQuestions_GotFocus(object sender, RoutedEventArgs e)
         {
-            NrOfQuestions.Text = String.Empty;
-            NrOfQuestions.GotFocus -= NrOfQuestions_LostFocus;
+            if (NrOfQuestions.Text != "")
+            {
+                NrOfQuestions.Text = String.Empty;
+            }
+            //NrOfQuestions.GotFocus -= NrOfQuestions_LostFocus;
+        }
+
+        private void NrOfQuestions_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!Char.IsDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)) && e.Key != Key.Enter)
+            {
+                e.Handled = true;
+                NrOfQuestions.Text = "Endast siffror!";
+            }
+            else if (e.Key == Key.Enter)
+            {
+                NrOfQuestions_LostFocus(null, null);
+            }
         }
 
         private void NrOfQuestions_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (NrOfQuestions.Text != "" || NrOfQuestions == string)
+            if (NrOfQuestions.Text != "")
             {
-                System.Collections.Generic.List<checkedBoxIte> item = new System.Collections.Generic.List<checkedBoxIte>();
-                int inMatNr = Convert.ToInt32(NrOfQuestions.Text) + 1; // Inmatat nr + 1 för att inte skriva ut 0
-                int y_len = 4;
-                CheckBox[,] checkBoxes = new CheckBox[inMatNr, y_len];
-
-                for (int x = 1; x <= checkBoxes.GetUpperBound(0); x++)//Räknar upp hur många checkbox kolumner som ska skrivas ut
-                {
-                    DataGridCheckBoxColumn xLed = new DataGridCheckBoxColumn();
-                    DataGridTextColumn yLed = new DataGridTextColumn();
-
-                    xLed.Header = x.ToString();
-
-                    dataGrid1.Columns.Add(xLed);//lägger till checkbox kolumner till datagriden
-
-                    for (int y = 0; y <= checkBoxes.GetUpperBound(1); y++)//Räknar upp hur många textbox columner som ska skrivas ut
-                    {
-                        yLed.Header = y.ToString();
-                        CheckBox cb = new CheckBox();
-                        cb.Tag = String.Format("x={1}/y={1}", x, y);
-                        checkBoxes[x, y] = cb;
-                    }
-                }
-
-                for (int i = 0; i < 5; i++)//lägger till items till listan
-                {
-                    checkedBoxIte ite = new checkedBoxIte();
-                    ite.MyString = i.ToString();
-                    item.Add(ite);
-                }
+                inMatNr = Convert.ToInt32(NrOfQuestions.Text); // Inmatat nr 
+                dataGrid1.DataContext = null; // Nollar dataGrid1
+                dataGrid1.ItemsSource = null; // Nollar källan för dataGrid1
+                dataGrid1.ItemsSource = load.UpdateDatabase(inMatNr).Tables["Namn"].DefaultView; // Hämtar deltagare och antal kryssrutor igen
+                dataGrid1.Items.Refresh(); // Laddar om dataGrid1
             }
             
-        }
-
-        public class checkedBoxIte // klass som anger bool värdena till listan
-        {
-            public string MyString { get; set; }
-            public bool MyBool { get; set; }
         }
     }
 }

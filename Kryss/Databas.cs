@@ -31,7 +31,7 @@ namespace KryssGenerator
         }
 
         // Uppdaterar databasen för att ladda in deltagare.
-        public DataSet UpdateDatabase()
+        public DataSet UpdateDatabase(int x) // Får ett värde x från t ex NrOfQuestions_LostFocus
         {
             OpenConn("SELECT Deltagare FROM Namn"); // Väljer Deltagare från tabellen Namn
             // Anslutning till databasen
@@ -39,13 +39,19 @@ namespace KryssGenerator
             {
                 OurData = new DataSet(); // Sparar datan i OurData
 
-                // Laddar deltagare tabellen
+                // Laddar deltagare till tabellen
                 DataAdapterSaveToDeltagare = new MySqlDataAdapter();
                 DataAdapterSaveToDeltagare.SelectCommand = Command;
                 DataAdapterSaveToDeltagare.Fill(OurData, "Namn");
                 
-                // Lägga till en kolumn i databasen
-                //OurData.Tables["Namn"].Columns.Add();
+                // Hämtar antal rader som ska skrivas ut från "Antal uppgifter" i MainMenu
+                for(int i=1;i<=x;i++) // Kör upp till x som hämtas från MainMenu
+                { 
+                    DataColumn column = new DataColumn();
+                    column.DataType = System.Type.GetType("System.Boolean"); // Gör en kolumn som antingen är true/false
+                    column.ColumnName = i.ToString(); // Skriv ut i som nr på uppgift ovanför rutorna
+                    OurData.Tables["Namn"].Columns.Add(column); // Lägg till i DataSet OurData
+                }
             }
             catch (Exception ex)
             {

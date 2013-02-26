@@ -16,7 +16,7 @@
             <Button Content="Slumpa" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="Slumpa" Click="Slumpa_Click" />
             <Button Content="Lägg till/Ta bort" Height="30" Padding="5" Margin="0,0,5,0" x:Name="LaggTillTaBort" Click="LaggTillTaBort_Click"/>
             <Button Content="Antal frågor" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="antalFragor" Click="antalFragor_Click" />
-                <TextBox Name="NrOfQuestions" Text="Antal uppgifter" Width="120" Height="30" HorizontalContentAlignment="Center" GotFocus="NrOfQuestions_GotFocus" LostFocus="NrOfQuestions_LostFocus" Padding="1,5,1,1" Margin="0,0,5,0"></TextBox>
+                <TextBox Name="NrOfQuestions" Text="Antal uppgifter" Width="120" Height="30" HorizontalContentAlignment="Center" GotFocus="NrOfQuestions_GotFocus" LostFocus="NrOfQuestions_LostFocus" Padding="1,5,1,1" Margin="0,0,5,0" KeyDown="NrOfQuestions_KeyDown"></TextBox>
         </StackPanel>
         
         <!-- Huvudrubrik -->
@@ -29,11 +29,10 @@
             <Label Content="Deltagare för dagens kryssuppgift. Markera de uppgifter du vill vara med på." FontSize="14" Margin="0,0,0,5" />
              
             <!-- Datagrid där deltagare och checkboxar hamnar -->
-            <DataGrid AutoGenerateColumns="False" Name="dataGrid1" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Background="Transparent" BorderBrush="Transparent">
+            <DataGrid AutoGenerateColumns="True" Name="dataGrid1" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Background="Transparent" BorderBrush="Transparent" IsHitTestVisible="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="Deltagare" Header="Deltagare" Binding="{Binding Deltagare}" FontSize="14" FontWeight="Normal"></DataGridTextColumn>
-                    
-                    </DataGrid.Columns>
+                        <!-- Här hamnar kolumnerna, hämtas från databasen -->
+                </DataGrid.Columns>
             </DataGrid>
             </StackPanel>
         </DockPanel>
