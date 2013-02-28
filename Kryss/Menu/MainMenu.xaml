@@ -25,7 +25,11 @@
         
         <!-- Listbox där deltagare hamnar -->
         <StackPanel HorizontalAlignment="Left" Orientation="Vertical" DockPanel.Dock="Top" Margin="0,0,0,3">
-            <Label Content="Deltagare för dagens kryssuppgift. Markera de uppgifter du vill vara med på." FontSize="14" Margin="0,0,0,5" />
+                <TextBlock FontSize="14" Margin="0,0,0,5" Padding="0,2">
+                    Deltagare för dagens kryssuppgift. Markera de uppgifter du vill vara med på. 
+                    <LineBreak />
+                    Fyll i för- och efternamn i den tomma rutan längst ner om du ej finns med.
+                </TextBlock>
              
             <!-- Datagrid där deltagare och checkboxar hamnar -->
             <DataGrid AutoGenerateColumns="True" Name="dataGrid1" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Background="Transparent" BorderBrush="Transparent" CanUserDeleteRows="True" CanUserResizeColumns="False" CanUserResizeRows="False">

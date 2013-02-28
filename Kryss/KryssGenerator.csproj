@@ -89,14 +89,8 @@
     <Compile Include="Menu\AddRemove.xaml.cs">
       <DependentUpon>AddRemove.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Menu\LoadGame.xaml.cs">
-      <DependentUpon>LoadGame.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Menu\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Menu\Questions.xaml.cs">
-      <DependentUpon>Questions.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageSwitcher.xaml.cs">
       <DependentUpon>PageSwitcher.xaml</DependentUpon>
@@ -111,15 +105,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Menu\LoadGame.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Menu\MainMenu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Menu\Questions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
