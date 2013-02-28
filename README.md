@@ -17,3 +17,5 @@ Milstolpar
 2013-02-24 Design ändring
 
 2013-02-26 Antal kryssuppgifter går att ändra
+
+2013-02-28 Fungerande randomfunktion och mindre styling
