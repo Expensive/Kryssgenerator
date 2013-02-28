@@ -14,6 +14,7 @@ namespace KryssGenerator
     {
         // Variabler
         int inMatNr = -1; // Döljer uppgifter vid start
+        bool stopChange = false; // False tills man anget antal uppgifter
         Databas load = null;
 
         public MainMenu()
@@ -36,6 +37,12 @@ namespace KryssGenerator
 
             int ShowRnd = RandomName.finishComboPeople; //Hämtar det slumpade värdet
             dataGrid1.SelectedIndex = ShowRnd; //markerar den slumpade personen
+
+            if (stopChange == true)
+            {
+                NrOfQuestions.Visibility = System.Windows.Visibility.Hidden;
+                Uppdatera.Visibility = System.Windows.Visibility.Hidden;
+            }
         }
 
         // Skickar användaren till sidan för att lägga till eller ta bort deltagare ur listan
@@ -105,6 +112,8 @@ namespace KryssGenerator
                 {
                     data(); // Anropar data metoden
                 }
+                // Gör att när man klickar på slump så döljs antal uppgift inmating
+                stopChange = true;
             }
         }
 

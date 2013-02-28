@@ -25,6 +25,7 @@ namespace KryssGenerator
         {
             // Anslut till databasen
             Connection = new MySqlConnection(@"Server = projweb.hj.se; Database = olde1103; Uid = olde1103; Pwd = Tdlf278; Port = 3306;");
+            //Connection = new MySqlConnection(@"Server = kryss-154741.mysql.binero.se; Database = 154741-kryss; Uid = 154741_oz70400; Pwd = 123456789;");
             Command = Connection.CreateCommand();
             Command.CommandText = cmd;
             Connection.Open();
