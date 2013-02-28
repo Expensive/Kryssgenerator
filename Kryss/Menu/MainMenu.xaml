@@ -10,7 +10,8 @@
     
     <!-- Gör så att allt är centrerat på skärmen oavsett storlekt på fönstret -->
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="500">
-    <DockPanel x:Name="mainMenuLayoutRoot">
+        <Border BorderBrush="#FF6C6C6C" BorderThickness="1" Padding="5">
+            <DockPanel x:Name="mainMenuLayoutRoot">
         <!-- Knappar för att ta sig runt på sidan -->
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0, 5">
             <Button Content="Slumpa" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="Slumpa" Click="Slumpa_Click" />
@@ -54,5 +55,12 @@
             </DataGrid>
             </StackPanel>
         </DockPanel>
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFF8F8F8" Offset="0" />
+                    <GradientStop Color="#FFF2F2F2" Offset="1" />
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
     </StackPanel>
 </UserControl>

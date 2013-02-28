@@ -49,7 +49,7 @@ namespace KryssGenerator
                 { 
                     DataColumn column = new DataColumn();
                     column.DataType = System.Type.GetType("System.Boolean"); // Gör en kolumn som antingen är true/false
-                    column.DefaultValue = false; // Sätter standardvärdet till false. Tömmer alla kryssrutor
+                    column.DefaultValue = true; // Sätter standardvärdet till false. Tömmer alla kryssrutor
                     column.ColumnName = i.ToString(); // Skriv ut i som nr på uppgift ovanför rutorna
                     OurData.Tables["Namn"].Columns.Add(column); // Lägg till i DataSet OurData
                 }
