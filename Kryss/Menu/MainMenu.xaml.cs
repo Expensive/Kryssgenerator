@@ -82,7 +82,7 @@ namespace KryssGenerator
             // Anropar funktionen Uppdatera_Click vid enter
             else if (e.Key == Key.Enter)
             {
-                Uppdatera_Click(null, null);
+                Uppdatera_Click(null, null); // Tvungen att skricka med sender, KeyEventArgs = orkar inte så null
             }
         }
 
