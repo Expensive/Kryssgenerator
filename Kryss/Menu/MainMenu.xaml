@@ -34,7 +34,7 @@
                 </TextBlock>
              
             <!-- Datagrid där deltagare och checkboxar hamnar -->
-            <DataGrid AutoGenerateColumns="True" Name="dataGrid1" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Background="Transparent" BorderBrush="Transparent" CanUserDeleteRows="True" CanUserResizeColumns="False" CanUserResizeRows="False">
+            <DataGrid AutoGenerateColumns="True" Name="dataGrid1" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Background="Transparent" BorderBrush="Transparent" CanUserDeleteRows="True" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserSortColumns="False">
                     <DataGrid.CellStyle>
                         <Style TargetType="DataGridCell">
                                 <Style.Triggers>

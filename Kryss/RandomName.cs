@@ -18,6 +18,8 @@ namespace KryssGenerator
         {
             comboPeople = db.OurData.Tables["Namn"].Rows.Count; //Räknar antal deltagare
 
+            // Antal i kryssade uppgifter i en viss uppgift
+
             //Startar random funktion
             Random random = new Random();
 
