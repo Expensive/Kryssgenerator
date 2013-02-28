@@ -8,21 +8,20 @@ namespace KryssGenerator
     class RandomName : MainMenu
     {
         // Denna klass har hand om allt som rör själva slump funktionen.
-        public void Start()
+        private static int comboPeople = -1; // 
+        public void Start(Databas db)
         {
-            DoRandom();
+            DoRandom(db); //startar db ur databas
         }
 
-        private void DoRandom()
+        private int DoRandom(Databas db)
         {
-            MainMenu del = new MainMenu();
-            
-            int comboPeople = dataGrid1.Items.Count;
+            comboPeople = db.OurData.Tables["Namn"].Rows.Count; //Räknar antal deltagare
 
             //Startar random funktion
             Random random = new Random();
 
-            //Väljer mellan alla i listboxen
+            ////Väljer mellan alla i listboxen
             int rnd = comboPeople;
 
             //Randomar vilken den väljer i listan
@@ -30,6 +29,19 @@ namespace KryssGenerator
 
             //Visar den slumpmässiga deltagaren
             comboPeople = choseItem;
+
+            return comboPeople; //skickar vidare det slumpade talet
+        }
+        public static int finishComboPeople // Det slumpade värdet
+        {
+            get
+            {
+                return comboPeople;
+            }
+            set
+            {
+                comboPeople = value;
+            }
         }
     }
 }

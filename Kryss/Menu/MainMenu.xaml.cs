@@ -31,8 +31,11 @@ namespace KryssGenerator
         // Startar slumpfunktionen
         private void Slumpa_Click(object sender, RoutedEventArgs e)
         {
-            RandomName doRand = new RandomName();
-            doRand.Start();
+            RandomName doRand = new RandomName(); //Går in i random funktionen
+            doRand.Start(load); //Uppdaterar databasen och hämtar deltagare
+
+            int ShowRnd = RandomName.finishComboPeople; //Hämtar det slumpade värdet
+            dataGrid1.SelectedIndex = ShowRnd; //markerar den slumpade personen
         }
 
         // Skickar användaren till sidan för att lägga till eller ta bort deltagare ur listan
@@ -82,7 +85,7 @@ namespace KryssGenerator
             // Anropar funktionen Uppdatera_Click vid enter
             else if (e.Key == Key.Enter)
             {
-                Uppdatera_Click(null, null); // Tvungen att skricka med sender, KeyEventArgs = orkar inte så null
+                Uppdatera_Click(null, null); // Tvungen att skicka med sender, KeyEventArgs = orkar inte så null
             }
         }
 
@@ -112,6 +115,7 @@ namespace KryssGenerator
             dataGrid1.ItemsSource = null; // Nollar källan för dataGrid1
             dataGrid1.ItemsSource = load.UpdateDatabase(inMatNr).Tables["Namn"].DefaultView; // Hämtar deltagare och antal kryssrutor igen
             dataGrid1.Items.Refresh(); // Laddar om dataGrid1
+
         }
     }
 }
