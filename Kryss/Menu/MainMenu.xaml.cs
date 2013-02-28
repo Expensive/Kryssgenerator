@@ -38,7 +38,8 @@ namespace KryssGenerator
             int ShowRnd = RandomName.finishComboPeople; //Hämtar det slumpade värdet
             dataGrid1.SelectedIndex = ShowRnd; //markerar den slumpade personen
 
-            if (stopChange == true)
+            // Dölj inmatning och knapp vid första slump
+            if (stopChange == true) 
             {
                 NrOfQuestions.Visibility = System.Windows.Visibility.Hidden;
                 Uppdatera.Visibility = System.Windows.Visibility.Hidden;
