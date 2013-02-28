@@ -15,7 +15,8 @@
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0, 5" HorizontalAlignment="Left">
             <Button Content="Slumpa" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="Slumpa" Click="Slumpa_Click" />
                 <!--<Button Content="Lägg till/Ta bort" Height="30" Padding="5" Margin="0,0,5,0" x:Name="LaggTillTaBort" Click="LaggTillTaBort_Click"/>-->
-                <TextBox Name="NrOfQuestions" Text="Antal uppgifter" Width="120" Height="30" HorizontalContentAlignment="Center" GotFocus="NrOfQuestions_GotFocus" LostFocus="NrOfQuestions_LostFocus" Padding="1,5,1,1" Margin="0,0,5,0" KeyDown="NrOfQuestions_KeyDown"></TextBox>
+                <TextBox Name="NrOfQuestions" Text="Antal uppgifter" Width="120" Height="30" HorizontalContentAlignment="Center" GotFocus="NrOfQuestions_GotFocus" Padding="1,5,1,1" Margin="0,0,5,0" KeyDown="NrOfQuestions_KeyDown"></TextBox>
+                <Button Content="Uppdatera" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="Uppdatera" Click="Uppdatera_Click"  />
         </StackPanel>
         
         <!-- Huvudrubrik -->

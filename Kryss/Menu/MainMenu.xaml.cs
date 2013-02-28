@@ -77,26 +77,41 @@ namespace KryssGenerator
             if (!Char.IsDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)) && e.Key != Key.Enter)
             {
                 e.Handled = true;
-                NrOfQuestions.Text = "Endast siffror!"; // Skriv ut om annat än siffror
+                NrOfQuestions.Text = "Endast siffror!"; // Skriv ut om annat än siffror. Funderar på att anropa en metod som tar bort texten efter X sekunder och skickar till GotFocus igen??
             }
-            // Skicka vidare till NrOfQuestions_LostFocus vid enter
-            else
+            // Anropar funktionen Uppdatera_Click vid enter
+            else if (e.Key == Key.Enter)
             {
-                NrOfQuestions_LostFocus(null, null);
+                Uppdatera_Click(null, null);
             }
         }
 
-        private void NrOfQuestions_LostFocus(object sender, RoutedEventArgs e)
+        // Kollar först så att rutan inte är tom eller innehållet ordet Endast siffror / Antal uppgifter
+        private void Uppdatera_Click(object sender, RoutedEventArgs e)
         {
-            if (NrOfQuestions.Text != "" && NrOfQuestions.Text != "Endast siffror!")
+            if (NrOfQuestions.Text != "" && NrOfQuestions.Text != "Endast siffror!" && NrOfQuestions.Text != "Antal uppgifter")
             {
                 inMatNr = Convert.ToInt32(NrOfQuestions.Text); // Inmatat nr 
-                dataGrid1.DataContext = null; // Nollar dataGrid1
-                dataGrid1.ItemsSource = null; // Nollar källan för dataGrid1
-                dataGrid1.ItemsSource = load.UpdateDatabase(inMatNr).Tables["Namn"].DefaultView; // Hämtar deltagare och antal kryssrutor igen
-                dataGrid1.Items.Refresh(); // Laddar om dataGrid1
+
+                if (inMatNr <= 30) // Spärr för att varna om mer än 30 uppgifter
+                {
+                    data(); // Anropar data metoden
+                }
+                // Varning dyker upp med ja / nej 
+                else if (MessageBox.Show("Är du säker på att du vill skapa " + inMatNr + " st uppgifter?", "Kontroll", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    data(); // Anropar data metoden
+                }
             }
-            
+        }
+
+        // Anropar och skriver ut kryssrutor beroende på antalet deltagare och uppgifter
+        private void data()
+        {
+            dataGrid1.DataContext = null; // Nollar dataGrid1
+            dataGrid1.ItemsSource = null; // Nollar källan för dataGrid1
+            dataGrid1.ItemsSource = load.UpdateDatabase(inMatNr).Tables["Namn"].DefaultView; // Hämtar deltagare och antal kryssrutor igen
+            dataGrid1.Items.Refresh(); // Laddar om dataGrid1
         }
     }
 }
