@@ -21,13 +21,13 @@ namespace KryssGenerator
         public MainMenu()
         {
             InitializeComponent();
+            // Laddar in kopia med deltagare från databasen.
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            // Laddar in kopia med deltagare från databasen.
             load = new Databas();
-            this.DataContext = load.UpdateDatabase(0); // 0 för att man är tvungen att skicka med ett "värde"
+            this.DataContext = load.UpdateDatabase(0).Tables["Namn"].DefaultView; // 0 för att man är tvungen att skicka med ett "värde"
         }
 
         // Startar slumpfunktionen
@@ -35,25 +35,13 @@ namespace KryssGenerator
         {
             if (stopChange == true)
             {
-                currentColumn(); // Kollar i vilken kolumn den skall slumpa
+                doRand(); // Kör slumpfunktion
 
                 // Dölj inmatning och knapp vid första slump
                 NrOfQuestions.Visibility = System.Windows.Visibility.Hidden;
                 Uppdatera.Visibility = System.Windows.Visibility.Hidden;
                 AddUser.Visibility = System.Windows.Visibility.Hidden;
             }
-        }
-
-        // Kollar vilken som är aktuell kolumn
-        private void currentColumn()
-        {
-            activeCheck(); // Markerade i kolumn
-        }
-
-        // Vilka är markerade i aktuell kolumn
-        private void activeCheck()
-        {
-            doRand();
         }
 
         // Skickar användaren till sidan för att lägga till eller ta bort deltagare ur listan
@@ -69,12 +57,6 @@ namespace KryssGenerator
             //ShowMessageBox("Login Successful", "Welcome, " + loginForm.NameText, MessageBoxIcon.Information);
 
         }
-
-        private void registerForm_SubmitClicked(object sender, EventArgs e)
-        {
-        }
-
-
         #endregion
 
         #region ISwitchable Members
@@ -132,7 +114,7 @@ namespace KryssGenerator
                 Databas.Command.ExecuteNonQuery();
                 Databas.Connection.Close();
                 data();
-                AddUser.Text = "Lägg till deltagare";
+                AddUser.Text = "Lägg till deltagare"; // Gör att man ej kan skriva samma namn flera gånger på raken
             }
             
             // Gör att när man klickar på slump så döljs antal uppgift inmating och lägg till person
@@ -142,9 +124,11 @@ namespace KryssGenerator
         // Anropar och skriver ut kryssrutor beroende på antalet deltagare och uppgifter
         private void data()
         {
-            dataGrid1.DataContext = null; // Nollar dataGrid1
-            dataGrid1.ItemsSource = null; // Nollar källan för dataGrid1
-            dataGrid1.ItemsSource = load.UpdateDatabase(inMatNr).Tables["Namn"].DefaultView; // Hämtar deltagare och antal kryssrutor igen
+            //dataGrid1.DataContext = null; // Nollar dataGrid1
+            //dataGrid1.ItemsSource = null; // Nollar källan för dataGrid1
+            //dataGrid1.ItemsSource = load.UpdateDatabase(inMatNr).Tables["Namn"].DefaultView; // Hämtar deltagare och antal kryssrutor igen
+            dataGrid1.DataContext = load.UpdateDatabase(inMatNr).Tables["Namn"].DefaultView; // Hämtar deltagare och antal kryssrutor igen
+            //dataGrid1.ItemsSource = "{Binding Path=., Mode=TwoWay}";
             dataGrid1.Items.Refresh(); // Laddar om dataGrid1
 
         }
@@ -153,7 +137,8 @@ namespace KryssGenerator
         private void doRand()
         {
             RandomName doRand = new RandomName(); //Går in i random funktionen
-            doRand.Start(load); //Uppdaterar databasen och hämtar deltagare
+           doRand.Start(load); //Uppdaterar databasen och hämtar deltagare
+            //doRand.Start(dataGrid1.Items);
 
             int ShowRnd = RandomName.finishComboPeople; //Hämtar det slumpade värdet
             dataGrid1.SelectedIndex = ShowRnd; //markerar den slumpade personen
