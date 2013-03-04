@@ -19,3 +19,14 @@ Milstolpar
 2013-02-26 Antal kryssuppgifter går att ändra
 
 2013-02-28 Fungerande randomfunktion och mindre styling
+
+
+TO DO LIST (not funny)
+1. Fixa så att den inte randomar på allt.
+2. Varningsmeddelanden vid inmatning.
+3. Slippa dubbelklicka i boxar.
+4. Ta bort personer.
+5. Godkänna alla personer.
+6. Fada och låsa inmatning istället för ta bort.
+7. Design.
+
