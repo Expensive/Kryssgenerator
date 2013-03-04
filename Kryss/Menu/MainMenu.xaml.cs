@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Data.OleDb;
 
 namespace KryssGenerator
 {
@@ -31,26 +32,22 @@ namespace KryssGenerator
 
         // Startar slumpfunktionen
         private void Slumpa_Click(object sender, RoutedEventArgs e)
-        {           
-            if (stopChange == true) 
+        {
+            if (stopChange == true)
             {
-                currentColumn(); // Kollar i vilken kolumn den skall slumpa 
+                currentColumn(); // Kollar i vilken kolumn den skall slumpa
 
                 // Dölj inmatning och knapp vid första slump
                 NrOfQuestions.Visibility = System.Windows.Visibility.Hidden;
                 Uppdatera.Visibility = System.Windows.Visibility.Hidden;
+                AddUser.Visibility = System.Windows.Visibility.Hidden;
             }
         }
 
         // Kollar vilken som är aktuell kolumn
         private void currentColumn()
         {
-            int curr = 1;
-            if (curr < inMatNr)
-            {
-                activeCheck(); // Markerade i kolumn
-            }
-            curr++;
+            activeCheck(); // Markerade i kolumn
         }
 
         // Vilka är markerade i aktuell kolumn
@@ -115,20 +112,31 @@ namespace KryssGenerator
         {
             if (NrOfQuestions.Text != "" && NrOfQuestions.Text != "Endast siffror!" && NrOfQuestions.Text != "Antal uppgifter")
             {
-                inMatNr = Convert.ToInt32(NrOfQuestions.Text); // Inmatat nr 
+                inMatNr = Convert.ToInt32(NrOfQuestions.Text); // Inmatat nr
 
                 if (inMatNr <= 30) // Spärr för att varna om mer än 30 uppgifter
                 {
                     data(); // Anropar data metoden
                 }
-                // Varning dyker upp med ja / nej 
+                // Varning dyker upp med ja / nej
                 else if (MessageBox.Show("Är du säker på att du vill skapa " + inMatNr + " st uppgifter?", "Kontroll", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
                     data(); // Anropar data metoden
                 }
-                // Gör att när man klickar på slump så döljs antal uppgift inmating
-                stopChange = true;
             }
+
+            if (AddUser.Text != "" && AddUser.Text != "Lägg till deltagare")
+            {
+                Databas.Command.CommandText = @"INSERT INTO Namn(Deltagare) VALUES ('" + AddUser.Text + "')";
+                Databas.Connection.Open();
+                Databas.Command.ExecuteNonQuery();
+                Databas.Connection.Close();
+                data();
+                AddUser.Text = "Lägg till deltagare";
+            }
+            
+            // Gör att när man klickar på slump så döljs antal uppgift inmating och lägg till person
+            stopChange = true;
         }
 
         // Anropar och skriver ut kryssrutor beroende på antalet deltagare och uppgifter
@@ -149,6 +157,33 @@ namespace KryssGenerator
 
             int ShowRnd = RandomName.finishComboPeople; //Hämtar det slumpade värdet
             dataGrid1.SelectedIndex = ShowRnd; //markerar den slumpade personen
+        }
+
+        private void AddUser_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (AddUser.Text != "")
+            {
+                AddUser.Text = String.Empty;
+            }
+        }
+
+        private void AddUser_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Uppdatera_Click(null, null); // Tvungen att skicka med sender, KeyEventArgs = orkar inte så null
+            }
+        }
+
+        private void NrOfQuestions_LostFocus(object sender, RoutedEventArgs e)
+        {
+            NrOfQuestions.Text = "Antal uppgifter";
+
+        }
+
+        private void AddUser_LostFocus(object sender, RoutedEventArgs e)
+        {
+            AddUser.Text = "Lägg till deltagare";
         }
     }
 }

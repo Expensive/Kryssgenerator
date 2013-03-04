@@ -7,59 +7,60 @@
 	x:Class="KryssGenerator.MainMenu"
 	d:DesignWidth="1000" d:DesignHeight="500"
     Loaded="UserControl_Loaded">
-    
+
     <!-- Gör så att allt är centrerat på skärmen oavsett storlekt på fönstret -->
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="500">
         <Border BorderBrush="#FF6C6C6C" BorderThickness="1" Padding="5">
             <DockPanel x:Name="mainMenuLayoutRoot">
-        <!-- Knappar för att ta sig runt på sidan -->
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0, 5">
-            <Button Content="Slumpa" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="Slumpa" Click="Slumpa_Click" />
-                <!--<Button Content="Lägg till/Ta bort" Height="30" Padding="5" Margin="0,0,5,0" x:Name="LaggTillTaBort" Click="LaggTillTaBort_Click"/>-->
-                <TextBox Name="NrOfQuestions" Text="Antal uppgifter" Width="120" Height="30" HorizontalContentAlignment="Center" GotFocus="NrOfQuestions_GotFocus" Padding="1,5,1,1" Margin="0,0,5,0" KeyDown="NrOfQuestions_KeyDown"></TextBox>
-                <Button Content="Uppdatera" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="Uppdatera" Click="Uppdatera_Click" />
-        </StackPanel>
-        
-        <!-- Huvudrubrik -->
-        <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="3,0,0,0">
-            <Label FontSize="40" HorizontalAlignment="Center" FontWeight="SemiBold">Kryssgenerator</Label>
-        </StackPanel>
-        
-        <!-- Listbox där deltagare hamnar -->
-        <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="0,0,0,3">
-                <TextBlock FontSize="14" Margin="0,0,0,5" Padding="0,2">
+                <!-- Knappar för att ta sig runt på sidan -->
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Margin="0, 5">
+                    <Button Content="Slumpa" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="Slumpa" Click="Slumpa_Click" />
+                    <!--<Button Content="Lägg till/Ta bort" Height="30" Padding="5" Margin="0,0,5,0" x:Name="LaggTillTaBort" Click="LaggTillTaBort_Click"/>-->
+                    <TextBox Name="NrOfQuestions" Text="Antal uppgifter" Width="120" Height="30" HorizontalContentAlignment="Center" GotFocus="NrOfQuestions_GotFocus" LostFocus="NrOfQuestions_LostFocus" Padding="1,5,1,1" Margin="0,0,5,0" KeyDown="NrOfQuestions_KeyDown"></TextBox>
+                    <TextBox Name="AddUser" Text="Lägg till deltagare" Width="120" Height="30" HorizontalContentAlignment="Center" GotFocus="AddUser_GotFocus" LostFocus="AddUser_LostFocus" Padding="1,5,1,1" Margin="0,0,5,0" KeyDown="AddUser_KeyDown"></TextBox>
+                    <Button Visibility="Hidden" Content="Uppdatera" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="Uppdatera" Click="Uppdatera_Click" />
+                </StackPanel>
+
+                <!-- Huvudrubrik -->
+                <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="3,0,0,0">
+                    <Label FontSize="40" HorizontalAlignment="Center" FontWeight="SemiBold">Kryssgenerator</Label>
+                </StackPanel>
+
+                <!-- Listbox där deltagare hamnar -->
+                <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="0,0,0,3">
+                    <TextBlock FontSize="14" Margin="0,0,0,5" Padding="0,2">
                     Deltagare för dagens kryssuppgift. Markera de uppgifter du vill vara med på. 
                     <LineBreak />
                     Fyll i för- och efternamn i den tomma rutan längst ner om du ej finns med.
-                </TextBlock>
-             
-            <!-- Datagrid där deltagare och checkboxar hamnar -->
-            <DataGrid AutoGenerateColumns="True" Name="dataGrid1" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Background="Transparent" BorderBrush="Transparent" CanUserDeleteRows="True" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserSortColumns="False">
-                    <DataGrid.CellStyle>
-                        <Style TargetType="DataGridCell">
+                    </TextBlock>
+
+                    <!-- Datagrid där deltagare och checkboxar hamnar -->
+                    <DataGrid AutoGenerateColumns="True" Name="dataGrid1" DataContext="{Binding Tables[Namn]}" ItemsSource="{Binding}" IsSynchronizedWithCurrentItem="True" Background="Transparent" BorderBrush="Transparent" CanUserDeleteRows="True" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserSortColumns="False">
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="IsEditing" Value="True"></Setter>
                                     </Trigger>
                                 </Style.Triggers>
                                 <Setter Property="Padding" Value="4"/>
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type DataGridCell}">
-                                        <Border Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                                            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </DataGrid.CellStyle>
-                    <DataGrid.Columns>
-                        <!-- Här hamnar kolumnerna, hämtas från databasen -->
-                </DataGrid.Columns>
-            </DataGrid>
-            </StackPanel>
-        </DockPanel>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                            <Border Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                                <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGrid.CellStyle>
+                        <DataGrid.Columns>
+                            <!-- Här hamnar kolumnerna, hämtas från databasen -->
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </DockPanel>
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFF8F8F8" Offset="0" />
