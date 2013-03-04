@@ -15,6 +15,7 @@ namespace KryssGenerator
         // Variabler
         int inMatNr = -1; // Döljer uppgifter vid start
         bool stopChange = false; // False tills man anget antal uppgifter
+        int valdUppg = 1;
         Databas load = null;
 
         public MainMenu()
@@ -32,12 +33,18 @@ namespace KryssGenerator
         // Startar slumpfunktionen
         private void Slumpa_Click(object sender, RoutedEventArgs e)
         {
-            RandomName doRand = new RandomName(); //Går in i random funktionen
-            doRand.Start(load); //Uppdaterar databasen och hämtar deltagare
+            for (int i = valdUppg; i < inMatNr;)
+            {
+                doRand();
+            }
+            valdUppg++;
 
-            int ShowRnd = RandomName.finishComboPeople; //Hämtar det slumpade värdet
-            dataGrid1.SelectedIndex = ShowRnd; //markerar den slumpade personen
-
+            // Kör random 5 ggr för att visualisera olika stopp vid slump. Måste stoppa och displaya på något sätt.
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    doRand(); // Anropar doRand
+            //}
+            
             // Dölj inmatning och knapp vid första slump
             if (stopChange == true) 
             {
@@ -126,6 +133,16 @@ namespace KryssGenerator
             dataGrid1.ItemsSource = load.UpdateDatabase(inMatNr).Tables["Namn"].DefaultView; // Hämtar deltagare och antal kryssrutor igen
             dataGrid1.Items.Refresh(); // Laddar om dataGrid1
 
+        }
+
+        // Anropar RandomName klassen och utför random funktion
+        private void doRand()
+        {
+            RandomName doRand = new RandomName(); //Går in i random funktionen
+            doRand.Start(load); //Uppdaterar databasen och hämtar deltagare
+
+            int ShowRnd = RandomName.finishComboPeople; //Hämtar det slumpade värdet
+            dataGrid1.SelectedIndex = ShowRnd; //markerar den slumpade personen
         }
     }
 }
