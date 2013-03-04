@@ -6,6 +6,7 @@ using System.Windows;
 using System.Data;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using System.Data.OleDb;
 
 namespace KryssGenerator
 {
@@ -14,17 +15,18 @@ namespace KryssGenerator
         // Deklarerar för vidare användning
         public String OurTable;
         public DataSet OurData;
-        public MySqlDataAdapter DataAdapterSaveToDeltagare;
+        public OleDbDataAdapter DataAdapterSaveToDeltagare;
 
-        public static MySqlCommand Command;
-        public static MySqlDataReader DataReader;
-        public static MySqlConnection Connection;
+        public static OleDbCommand Command;
+        public static OleDbDataReader DataReader;
+        public static OleDbConnection Connection;
 
         // Skapar en anslutning till databasen.
         public static void OpenConn(string cmd)
         {
             // Anslut till databasen
-            Connection = new MySqlConnection(@"Server = projweb.hj.se; Database = olde1103; Uid = olde1103; Pwd = Tdlf278; Port = 3306;");
+            //Connection = new MySqlConnection(@"Server = projweb.hj.se; Database = olde1103; Uid = olde1103; Pwd = Tdlf278; Port = 3306;");
+            Connection = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Kryss.accdb");
             //Connection = new MySqlConnection(@"Server = kryss-154741.mysql.binero.se; Database = 154741-kryss; Uid = 154741_oz70400; Pwd = 123456789;");
             Command = Connection.CreateCommand();
             Command.CommandText = cmd;
@@ -41,7 +43,7 @@ namespace KryssGenerator
                 OurData = new DataSet(); // Sparar datan i OurData
 
                 // Laddar deltagare till tabellen
-                DataAdapterSaveToDeltagare = new MySqlDataAdapter();
+                DataAdapterSaveToDeltagare = new OleDbDataAdapter();
                 DataAdapterSaveToDeltagare.SelectCommand = Command;
                 DataAdapterSaveToDeltagare.Fill(OurData, "Namn");
                 

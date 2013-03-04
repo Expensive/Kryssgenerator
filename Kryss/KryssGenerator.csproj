@@ -86,6 +86,11 @@
     </ApplicationDefinition>
     <Compile Include="Databas.cs" />
     <Compile Include="ISwitchable.cs" />
+    <Compile Include="KryssDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KryssDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Menu\AddRemove.xaml.cs">
       <DependentUpon>AddRemove.xaml</DependentUpon>
     </Compile>
@@ -132,6 +137,18 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="KryssDataSet.xsc">
+      <DependentUpon>KryssDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="KryssDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>KryssDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="KryssDataSet.xss">
+      <DependentUpon>KryssDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -160,7 +177,11 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Kryss.accdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
