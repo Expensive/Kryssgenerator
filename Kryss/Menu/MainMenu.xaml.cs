@@ -15,7 +15,6 @@ namespace KryssGenerator
         // Variabler
         int inMatNr = -1; // Döljer uppgifter vid start
         bool stopChange = false; // False tills man anget antal uppgifter
-        int valdUppg = 1;
         Databas load = null;
 
         public MainMenu()
@@ -32,25 +31,32 @@ namespace KryssGenerator
 
         // Startar slumpfunktionen
         private void Slumpa_Click(object sender, RoutedEventArgs e)
-        {
-            for (int i = valdUppg; i < inMatNr;)
-            {
-                doRand();
-            }
-            valdUppg++;
-
-            // Kör random 5 ggr för att visualisera olika stopp vid slump. Måste stoppa och displaya på något sätt.
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    doRand(); // Anropar doRand
-            //}
-            
-            // Dölj inmatning och knapp vid första slump
+        {           
             if (stopChange == true) 
             {
+                currentColumn(); // Kollar i vilken kolumn den skall slumpa 
+
+                // Dölj inmatning och knapp vid första slump
                 NrOfQuestions.Visibility = System.Windows.Visibility.Hidden;
                 Uppdatera.Visibility = System.Windows.Visibility.Hidden;
             }
+        }
+
+        // Kollar vilken som är aktuell kolumn
+        private void currentColumn()
+        {
+            int curr = 1;
+            if (curr < inMatNr)
+            {
+                activeCheck(); // Markerade i kolumn
+            }
+            curr++;
+        }
+
+        // Vilka är markerade i aktuell kolumn
+        private void activeCheck()
+        {
+            doRand();
         }
 
         // Skickar användaren till sidan för att lägga till eller ta bort deltagare ur listan
