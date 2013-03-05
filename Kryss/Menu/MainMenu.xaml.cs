@@ -25,6 +25,19 @@ namespace KryssGenerator
         Databas load = null;
         private static int valkol = 0;
 
+        // Publik för att man ska kunna komma åt rätt kolumn i RandomName.cs som använder valkol
+        public static int valKolFromMain
+        {
+            get
+            {
+                return valkol;
+            }
+            set
+            {
+                valkol = value;
+            }
+        }
+
         public MainMenu()
         {
             InitializeComponent();
@@ -40,6 +53,8 @@ namespace KryssGenerator
             load = new Databas();
             this.DataContext = load.UpdateDatabase(0).Tables["Namn"].DefaultView; // 0 för att man är tvungen att skicka med ett "värde"
         }
+
+        // ********************************SLUMP FUNKTION***********************************************
 
         // Startar slumpfunktionen
         private void Slumpa_Click(object sender, RoutedEventArgs e)
@@ -57,27 +72,66 @@ namespace KryssGenerator
             }
         }
 
-        // Skickar användaren till sidan för att lägga till eller ta bort deltagare ur listan
-        private void LaggTillTaBort_Click(object sender, System.Windows.RoutedEventArgs e)
+        // Anropar RandomName klassen och utför random funktion
+        private void doRand()
         {
-            Switcher.Switch(new AddRemove());
-        }
-        
-        // Ignorera.
-        #region Event For Child Window
-        private void loginWindowForm_SubmitClicked(object sender, EventArgs e)
-        {
-            //ShowMessageBox("Login Successful", "Welcome, " + loginForm.NameText, MessageBoxIcon.Information);
+            RandomName doRand = new RandomName(); //Går in i random funktionen
 
-        }
-        #endregion
+            int ID = doRand.DoRandom(load); // Skapar en lokal variabel
+            int index = -1; // Sätter index tillfälligt till -1
 
-        #region ISwitchable Members
-        public void UtilizeState(object state)
-        {
-            throw new NotImplementedException();
+            // Kör igenom loop och räknar antal rader tills den träffar rätt och hoppar då ur
+            for (int i = 0; i < dataGrid1.Items.Count - 1; i++)
+            {
+                if (ID.ToString() == GetCell(dataGrid1, i, 0))
+                {
+                    index = i; // Sätter index till for loopens i
+                    break;
+                }
+            }
+
+            dataGrid1.SelectedIndex = index; // Markerar den valda personen i listan som index
         }
-        #endregion
+
+        // Plockar ut ett värde från en specifik rad och kolumn
+        public static String GetCell(DataGrid dataGrid, int row, int column)
+        {
+            String cellValue = "";
+            DataGridRow tempRow = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(row);
+            DataRowView rowView = (DataRowView)tempRow.Item;
+            cellValue = rowView[column].ToString();
+
+            return cellValue;
+        }
+
+        // ********************************SLUT SLUMP FUNKTION***********************************************
+
+        // ********************************LÄGG TILL DELTAGARE***********************************************
+
+        private void AddUser_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (AddUser.Text != "")
+            {
+                AddUser.Text = String.Empty;
+            }
+        }
+
+        private void AddUser_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Uppdatera_Click(null, null); // Tvungen att skicka med sender, KeyEventArgs = orkar inte så null
+            }
+        }
+
+        private void AddUser_LostFocus(object sender, RoutedEventArgs e)
+        {
+            AddUser.Text = "Lägg till deltagare";
+        }
+
+        // ********************************SLUT LÄGG TILL DELTAGARE*******************************************
+
+        // ********************************ANTAL UPPGIFTER****************************************************
 
         // Tömmer boxen när man markerar den
         private void NrOfQuestions_GotFocus(object sender, RoutedEventArgs e)
@@ -104,10 +158,30 @@ namespace KryssGenerator
             }
         }
 
+        private void NrOfQuestions_LostFocus(object sender, RoutedEventArgs e)
+        {
+            NrOfQuestions.Text = "Antal uppgifter";
+
+        }
+
+        // ********************************SLUT ANTAL UPPGIFTER************************************************
+
+        // ********************************GEMENSAM************************************************************
+
         // Kollar först så att rutan inte är tom eller innehållet ordet Endast siffror / Antal uppgifter
         private void Uppdatera_Click(object sender, RoutedEventArgs e)
         {
-            if (NrOfQuestions.Text != "" && NrOfQuestions.Text != "Endast siffror!" && NrOfQuestions.Text != "Antal uppgifter")
+            if (AddUser.Text != "" && AddUser.Text != "Lägg till deltagare")
+            {
+                Databas.Command.CommandText = @"INSERT INTO Namn(Deltagare) VALUES ('" + AddUser.Text + "')";
+                Databas.Connection.Open();
+                Databas.Command.ExecuteNonQuery();
+                Databas.Connection.Close();
+                data();
+                AddUser.Text = "Lägg till deltagare"; // Gör att man ej kan skriva samma namn flera gånger på raken
+            }
+
+            else if (NrOfQuestions.Text != "" && NrOfQuestions.Text != "Endast siffror!" && NrOfQuestions.Text != "Antal uppgifter")
             {
                 inMatNr = Convert.ToInt32(NrOfQuestions.Text); // Inmatat nr
 
@@ -122,16 +196,6 @@ namespace KryssGenerator
                 }
             }
 
-            if (AddUser.Text != "" && AddUser.Text != "Lägg till deltagare")
-            {
-                Databas.Command.CommandText = @"INSERT INTO Namn(Deltagare) VALUES ('" + AddUser.Text + "')";
-                Databas.Connection.Open();
-                Databas.Command.ExecuteNonQuery();
-                Databas.Connection.Close();
-                data();
-                AddUser.Text = "Lägg till deltagare"; // Gör att man ej kan skriva samma namn flera gånger på raken
-            }
-            
             // Gör att när man klickar på slump så döljs antal uppgift inmating och lägg till person
             stopChange = true;
         }
@@ -143,74 +207,22 @@ namespace KryssGenerator
             dataGrid1.Items.Refresh(); // Laddar om dataGrid1
         }
 
-        // Anropar RandomName klassen och utför random funktion
-        private void doRand()
+        // ********************************SLUT GEMENSAM********************************************************
+
+        // Ignorera.
+        #region Event For Child Window
+        private void loginWindowForm_SubmitClicked(object sender, EventArgs e)
         {
-            RandomName doRand = new RandomName(); //Går in i random funktionen
-
-            int ID = doRand.DoRandom(load); // Skapar en lokal variabel
-            int index = -1; // Sätter index tillfälligt till -1
-
-            // Kör igenom loop och räknar antal rader tills den träffar rätt och hoppar då ur
-            for (int i = 0; i < dataGrid1.Items.Count-1; i++) {
-                if (ID.ToString() == GetCell(dataGrid1, i, 0))
-                {
-                    index = i; // Sätter index till for loopens i
-                    break;
-                }
-            }
-
-            dataGrid1.SelectedIndex = index ; // Markerar den valda personen i listan som index
-        }
-
-        // Plockar ut ett värde från en specifik rad och kolumn
-        public static String GetCell(DataGrid dataGrid, int row, int column)
-        {
-            String cellValue = "";
-            DataGridRow tempRow = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(row);
-            DataRowView rowView = (DataRowView)tempRow.Item;
-            cellValue = rowView[column].ToString();
-
-            return cellValue;
-        }
-
-        private void AddUser_GotFocus(object sender, RoutedEventArgs e)
-        {
-            if (AddUser.Text != "")
-            {
-                AddUser.Text = String.Empty;
-            }
-        }
-
-        private void AddUser_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                Uppdatera_Click(null, null); // Tvungen att skicka med sender, KeyEventArgs = orkar inte så null
-            }
-        }
-
-        private void NrOfQuestions_LostFocus(object sender, RoutedEventArgs e)
-        {
-            NrOfQuestions.Text = "Antal uppgifter";
+            //ShowMessageBox("Login Successful", "Welcome, " + loginForm.NameText, MessageBoxIcon.Information);
 
         }
+        #endregion
 
-        private void AddUser_LostFocus(object sender, RoutedEventArgs e)
+        #region ISwitchable Members
+        public void UtilizeState(object state)
         {
-            AddUser.Text = "Lägg till deltagare";
+            throw new NotImplementedException();
         }
-
-        public static int valKolFromMain // Det slumpade värdet
-        {
-            get
-            {
-                return valkol;
-            }
-            set
-            {
-                valkol = value;
-            }
-        }
+        #endregion
     }
 }

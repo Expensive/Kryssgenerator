@@ -14,17 +14,17 @@
             <DockPanel x:Name="mainMenuLayoutRoot">
                 <!-- Knappar för att ta sig runt på sidan -->
                 <StackPanel Name="StackPanelInMatning" DockPanel.Dock="Bottom" Margin="0, 5">
-                    <StackPanel Name="QRow1" Orientation="Horizontal" Margin="0 5">
-                        <Label Width="150">Hur många uppgifter?</Label>
-                        <TextBox Name="NrOfQuestions" Text="Endast siffror" Width="120" Height="30" GotFocus="NrOfQuestions_GotFocus" LostFocus="NrOfQuestions_LostFocus" Padding="1,5,1,1" Margin="0,0,5,0" KeyDown="NrOfQuestions_KeyDown" FontStyle="Italic" Foreground="#FF222222" HorizontalContentAlignment="Center"></TextBox>
-                        <Image Name="AcceptWarningImageNrOfQuestions" Source="{Binding Path=MyImagePath}" Width="16" Height="16"/>
-                        <Label Name="NrOfQuestionsWarning" />
-                    </StackPanel>
-                    <StackPanel Name="QRow2" Orientation="Horizontal" Margin="0,0,0,5">
+                    <StackPanel Name="QRow1" Orientation="Horizontal" Margin="0,0,0,5">
                         <Label Width="150">Lägg till deltagare</Label>
                         <TextBox Name="AddUser" Text="Lägg till deltagare" Width="120" Height="30" GotFocus="AddUser_GotFocus" LostFocus="AddUser_LostFocus" Padding="1,5,1,1" Margin="0,0,5,0" KeyDown="AddUser_KeyDown" FontStyle="Italic" Foreground="#FF222222" HorizontalContentAlignment="Center"></TextBox>
                         <Image Name="AcceptWarningImageAddUser" Source="{Binding Path=MyImagePath}" Width="16" Height="16"/>
                         <Label Name="AddUserWarning" />
+                    </StackPanel>
+                    <StackPanel Name="QRow2" Orientation="Horizontal" Margin="0 5">
+                        <Label Width="150">Hur många uppgifter?</Label>
+                        <TextBox Name="NrOfQuestions" Text="Endast siffror" Width="120" Height="30" GotFocus="NrOfQuestions_GotFocus" LostFocus="NrOfQuestions_LostFocus" Padding="1,5,1,1" Margin="0,0,5,0" KeyDown="NrOfQuestions_KeyDown" FontStyle="Italic" Foreground="#FF222222" HorizontalContentAlignment="Center"></TextBox>
+                        <Image Name="AcceptWarningImageNrOfQuestions" Source="{Binding Path=MyImagePath}" Width="16" Height="16"/>
+                        <Label Name="NrOfQuestionsWarning" />
                     </StackPanel>
                     <Button Content="Slumpa" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="Slumpa" Click="Slumpa_Click" />
                     <Button Visibility="Hidden" Content="Uppdatera" x:Name="Uppdatera" Click="Uppdatera_Click" />
