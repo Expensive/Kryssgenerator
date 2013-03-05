@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Data;
 using System.Data.OleDb;
+
 
 namespace KryssGenerator
 {
@@ -124,24 +127,28 @@ namespace KryssGenerator
         // Anropar och skriver ut kryssrutor beroende på antalet deltagare och uppgifter
         private void data()
         {
-            //dataGrid1.DataContext = null; // Nollar dataGrid1
-            //dataGrid1.ItemsSource = null; // Nollar källan för dataGrid1
-            //dataGrid1.ItemsSource = load.UpdateDatabase(inMatNr).Tables["Namn"].DefaultView; // Hämtar deltagare och antal kryssrutor igen
             dataGrid1.DataContext = load.UpdateDatabase(inMatNr).Tables["Namn"].DefaultView; // Hämtar deltagare och antal kryssrutor igen
-            //dataGrid1.ItemsSource = "{Binding Path=., Mode=TwoWay}";
             dataGrid1.Items.Refresh(); // Laddar om dataGrid1
-
         }
 
         // Anropar RandomName klassen och utför random funktion
         private void doRand()
         {
             RandomName doRand = new RandomName(); //Går in i random funktionen
-           doRand.Start(load); //Uppdaterar databasen och hämtar deltagare
-            //doRand.Start(dataGrid1.Items);
 
-            int ShowRnd = RandomName.finishComboPeople; //Hämtar det slumpade värdet
-            dataGrid1.SelectedIndex = ShowRnd; //markerar den slumpade personen
+            int ID = doRand.DoRandom(load); // Skapar en lokal variabel
+            int index = -1; // Sätter index tillfälligt till -1
+
+            // Kör igenom loop och räknar antal rader tills den träffar rätt och hoppar då ur
+            for (int i = 0; i < dataGrid1.Items.Count-1; i++) {
+                if (ID.ToString() == GetCell(dataGrid1, i, 0))
+                {
+                    index = i; // Sätter index till for loopens i
+                    break;
+                }
+            }
+
+            dataGrid1.SelectedIndex = index ; // Markerar den valda personen i listan som index
         }
 
         private void AddUser_GotFocus(object sender, RoutedEventArgs e)
@@ -170,5 +177,18 @@ namespace KryssGenerator
         {
             AddUser.Text = "Lägg till deltagare";
         }
+
+        // Plockar ut ett värde från en specifik rad och kolumn
+        public static String GetCell(DataGrid dataGrid, int row, int column)
+        {
+            String cellValue = "";
+            DataGridRow tempRow = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(row);
+            DataRowView rowView = (DataRowView)tempRow.Item;
+            cellValue = rowView[column].ToString();
+
+            return cellValue;
+        }
+
+
     }
 }

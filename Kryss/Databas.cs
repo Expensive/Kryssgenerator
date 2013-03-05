@@ -36,7 +36,7 @@ namespace KryssGenerator
         // Uppdaterar databasen för att ladda in deltagare.
         public DataSet UpdateDatabase(int x) // Får ett värde x från t ex NrOfQuestions_LostFocus
         {
-            OpenConn("SELECT Deltagare FROM Namn"); // Väljer Deltagare från tabellen Namn
+            OpenConn("SELECT * FROM Namn"); // Väljer Deltagare från tabellen Namn
             // Anslutning till databasen
             try
             {

@@ -18,39 +18,11 @@ namespace KryssGenerator
             DoRandom(db); //startar db ur databas
         }
 
-        //public void Start(IEnumerable db) {
-        //    DoRandom(db); //startar db ur databas
-        //}
-        //private int DoRandom(IEnumerable db)
-        //{
-        //    //comboPeople = db.OurData.Tables["Namn"].Rows.Count; //Räknar antal deltagare
-        //    var markedStudentsQuery = from DataRow student in ((DataView)db).Table.AsEnumerable() where student.Field<bool>("1") == true select student;
-        //    comboPeople = markedStudentsQuery.Count();
-        //    // Antal i kryssade uppgifter i en viss uppgift
-
-        //    //Startar random funktion
-        //    Random random = new Random();
-
-        //    ////Väljer mellan alla i listboxen
-        //    int rnd = comboPeople;
-
-        //    //Randomar vilken den väljer i listan
-        //    int choseItem = random.Next(rnd);
-
-        //    //Visar den slumpmässiga deltagaren
-        //    comboPeople = choseItem;
-
-        //    return comboPeople; //skickar vidare det slumpade talet
-        //}
-
-
-        private int DoRandom(Databas db)
+        public int DoRandom(Databas db)
         {
-            //comboPeople = db.OurData.Tables["Namn"].Rows.Count; //Räknar antal deltagare
-
             // Kollar i just nu kolumn 1 vilka av kryssrutorna som är i kryssade. 
             var markedStudentsQuery = from student in db.OurData.Tables["Namn"].AsEnumerable() where student.Field<bool>("1") == true select student;
-            markedStudentsQuery.ToArray();
+            choseItem =  markedStudentsQuery.Count();
             // Antal i kryssade uppgifter i en viss uppgift
 
             //Startar random funktion
@@ -61,6 +33,9 @@ namespace KryssGenerator
 
             //Randomar vilken den väljer i listan
             choseItem = random.Next(rnd);
+
+            // Vad gjorde denna? Något om att hämta ID ur datatablen
+            choseItem = markedStudentsQuery.ElementAt(choseItem).Field<int>("ID");
 
             return choseItem; //skickar vidare det slumpade talet
         }
