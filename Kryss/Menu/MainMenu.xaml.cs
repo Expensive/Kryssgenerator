@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Data;
 using System.Data.OleDb;
+using System.Windows.Media.Imaging;
 
 
 namespace KryssGenerator
@@ -24,8 +25,8 @@ namespace KryssGenerator
         public MainMenu()
         {
             InitializeComponent();
-            // Laddar in kopia med deltagare från databasen.
         }
+
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -41,9 +42,10 @@ namespace KryssGenerator
                 doRand(); // Kör slumpfunktion
 
                 // Dölj inmatning och knapp vid första slump
-                NrOfQuestions.Visibility = System.Windows.Visibility.Hidden;
-                Uppdatera.Visibility = System.Windows.Visibility.Hidden;
-                AddUser.Visibility = System.Windows.Visibility.Hidden;
+                NrOfQuestions.Focusable = false;
+                AddUser.Focusable = false;
+                QRow1.Opacity = 0.5;
+                QRow2.Opacity = 0.5;
             }
         }
 
@@ -52,7 +54,7 @@ namespace KryssGenerator
         {
             Switcher.Switch(new AddRemove());
         }
-
+        
         // Ignorera.
         #region Event For Child Window
         private void loginWindowForm_SubmitClicked(object sender, EventArgs e)
@@ -83,12 +85,29 @@ namespace KryssGenerator
             if (!Char.IsDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)) && e.Key != Key.Enter)
             {
                 e.Handled = true;
-                NrOfQuestions.Text = "Endast siffror!"; // Skriv ut om annat än siffror. Funderar på att anropa en metod som tar bort texten efter X sekunder och skickar till GotFocus igen??
+
+                //2. loading from resources
+                AcceptImage.BeginInit();
+                BitmapImage bmp = new BitmapImage(new Uri("Image/Accept.png", UriKind.Relative));
+                bmp.CacheOption = BitmapCacheOption.OnLoad;
+                AcceptImage.Source = bmp;
+                AcceptImage.EndInit();
+
+                //3. alternative way to load from resource
+                bmp = new BitmapImage();
+                bmp.BeginInit();
+                bmp.StreamSource = Application.GetResourceStream(new Uri("Image/Accept.png", UriKind.RelativeOrAbsolute)).Stream;
+                bmp.EndInit();
+                AcceptImage.Source = bmp;
+
             }
             // Anropar funktionen Uppdatera_Click vid enter
             else if (e.Key == Key.Enter)
             {
                 Uppdatera_Click(null, null); // Tvungen att skicka med sender, KeyEventArgs = orkar inte så null
+            }
+            else
+            {
             }
         }
 
@@ -188,7 +207,5 @@ namespace KryssGenerator
 
             return cellValue;
         }
-
-
     }
 }
