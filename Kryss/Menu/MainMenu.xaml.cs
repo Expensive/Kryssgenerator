@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.Data;
-using System.Data.OleDb;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.IO;
+using System.Data;
 
 
 namespace KryssGenerator
@@ -21,12 +23,17 @@ namespace KryssGenerator
         int inMatNr = -1; // Döljer uppgifter vid start
         bool stopChange = false; // False tills man anget antal uppgifter
         Databas load = null;
+        public int valkol = 1;
 
         public MainMenu()
         {
             InitializeComponent();
-        }
 
+            // HUR LÄGGER MAN TILL BILDER ? 
+            //string path = "Images/Alert.jpg";
+            //BitmapImage bitmap = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
+            //AcceptWarningImageNrOfQuestions.Source = bitmap;
+        }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -39,7 +46,11 @@ namespace KryssGenerator
         {
             if (stopChange == true)
             {
-                doRand(); // Kör slumpfunktion
+                for (int i = 1; i <= inMatNr; i++)
+                {
+                    valkol = i;
+                    doRand(); // Kör slumpfunktion
+                }
 
                 // Dölj inmatning och knapp vid första slump
                 NrOfQuestions.Focusable = false;
@@ -85,21 +96,6 @@ namespace KryssGenerator
             if (!Char.IsDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)) && e.Key != Key.Enter)
             {
                 e.Handled = true;
-
-                //2. loading from resources
-                AcceptImage.BeginInit();
-                BitmapImage bmp = new BitmapImage(new Uri("Image/Accept.png", UriKind.Relative));
-                bmp.CacheOption = BitmapCacheOption.OnLoad;
-                AcceptImage.Source = bmp;
-                AcceptImage.EndInit();
-
-                //3. alternative way to load from resource
-                bmp = new BitmapImage();
-                bmp.BeginInit();
-                bmp.StreamSource = Application.GetResourceStream(new Uri("Image/Accept.png", UriKind.RelativeOrAbsolute)).Stream;
-                bmp.EndInit();
-                AcceptImage.Source = bmp;
-
             }
             // Anropar funktionen Uppdatera_Click vid enter
             else if (e.Key == Key.Enter)
@@ -170,6 +166,17 @@ namespace KryssGenerator
             dataGrid1.SelectedIndex = index ; // Markerar den valda personen i listan som index
         }
 
+        // Plockar ut ett värde från en specifik rad och kolumn
+        public static String GetCell(DataGrid dataGrid, int row, int column)
+        {
+            String cellValue = "";
+            DataGridRow tempRow = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(row);
+            DataRowView rowView = (DataRowView)tempRow.Item;
+            cellValue = rowView[column].ToString();
+
+            return cellValue;
+        }
+
         private void AddUser_GotFocus(object sender, RoutedEventArgs e)
         {
             if (AddUser.Text != "")
@@ -195,17 +202,6 @@ namespace KryssGenerator
         private void AddUser_LostFocus(object sender, RoutedEventArgs e)
         {
             AddUser.Text = "Lägg till deltagare";
-        }
-
-        // Plockar ut ett värde från en specifik rad och kolumn
-        public static String GetCell(DataGrid dataGrid, int row, int column)
-        {
-            String cellValue = "";
-            DataGridRow tempRow = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromIndex(row);
-            DataRowView rowView = (DataRowView)tempRow.Item;
-            cellValue = rowView[column].ToString();
-
-            return cellValue;
         }
     }
 }

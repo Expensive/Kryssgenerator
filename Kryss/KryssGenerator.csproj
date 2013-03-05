@@ -178,12 +178,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Accept.png">
+    <Content Include="Images\Accept.jpg" />
+    <Content Include="Images\Alert.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <EmbeddedResource Include="Images\Alert.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
     <Content Include="Kryss.accdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
