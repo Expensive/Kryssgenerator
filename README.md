@@ -14,16 +14,16 @@ Milstolpar
 
 2013-02-17 Lägga till person i databas.
 
-2013-02-24 Design ändring
+2013-02-24 Design ändring.
 
-2013-02-26 Antal kryssuppgifter går att ändra
+2013-02-26 Antal kryssuppgifter går att ändra.
 
-2013-02-28 Fungerande randomfunktion och mindre styling
+2013-02-28 Fungerande randomfunktion och mindre styling.
+
+2013-03-05 Random fungerar på vald kolumn och specificerar rätt rad.
 
 
 TO DO LIST (not funny)
-
-1. Fixa så att den inte randomar på allt.
 
 2. Varningsmeddelanden vid inmatning.
 
@@ -36,4 +36,6 @@ TO DO LIST (not funny)
 6. Fada och låsa inmatning istället för ta bort.
 
 7. Design.
+
+8. Summera antal kryss
 
