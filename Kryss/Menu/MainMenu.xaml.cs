@@ -23,7 +23,7 @@ namespace KryssGenerator
         int inMatNr = -1; // Döljer uppgifter vid start
         bool stopChange = false; // False tills man anget antal uppgifter
         Databas load = null;
-        public int valkol = 1;
+        private static int valkol = 0;
 
         public MainMenu()
         {
@@ -44,13 +44,10 @@ namespace KryssGenerator
         // Startar slumpfunktionen
         private void Slumpa_Click(object sender, RoutedEventArgs e)
         {
-            if (stopChange == true)
+            if (stopChange == true && valkol < inMatNr)
             {
-                for (int i = 1; i <= inMatNr; i++)
-                {
-                    valkol = i;
-                    doRand(); // Kör slumpfunktion
-                }
+                valkol++;
+                doRand(); // Kör slumpfunktion
 
                 // Dölj inmatning och knapp vid första slump
                 NrOfQuestions.Focusable = false;
@@ -202,6 +199,18 @@ namespace KryssGenerator
         private void AddUser_LostFocus(object sender, RoutedEventArgs e)
         {
             AddUser.Text = "Lägg till deltagare";
+        }
+
+        public static int valKolFromMain // Det slumpade värdet
+        {
+            get
+            {
+                return valkol;
+            }
+            set
+            {
+                valkol = value;
+            }
         }
     }
 }

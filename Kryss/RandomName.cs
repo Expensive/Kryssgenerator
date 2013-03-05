@@ -21,7 +21,7 @@ namespace KryssGenerator
         public int DoRandom(Databas db)
         {
             // Kollar i just nu kolumn 1 vilka av kryssrutorna som är i kryssade. 
-            var markedStudentsQuery = from student in db.OurData.Tables["Namn"].AsEnumerable() where student.Field<bool>(valkol.ToString()) == true select student;
+            var markedStudentsQuery = from student in db.OurData.Tables["Namn"].AsEnumerable() where student.Field<bool>(valKolFromMain.ToString()) == true select student;
             choseItem =  markedStudentsQuery.Count();
             // Antal i kryssade uppgifter i en viss uppgift
 
