@@ -42,11 +42,13 @@ namespace KryssGenerator
             try
             {
                 OurData = new DataSet(); // Sparar datan i OurData
+                
 
                 // Laddar deltagare till tabellen
                 DataAdapterSaveToDeltagare = new OleDbDataAdapter();
                 DataAdapterSaveToDeltagare.SelectCommand = Command;
                 DataAdapterSaveToDeltagare.Fill(OurData, "Namn");
+
 
                 
                 // Hämtar antal rader som ska skrivas ut från "Antal uppgifter" i MainMenu
@@ -59,7 +61,7 @@ namespace KryssGenerator
                     OurData.Tables["Namn"].Columns.Add(column); // Lägg till i DataSet OurData
                 }
 
-                //OurData.Tables["Namn"].Columns["ID"].DefaultValue = Visibility.Hidden;
+               
                 
             }
             catch (Exception ex)
@@ -71,7 +73,8 @@ namespace KryssGenerator
                 Connection.Close(); // Avslutar anslutningen
 
             }
-            // Returnerar den data som hämtas till OurData
+            
+            
             return OurData;
         }
     }

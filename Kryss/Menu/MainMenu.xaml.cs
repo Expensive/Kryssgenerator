@@ -47,6 +47,7 @@ namespace KryssGenerator
             //AcceptWarningImageNrOfQuestions.Source = bitmap; 
         }
 
+
       
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -118,7 +119,7 @@ namespace KryssGenerator
 
         private void AddUser_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Enter || e.Key == Key.Tab)
             {
                 Uppdatera_Click(null, null); // Tvungen att skicka med sender, KeyEventArgs = orkar inte så null
             }
@@ -144,12 +145,12 @@ namespace KryssGenerator
         // Kollar inmatat värde om det är endast siffror och man trycker på enter
         private void NrOfQuestions_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!Char.IsDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)) && e.Key != Key.Enter)
+            if (!Char.IsDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)) && e.Key != Key.Enter && e.Key != Key.Tab)
             {
                 e.Handled = true;
             }
             // Anropar funktionen Uppdatera_Click vid enter
-            else if (e.Key == Key.Enter)
+            else if (e.Key == Key.Enter || e.Key == Key.Tab)
             {
                 Uppdatera_Click(null, null); // Tvungen att skicka med sender, KeyEventArgs = orkar inte så null
             }
