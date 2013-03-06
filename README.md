@@ -31,11 +31,13 @@ TO DO LIST (not funny)
 
 4. Ta bort personer.
 
-5. Godkänna alla personer.
-
-6. Fada och låsa inmatning istället för ta bort.
-
 7. Design.
 
 8. Summera antal kryss
+
+9. Kolla vilka som är godkända och skicka till databas
+
+10. Dölja ID från datagrid.
+
+11. Låsa OK i datagrid tills efter slumpning.
 
