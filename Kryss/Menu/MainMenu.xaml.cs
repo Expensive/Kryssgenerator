@@ -23,7 +23,7 @@ namespace KryssGenerator
         int inMatNr = -1; // Döljer uppgifter vid start
         bool stopChange = false; // False tills man anget antal uppgifter
         Databas load = null;
-        private static int valkol = 0;
+        private static int valkol = 0; // Ändrar vald kolumn. Börjar på 1, 2 osv
 
         // Publik för att man ska kunna komma åt rätt kolumn i RandomName.cs som använder valkol
         public static int valKolFromMain
@@ -41,13 +41,13 @@ namespace KryssGenerator
         public MainMenu()
         {
             InitializeComponent();
-
             // HUR LÄGGER MAN TILL BILDER ? 
             //string path = "Images/Alert.jpg";
             //BitmapImage bitmap = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
-            //AcceptWarningImageNrOfQuestions.Source = bitmap;
+            //AcceptWarningImageNrOfQuestions.Source = bitmap; 
         }
 
+      
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             load = new Databas();
@@ -61,7 +61,7 @@ namespace KryssGenerator
         {
             if (stopChange == true && valkol < inMatNr)
             {
-                valkol++;
+                valkol++; // Börjar på 1. Ökar med 1 varje gång
                 doRand(); // Kör slumpfunktion
 
                 // Dölj inmatning och knapp vid första slump
@@ -126,7 +126,7 @@ namespace KryssGenerator
 
         private void AddUser_LostFocus(object sender, RoutedEventArgs e)
         {
-            AddUser.Text = "Lägg till deltagare";
+            AddUser.Text = "Captain Awesome";
         }
 
         // ********************************SLUT LÄGG TILL DELTAGARE*******************************************
@@ -160,7 +160,7 @@ namespace KryssGenerator
 
         private void NrOfQuestions_LostFocus(object sender, RoutedEventArgs e)
         {
-            NrOfQuestions.Text = "Antal uppgifter";
+            NrOfQuestions.Text = "1, 2, 3 osv";
 
         }
 
@@ -171,17 +171,17 @@ namespace KryssGenerator
         // Kollar först så att rutan inte är tom eller innehållet ordet Endast siffror / Antal uppgifter
         private void Uppdatera_Click(object sender, RoutedEventArgs e)
         {
-            if (AddUser.Text != "" && AddUser.Text != "Lägg till deltagare")
+            if (AddUser.Text != "" && AddUser.Text != "Captain Awesome")
             {
                 Databas.Command.CommandText = @"INSERT INTO Namn(Deltagare) VALUES ('" + AddUser.Text + "')";
                 Databas.Connection.Open();
                 Databas.Command.ExecuteNonQuery();
                 Databas.Connection.Close();
                 data();
-                AddUser.Text = "Lägg till deltagare"; // Gör att man ej kan skriva samma namn flera gånger på raken
+                AddUser.Text = "Captain Awesome"; // Gör att man ej kan skriva samma namn flera gånger på raken
             }
 
-            else if (NrOfQuestions.Text != "" && NrOfQuestions.Text != "Endast siffror!" && NrOfQuestions.Text != "Antal uppgifter")
+            else if (NrOfQuestions.Text != "" && NrOfQuestions.Text != "1, 2, 3 osv")
             {
                 inMatNr = Convert.ToInt32(NrOfQuestions.Text); // Inmatat nr
 

@@ -33,6 +33,7 @@ namespace KryssGenerator
             Connection.Open();
         }
 
+
         // Uppdaterar databasen för att ladda in deltagare.
         public DataSet UpdateDatabase(int x) // Får ett värde x från t ex NrOfQuestions_LostFocus
         {
@@ -46,6 +47,7 @@ namespace KryssGenerator
                 DataAdapterSaveToDeltagare = new OleDbDataAdapter();
                 DataAdapterSaveToDeltagare.SelectCommand = Command;
                 DataAdapterSaveToDeltagare.Fill(OurData, "Namn");
+
                 
                 // Hämtar antal rader som ska skrivas ut från "Antal uppgifter" i MainMenu
                 for(int i=1;i<=x;i++) // Kör upp till x som hämtas från MainMenu
@@ -56,6 +58,9 @@ namespace KryssGenerator
                     column.ColumnName = i.ToString(); // Skriv ut i som nr på uppgift ovanför rutorna
                     OurData.Tables["Namn"].Columns.Add(column); // Lägg till i DataSet OurData
                 }
+
+                //OurData.Tables["Namn"].Columns["ID"].DefaultValue = Visibility.Hidden;
+                
             }
             catch (Exception ex)
             {
