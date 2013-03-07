@@ -42,19 +42,14 @@ namespace KryssGenerator
         public MainMenu()
         {
             InitializeComponent();
-            // HUR LÄGGER MAN TILL BILDER ? 
-            //string path = "Images/Alert.jpg";
-            //BitmapImage bitmap = new BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
-            //AcceptWarningImageNrOfQuestions.Source = bitmap; 
         }
 
+        // Fungerar ej :/
         private void DoOnLoad()
         {
             dataGrid1.Columns[0].Visibility = Visibility.Hidden;
         }
 
-
-      
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             load = new Databas();
@@ -132,21 +127,38 @@ namespace KryssGenerator
 
         private void AddUser_KeyDown(object sender, KeyEventArgs e)
         {
-            if (AddUser.Text != "")
+            // Kollar så att man endast matar in bokstäver
+            if (Char.IsDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)) && e.Key != Key.Enter && e.Key != Key.Tab)
             {
-                AcceptImageAddUser.Visibility = Visibility.Visible;
+                e.Handled = true;
+                AcceptAlertImageAddUser.Visibility = Visibility.Visible;
+                this.AcceptAlertImageAddUser.Source = AlertImage();
+                AddUserWarning.Content = "Ofta du heter något på 1-10 ..";
+                AddUserWarning.Foreground = Brushes.Red;
             }
+            
+            // Grön bock och text när man matar in text
+            else if (AddUser.Text != " ")
+            {
+                AcceptAlertImageAddUser.Visibility = Visibility.Visible;
+                this.AcceptAlertImageAddUser.Source = AcceptImage();
+                AddUserWarning.Content = "Looking good!";
+                AddUserWarning.Foreground = Brushes.Green;
+            }
+
             if (e.Key == Key.Enter || e.Key == Key.Tab)
             {
                 Uppdatera_Click(null, null); // Tvungen att skicka med sender, KeyEventArgs = orkar inte så null
-                AcceptImageAddUser.Visibility = Visibility.Hidden;
+                AcceptAlertImageAddUser.Visibility = Visibility.Hidden;
+                AddUserWarning.Content = "";
             }
         }
 
         private void AddUser_LostFocus(object sender, RoutedEventArgs e)
         {
             AddUser.Text = "Captain Awesome";
-            AcceptImageAddUser.Visibility = Visibility.Hidden;
+            AcceptAlertImageAddUser.Visibility = Visibility.Hidden;
+            AddUserWarning.Content = "";
         }
 
         // ********************************SLUT LÄGG TILL DELTAGARE*******************************************
@@ -167,6 +179,10 @@ namespace KryssGenerator
             if (!Char.IsDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)) && e.Key != Key.Enter && e.Key != Key.Tab)
             {
                 e.Handled = true;
+                AcceptAlertImageNrOfQuestions.Visibility = Visibility.Visible;
+                this.AcceptAlertImageNrOfQuestions.Source = AlertImage();
+                NrOfQuestionsWarning.Content = "Endast siffor!";
+                NrOfQuestionsWarning.Foreground = Brushes.Red;
             }
             // Anropar funktionen Uppdatera_Click vid enter
             else if (e.Key == Key.Enter || e.Key == Key.Tab)
@@ -175,14 +191,18 @@ namespace KryssGenerator
             }
             else
             {
-                AcceptImageNrOfQuestions.Visibility = Visibility.Visible;
+                NrOfQuestionsWarning.Content = "Ser bra ut!";
+                NrOfQuestionsWarning.Foreground = Brushes.Green;
+                AcceptAlertImageNrOfQuestions.Visibility = Visibility.Visible;
+                this.AcceptAlertImageNrOfQuestions.Source = AcceptImage();
             }
         }
 
         private void NrOfQuestions_LostFocus(object sender, RoutedEventArgs e)
         {
             NrOfQuestions.Text = "1, 2, 3 osv";
-            AcceptImageNrOfQuestions.Visibility = Visibility.Hidden;
+            AcceptAlertImageNrOfQuestions.Visibility = Visibility.Hidden;
+            NrOfQuestionsWarning.Content = "";
         }
 
         // ********************************SLUT ANTAL UPPGIFTER************************************************
@@ -216,7 +236,8 @@ namespace KryssGenerator
                     data(); // Anropar data metoden
                 }
                 NrOfQuestions.Text = "";
-                AcceptImageNrOfQuestions.Visibility = Visibility.Hidden;
+                NrOfQuestionsWarning.Content = "";
+                AcceptAlertImageNrOfQuestions.Visibility = Visibility.Hidden;
             }
 
             // Gör att när man klickar på slump så döljs antal uppgift inmating och lägg till person
@@ -231,6 +252,38 @@ namespace KryssGenerator
         }
 
         // ********************************SLUT GEMENSAM********************************************************
+
+        private void delete_User_Click(object sender, RoutedEventArgs e)
+        {
+            Person p = new Person(); //
+            p.ID1 = Convert.ToInt32(GetCell(dataGrid1, dataGrid1.SelectedIndex, 0)); //Hämtar ID:et från databasen, baserat på den markerade raden
+
+            if (p.ID1 > -1) //Ifall det är någon rad som är markerad, så går den in i denna if-sats
+            {
+                d.delete_User(p); //Tar bort markerad rad från databasen
+
+                data(); //Laddar om databasen
+            }
+        }
+
+        // ********************************BILD KÄLLOR*********************************************************
+
+        // Anger källa för Alert bilden
+        private ImageSource AlertImage()
+        {
+            Uri uri = new Uri("/Images/Alert.jpg", UriKind.Relative);
+            ImageSource myImage = new BitmapImage(uri);
+            return myImage;
+        }
+        // Anger källa för Accept bilden
+        private ImageSource AcceptImage()
+        {
+            Uri uri = new Uri("/Images/Accept.jpg", UriKind.Relative);
+            ImageSource myImage = new BitmapImage(uri);
+            return myImage;
+        }
+
+        // ********************************SLUT BILD KÄLLOR*****************************************************
 
         // Ignorera.
         #region Event For Child Window
@@ -247,18 +300,5 @@ namespace KryssGenerator
             throw new NotImplementedException();
         }
         #endregion
-
-        private void delete_User_Click(object sender, RoutedEventArgs e)
-        {
-            Person p = new Person(); //
-            p.ID1 = Convert.ToInt32(GetCell(dataGrid1, dataGrid1.SelectedIndex, 0)); //Hämtar ID:et från databasen, baserat på den markerade raden
-
-            if (p.ID1 > -1) //Ifall det är någon rad som är markerad, så går den in i denna if-sats
-            {
-                d.delete_User(p); //Tar bort markerad rad från databasen
-
-                data(); //Laddar om databasen
-            }
-        }
     }
 }

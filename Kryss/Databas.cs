@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Data;
-using MySql.Data;
-using MySql.Data.MySqlClient;
 using System.Data.OleDb;
 
 namespace KryssGenerator
 {
-    public class Databas : AddRemove
+    public class Databas
     {
         // Deklarerar för vidare användning
         public String OurTable;
