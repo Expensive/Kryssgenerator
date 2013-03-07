@@ -25,8 +25,6 @@ Milstolpar
 
 TO DO LIST (not funny)
 
-2. Varningsmeddelanden vid inmatning.
-
 3. Slippa dubbelklicka i boxar.
 
 7. Design.
