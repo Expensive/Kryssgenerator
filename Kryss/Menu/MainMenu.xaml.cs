@@ -48,6 +48,11 @@ namespace KryssGenerator
             //AcceptWarningImageNrOfQuestions.Source = bitmap; 
         }
 
+        private void DoOnLoad()
+        {
+            dataGrid1.Columns[0].Visibility = Visibility.Hidden;
+        }
+
 
       
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -71,6 +76,12 @@ namespace KryssGenerator
                 AddUser.Focusable = false;
                 QRow1.Opacity = 0.5;
                 QRow2.Opacity = 0.5;
+                delete_User.IsEnabled = false; // Döljer ta bort knappen vid första slump
+            }
+            if (valkol == inMatNr)
+            {
+                delete_User.IsEnabled = true;
+                Slumpa.IsEnabled = false;
             }
         }
 
