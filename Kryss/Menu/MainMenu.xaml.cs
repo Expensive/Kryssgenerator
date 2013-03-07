@@ -132,15 +132,21 @@ namespace KryssGenerator
 
         private void AddUser_KeyDown(object sender, KeyEventArgs e)
         {
+            if (AddUser.Text != "")
+            {
+                AcceptImageAddUser.Visibility = Visibility.Visible;
+            }
             if (e.Key == Key.Enter || e.Key == Key.Tab)
             {
                 Uppdatera_Click(null, null); // Tvungen att skicka med sender, KeyEventArgs = orkar inte så null
+                AcceptImageAddUser.Visibility = Visibility.Hidden;
             }
         }
 
         private void AddUser_LostFocus(object sender, RoutedEventArgs e)
         {
             AddUser.Text = "Captain Awesome";
+            AcceptImageAddUser.Visibility = Visibility.Hidden;
         }
 
         // ********************************SLUT LÄGG TILL DELTAGARE*******************************************
@@ -169,13 +175,14 @@ namespace KryssGenerator
             }
             else
             {
+                AcceptImageNrOfQuestions.Visibility = Visibility.Visible;
             }
         }
 
         private void NrOfQuestions_LostFocus(object sender, RoutedEventArgs e)
         {
             NrOfQuestions.Text = "1, 2, 3 osv";
-
+            AcceptImageNrOfQuestions.Visibility = Visibility.Hidden;
         }
 
         // ********************************SLUT ANTAL UPPGIFTER************************************************
@@ -209,6 +216,7 @@ namespace KryssGenerator
                     data(); // Anropar data metoden
                 }
                 NrOfQuestions.Text = "";
+                AcceptImageNrOfQuestions.Visibility = Visibility.Hidden;
             }
 
             // Gör att när man klickar på slump så döljs antal uppgift inmating och lägg till person
