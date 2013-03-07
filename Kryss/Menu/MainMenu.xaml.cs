@@ -23,6 +23,7 @@ namespace KryssGenerator
         int inMatNr = -1; // Döljer uppgifter vid start
         bool stopChange = false; // False tills man anget antal uppgifter
         Databas load = null;
+        Databas d = new Databas();
         private static int valkol = 0; // Ändrar vald kolumn. Börjar på 1, 2 osv
 
         // Publik för att man ska kunna komma åt rätt kolumn i RandomName.cs som använder valkol
@@ -225,5 +226,18 @@ namespace KryssGenerator
             throw new NotImplementedException();
         }
         #endregion
+
+        private void delete_User_Click(object sender, RoutedEventArgs e)
+        {
+            Person p = new Person(); //
+            p.ID1 = Convert.ToInt32(GetCell(dataGrid1, dataGrid1.SelectedIndex, 0)); //Hämtar ID:et från databasen, baserat på den markerade raden
+
+            if (p.ID1 > -1) //Ifall det är någon rad som är markerad, så går den in i denna if-sats
+            {
+                d.delete_User(p); //Tar bort markerad rad från databasen
+
+                data(); //Laddar om databasen
+            }
+        }
     }
 }

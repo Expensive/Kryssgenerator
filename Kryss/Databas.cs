@@ -77,5 +77,29 @@ namespace KryssGenerator
             
             return OurData;
         }
+
+        public void delete_User(Person p)
+        {
+            try
+            {
+                Command.CommandText = "DELETE FROM Namn WHERE ID= " + p.ID1;
+                Command.CommandType = CommandType.Text;
+                Connection.Open();
+
+                Command.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            finally
+            {
+                if (Connection != null)
+                {
+                    Connection.Close();
+                }
+            }
+        }
     }
 }
