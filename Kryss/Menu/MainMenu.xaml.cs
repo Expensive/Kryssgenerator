@@ -196,6 +196,7 @@ namespace KryssGenerator
                 {
                     data(); // Anropar data metoden
                 }
+                NrOfQuestions.Text = "";
             }
 
             // Gör att när man klickar på slump så döljs antal uppgift inmating och lägg till person

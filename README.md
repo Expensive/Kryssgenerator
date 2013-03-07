@@ -29,8 +29,6 @@ TO DO LIST (not funny)
 
 3. Slippa dubbelklicka i boxar.
 
-4. Ta bort personer.
-
 7. Design.
 
 8. Summera antal kryss
@@ -41,3 +39,4 @@ TO DO LIST (not funny)
 
 11. Låsa OK i datagrid tills efter slumpning.
 
+12. Aktuell kolumn vid slumpning. Sänka opacity på de andra?
