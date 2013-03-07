@@ -180,7 +180,7 @@ namespace KryssGenerator
                 Databas.Command.ExecuteNonQuery();
                 Databas.Connection.Close();
                 data();
-                AddUser.Text = "Captain Awesome"; // Gör att man ej kan skriva samma namn flera gånger på raken
+                AddUser.Text = ""; // Gör att man ej kan skriva samma namn flera gånger på raken
             }
 
             else if (NrOfQuestions.Text != "" && NrOfQuestions.Text != "1, 2, 3 osv")

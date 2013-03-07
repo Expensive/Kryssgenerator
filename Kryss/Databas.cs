@@ -82,10 +82,7 @@ namespace KryssGenerator
         {
             try
             {
-                Command.CommandText = "DELETE FROM Namn WHERE ID= " + p.ID1;
-                Command.CommandType = CommandType.Text;
-                Connection.Open();
-
+                OpenConn("DELETE FROM Namn WHERE ID= " + p.ID1); //Tar bort rad från databas med ID:et p.ID1
                 Command.ExecuteNonQuery();
             }
             catch (Exception)
