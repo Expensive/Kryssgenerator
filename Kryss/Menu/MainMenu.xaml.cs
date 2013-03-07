@@ -80,6 +80,7 @@ namespace KryssGenerator
             }
             if (valkol == inMatNr)
             {
+                MessageBox.Show("Tag bort deltagare som ej blivit godkända");
                 delete_User.IsEnabled = true;
                 Slumpa.IsEnabled = false;
             }
