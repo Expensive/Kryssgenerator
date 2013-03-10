@@ -68,9 +68,7 @@ namespace KryssGenerator
             finally
             {
                 Connection.Close(); //Avslutar anslutningen
-
             }
-            
             
             return OurData;
         }
@@ -83,28 +81,31 @@ namespace KryssGenerator
                 OpenConn("DELETE FROM Namn WHERE ID= " + p.ID1); 
                 Command.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.Message);
             }
-
             finally
             {
-                if (Connection != null)
-                {
-                    Connection.Close();
-                }
+                Connection.Close(); //Avslutar anslutningen
             }
         }
 
         public void delete_AllUser()
         { 
+            try
             {
                 //Tar bort alla användare
                 OpenConn("DELETE FROM Namn");
                 Command.ExecuteNonQuery();
-                Connection.Close();
-
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Connection.Close(); //Avslutar anslutningen
             }
         }
     }

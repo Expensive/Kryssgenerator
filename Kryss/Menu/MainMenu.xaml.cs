@@ -321,6 +321,40 @@ namespace KryssGenerator
 
         // ********************************SLUT BILD KÄLLOR*****************************************************
 
+        private void SaveToExcel_Click(object sender, RoutedEventArgs e)
+        {
+            // Skapar en excel applikation
+            Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
+
+            // Skapar en ny Workbook inom exel app som skapades ovan
+            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
+
+            // Skapar ett nytt excelblad
+            Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
+
+            // Visar excelbladet bakom programmet
+            app.Visible = true;
+
+            // Hämtar referensen från första bladet i excel. Sätter det till aktivt
+            worksheet = workbook.Sheets["Sheet1"];
+            worksheet = workbook.ActiveSheet;
+
+            // Ändrar namn på excelbladet
+            worksheet.Name = "Exporterade kryssdeltagare";
+
+            // Skapar rubrikerna för respektive kolumn i excelbladet
+            for (int i = 1; i < dataGrid1.Columns.Count + 1; i++)
+            {
+                worksheet.Cells[1, i] = dataGrid1.Columns[i - 1].Header;
+            }
+
+            //dataGrid1.SelectionMode = DataGridSelectionMode.Extended;
+            //dataGrid1.SelectAllCells();
+            //dataGrid1.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
+            //ApplicationCommands.Copy.Execute(null, dataGrid1);
+            //dataGrid1.UnselectAllCells();
+        }
+
         // Ignorera.
         #region Event For Child Window
         private void loginWindowForm_SubmitClicked(object sender, EventArgs e)
