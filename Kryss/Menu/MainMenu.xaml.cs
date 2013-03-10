@@ -42,12 +42,9 @@ namespace KryssGenerator
         public MainMenu()
         {
             InitializeComponent();
-        }
-
-        // Fungerar ej :/
-        private void DoOnLoad()
-        {
-            dataGrid1.Columns[0].Visibility = Visibility.Hidden;
+            UserControl_Loaded(null, null);
+            SaveToExcel.IsEnabled = false;
+            Slumpa.IsEnabled = false;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -75,12 +72,10 @@ namespace KryssGenerator
                 QRow1.Opacity = 0.5;
                 QRow2.Opacity = 0.5;
                 //Döljer ta bort knappen vid första slump
-                delete_User.IsEnabled = false;
             }
             if (valkol == inMatNr)
             {
                 MessageBox.Show("Tag bort deltagare som ej blivit godkända");
-                delete_User.IsEnabled = true;
                 Slumpa.IsEnabled = false;
             }
         }
@@ -163,6 +158,7 @@ namespace KryssGenerator
                 NrOfQuestions.Text = "";
                 NrOfQuestionsWarning.Content = "";
                 AcceptAlertImageNrOfQuestions.Visibility = Visibility.Hidden;
+                Slumpa.IsEnabled = true;
             }
 
             // Gör att när man klickar på slump så döljs antal uppgift inmating och lägg till person
@@ -295,10 +291,18 @@ namespace KryssGenerator
 
         private void delete_AllUser_Click(object sender, RoutedEventArgs e)
         {
-            //Kör metoden för att ta bort alla användare från databasen
-            d.delete_AllUser();
-            //Laddar om databasen på nytt genom metoden data
-            data(); 
+            //Varning dyker upp med ja / nej
+            if (MessageBox.Show("OBS! Detta gör att tabellen töms på deltagare", "Kontroll", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                //Kör metoden för att ta bort alla användare från databasen
+                d.delete_AllUser();
+                //Laddar om databasen på nytt genom metoden data
+                data();
+
+                // Startar om hela programmet. 
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                Application.Current.Shutdown();
+            }
         }
         // ********************************SLUT TAR BORT ANVÄNDARE**********************************************
 
@@ -323,30 +327,30 @@ namespace KryssGenerator
 
         private void SaveToExcel_Click(object sender, RoutedEventArgs e)
         {
-            // Skapar en excel applikation
-            Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
+            //// Skapar en excel applikation
+            //Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
 
-            // Skapar en ny Workbook inom exel app som skapades ovan
-            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
+            //// Skapar en ny Workbook inom exel app som skapades ovan
+            //Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
 
-            // Skapar ett nytt excelblad
-            Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
+            //// Skapar ett nytt excelblad
+            //Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
 
-            // Visar excelbladet bakom programmet
-            app.Visible = true;
+            //// Visar excelbladet bakom programmet
+            //app.Visible = true;
 
-            // Hämtar referensen från första bladet i excel. Sätter det till aktivt
-            worksheet = workbook.Sheets["Sheet1"];
-            worksheet = workbook.ActiveSheet;
+            //// Hämtar referensen från första bladet i excel. Sätter det till aktivt
+            //worksheet = workbook.Sheets["Sheet1"];
+            //worksheet = workbook.ActiveSheet;
 
-            // Ändrar namn på excelbladet
-            worksheet.Name = "Exporterade kryssdeltagare";
+            //// Ändrar namn på excelbladet
+            //worksheet.Name = "Exporterade kryssdeltagare";
 
-            // Skapar rubrikerna för respektive kolumn i excelbladet
-            for (int i = 1; i < dataGrid1.Columns.Count + 1; i++)
-            {
-                worksheet.Cells[1, i] = dataGrid1.Columns[i - 1].Header;
-            }
+            //// Skapar rubrikerna för respektive kolumn i excelbladet
+            //for (int i = 1; i < dataGrid1.Columns.Count + 1; i++)
+            //{
+            //    worksheet.Cells[1, i] = dataGrid1.Columns[i - 1].Header;
+            //}
 
             //dataGrid1.SelectionMode = DataGridSelectionMode.Extended;
             //dataGrid1.SelectAllCells();
