@@ -23,21 +23,25 @@ namespace KryssGenerator
         {
             //Kollar i just nu kolumn 1 vilka av kryssrutorna som är i kryssade. 
             var markedStudentsQuery = from student in db.OurData.Tables["Namn"].AsEnumerable() where student.Field<bool>(valKolFromMain.ToString()) == true select student;
+            
             //Antal kryssade uppgifter i en viss uppgift
-            choseItem =  markedStudentsQuery.Count();
+            choseItem = markedStudentsQuery.Count();
+            
+            //Get out of here. It's null :O ! (aka Om det är 0 värde hoppas randomfunktionen)
+            if (choseItem > 0)
+            {
+                //Startar random funktion
+                Random random = new Random();
 
-            //Startar random funktion
-            Random random = new Random();
+                //Väljer mellan alla i listboxen, som är kryssade
+                int rnd = choseItem;
 
-            //Väljer mellan alla i listboxen, som är kryssade
-            int rnd = choseItem;
+                //Randomar vilken den väljer i listan
+                choseItem = random.Next(rnd);
 
-            //Randomar vilken den väljer i listan
-            choseItem = random.Next(rnd);
-
-            //Vad gjorde denna? Något om att hämta ID ur datatablen
-            choseItem = markedStudentsQuery.ElementAt(choseItem).Field<int>("ID");
-
+                //Vad gjorde denna? Något om att hämta ID ur datatablen
+                choseItem = markedStudentsQuery.ElementAt(choseItem).Field<int>("ID");
+            }
             //Skickar vidare det slumpade talet
             return choseItem;
         }

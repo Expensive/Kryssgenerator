@@ -21,7 +21,6 @@ namespace KryssGenerator
     {
         //Variabler
         int inMatNr = -1; //Döljer uppgifter vid start
-        bool stopChange = false; //False tills man anget antal uppgifter
         //Databas load = null;
         Databas d = new Databas();
         private static int valkol = 0; //Ändrar vald kolumn. Börjar på 1, 2 osv
@@ -42,7 +41,6 @@ namespace KryssGenerator
         public MainMenu()
         {
             InitializeComponent();
-            Slumpa.IsEnabled = false;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -50,6 +48,7 @@ namespace KryssGenerator
             d = new Databas();
             //0 för att man är tvungen att skicka med ett "värde"
             this.DataContext = d.UpdateDatabase(0).Tables["Namn"].DefaultView;
+            Slumpa.IsEnabled = false;
         }
 
         // ********************************SLUMP FUNKTION***********************************************
@@ -57,7 +56,7 @@ namespace KryssGenerator
         // Startar slumpfunktionen
         private void Slumpa_Click(object sender, RoutedEventArgs e)
         {
-            if (stopChange == true && valkol < inMatNr)
+            if (valkol < inMatNr)
             {
                 //Börjar på 1. Ökar med 1 varje gång
                 valkol++;
@@ -68,12 +67,13 @@ namespace KryssGenerator
                 // Räknar vilken uppgift man ska slumpa på
                 Slumpa.Content = "Slumpa\nUppgift " + (valkol +1);
 
+                CurrentRandomValue.Content = "Uppgift " + valkol;
+
                 //Dölj inmatning och knapp vid första slump
                 NrOfQuestions.Focusable = false;
                 AddUser.Focusable = false;
                 QRow1.Opacity = 0.5;
                 QRow2.Opacity = 0.5;
-                //Döljer ta bort knappen vid första slump
             }
             if (valkol == inMatNr)
             {
@@ -96,7 +96,7 @@ namespace KryssGenerator
             int index = -1;
 
             //Kör igenom loop och räknar antal rader tills den träffar rätt och hoppar då ur
-            for (int i = 0; i < dataGrid1.Items.Count - 1; i++)
+            for (int i = 0; i < dataGrid1.Items.Count; i++)
             {
                 if (ID.ToString() == GetCell(dataGrid1, i, 0))
                 {
@@ -163,9 +163,6 @@ namespace KryssGenerator
                 AcceptAlertImageNrOfQuestions.Visibility = Visibility.Hidden;
                 Slumpa.IsEnabled = true;
             }
-
-            // Gör att när man klickar på slump så döljs antal uppgift inmating och lägg till person
-            stopChange = true;
         }
 
         private void AddUser_GotFocus(object sender, RoutedEventArgs e)
@@ -322,6 +319,12 @@ namespace KryssGenerator
                 d.delete_AllUser();
                 //Laddar om databasen på nytt genom metoden data
                 data();
+
+                NrOfQuestions.Focusable = true;
+                AddUser.Focusable = true;
+                QRow1.Opacity = 1;
+                QRow2.Opacity = 1;
+                Slumpa.Content = "Slumpa";
             }
         }
 

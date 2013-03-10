@@ -12,12 +12,7 @@
         <FontFamily x:Key="DefaultHeading">BankGothic Lt BT</FontFamily>
     </UserControl.Resources>
     <!-- Gör så att allt är centrerat på skärmen oavsett storlekt på fönstret -->
-    <StackPanel x:Name="Wrapper" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="500">
-        <StackPanel.Resources>
-            <Storyboard x:Key="dataGrid1">
-                <DoubleAnimation Duration="0:0:0:5"></DoubleAnimation>
-            </Storyboard>
-        </StackPanel.Resources>
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="500">
         <Border BorderBrush="#FF6C6C6C" BorderThickness="1" Padding="5">
             <DockPanel x:Name="mainMenuLayoutRoot">
                 <!-- Knappar för att ta sig runt på sidan -->
@@ -41,7 +36,7 @@
                             <Button Content="Rensa tabell" Height="30" Padding="5" x:Name="delete_AllUser" Click="delete_AllUser_Click" Margin="0,0,0,2" FontFamily="{StaticResource DefaultHeading}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" />
                             <Button Content="Starta om program" Height="30" Padding="5" x:Name="StartaOmProgram" Click="StartaOmProgram_Click" Margin="0,0,0,2" FontFamily="{StaticResource DefaultHeading}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" />
                         </StackPanel>
-                        <Label Name="CurrentRandomValue" FontSize="38" />
+                        <Label Name="CurrentRandomValue" FontSize="30" FontFamily="{DynamicResource DefaultHeading}" VerticalAlignment="Bottom" />
                     </StackPanel>
                 </StackPanel>
 
@@ -59,7 +54,7 @@
                     </TextBlock>
 
                     <!-- Datagrid där deltagare och checkboxar hamnar --><!-- DataContext="{Binding Tables[Namn]}" -->
-                    <DataGrid AutoGenerateColumns="True" Name="dataGrid1" ItemsSource="{Binding Path=., Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" BorderBrush="Transparent" CanUserDeleteRows="True" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserAddRows="False" MaxHeight="500" FontFamily="{StaticResource DefaultFont}">
+                    <DataGrid AutoGenerateColumns="True" Name="dataGrid1" ItemsSource="{Binding Path=., Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" BorderBrush="Transparent" CanUserDeleteRows="True" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" MaxHeight="500" FontFamily="{StaticResource DefaultFont}" CanUserAddRows="False">
                         <DataGrid.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="Padding" Value="4"/>
