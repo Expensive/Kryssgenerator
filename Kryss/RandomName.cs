@@ -11,35 +11,39 @@ namespace KryssGenerator
 {
     class RandomName : MainMenu
     {
-        // Denna klass har hand om allt som rör själva slump funktionen.
+        //Denna klass har hand om allt som rör själva slump funktionen.
         private static int choseItem = -1; // 
         public void Start(Databas db)
         {
-            DoRandom(db); //startar db ur databas
+            //Startar db ur databas
+            DoRandom(db);
         }
 
         public int DoRandom(Databas db)
         {
-            // Kollar i just nu kolumn 1 vilka av kryssrutorna som är i kryssade. 
+            //Kollar i just nu kolumn 1 vilka av kryssrutorna som är i kryssade. 
             var markedStudentsQuery = from student in db.OurData.Tables["Namn"].AsEnumerable() where student.Field<bool>(valKolFromMain.ToString()) == true select student;
+            //Antal kryssade uppgifter i en viss uppgift
             choseItem =  markedStudentsQuery.Count();
-            // Antal i kryssade uppgifter i en viss uppgift
 
             //Startar random funktion
             Random random = new Random();
 
-            ////Väljer mellan alla i listboxen
+            //Väljer mellan alla i listboxen, som är kryssade
             int rnd = choseItem;
 
             //Randomar vilken den väljer i listan
             choseItem = random.Next(rnd);
 
-            // Vad gjorde denna? Något om att hämta ID ur datatablen
+            //Vad gjorde denna? Något om att hämta ID ur datatablen
             choseItem = markedStudentsQuery.ElementAt(choseItem).Field<int>("ID");
 
-            return choseItem; //skickar vidare det slumpade talet
+            //Skickar vidare det slumpade talet
+            return choseItem;
         }
-        public static int finishComboPeople // Det slumpade värdet
+
+        //Det slumpade värdet
+        public static int finishComboPeople
         {
             get
             {

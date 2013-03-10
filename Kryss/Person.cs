@@ -5,6 +5,7 @@ using System.Text;
 
 namespace KryssGenerator
 {
+    //Publik klass för att man ska kunna komma åt rätt tabellkolumn, bland annat när man ska ta bort användare
     public class Person
     {
         int ID;

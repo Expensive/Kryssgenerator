@@ -28,7 +28,7 @@
                     </StackPanel>
                     <Button Content="Slumpa" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="Slumpa" Click="Slumpa_Click" />
                     <Button Content="Ta bort användare" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="delete_User" Click="delete_User_Click" />
-                    <Button Visibility="Hidden" Content="Uppdatera" x:Name="Uppdatera" Click="Uppdatera_Click" />
+                    <Button Content="Ta bort alla användare" Height="30" Padding="5" Margin="0,0,5,0"  x:Name="delete_AllUser" Click="delete_AllUser_Click" />
                 </StackPanel>
 
                 <!-- Huvudrubrik -->

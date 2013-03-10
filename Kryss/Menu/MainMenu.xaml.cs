@@ -19,14 +19,14 @@ namespace KryssGenerator
 {
     public partial class MainMenu : UserControl, ISwitchable
     {
-        // Variabler
-        int inMatNr = -1; // Döljer uppgifter vid start
-        bool stopChange = false; // False tills man anget antal uppgifter
-        Databas load = null;
+        //Variabler
+        int inMatNr = -1; //Döljer uppgifter vid start
+        bool stopChange = false; //False tills man anget antal uppgifter
+        //Databas load = null;
         Databas d = new Databas();
-        private static int valkol = 0; // Ändrar vald kolumn. Börjar på 1, 2 osv
+        private static int valkol = 0; //Ändrar vald kolumn. Börjar på 1, 2 osv
 
-        // Publik för att man ska kunna komma åt rätt kolumn i RandomName.cs som använder valkol
+        //Publik för att man ska kunna komma åt rätt kolumn i RandomName.cs som använder valkol
         public static int valKolFromMain
         {
             get
@@ -52,8 +52,9 @@ namespace KryssGenerator
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            load = new Databas();
-            this.DataContext = load.UpdateDatabase(0).Tables["Namn"].DefaultView; // 0 för att man är tvungen att skicka med ett "värde"
+            d = new Databas();
+            //0 för att man är tvungen att skicka med ett "värde"
+            this.DataContext = d.UpdateDatabase(0).Tables["Namn"].DefaultView;
         }
 
         // ********************************SLUMP FUNKTION***********************************************
@@ -63,15 +64,18 @@ namespace KryssGenerator
         {
             if (stopChange == true && valkol < inMatNr)
             {
-                valkol++; // Börjar på 1. Ökar med 1 varje gång
-                doRand(); // Kör slumpfunktion
+                //Börjar på 1. Ökar med 1 varje gång
+                valkol++;
+                //Kör slumpfunktion
+                doRand();
 
-                // Dölj inmatning och knapp vid första slump
+                //Dölj inmatning och knapp vid första slump
                 NrOfQuestions.Focusable = false;
                 AddUser.Focusable = false;
                 QRow1.Opacity = 0.5;
                 QRow2.Opacity = 0.5;
-                delete_User.IsEnabled = false; // Döljer ta bort knappen vid första slump
+                //Döljer ta bort knappen vid första slump
+                delete_User.IsEnabled = false;
             }
             if (valkol == inMatNr)
             {
@@ -81,28 +85,34 @@ namespace KryssGenerator
             }
         }
 
-        // Anropar RandomName klassen och utför random funktion
+        //Anropar RandomName klassen och utför random funktion
         private void doRand()
         {
-            RandomName doRand = new RandomName(); //Går in i random funktionen
 
-            int ID = doRand.DoRandom(load); // Skapar en lokal variabel
-            int index = -1; // Sätter index tillfälligt till -1
+            //Går in i random funktionen
+            RandomName doRand = new RandomName(); 
+            
+            //Skapar en lokal variabel
+            int ID = doRand.DoRandom(d);
+            //Sätter index tillfälligt till -1
+            int index = -1;
 
-            // Kör igenom loop och räknar antal rader tills den träffar rätt och hoppar då ur
+            //Kör igenom loop och räknar antal rader tills den träffar rätt och hoppar då ur
             for (int i = 0; i < dataGrid1.Items.Count - 1; i++)
             {
                 if (ID.ToString() == GetCell(dataGrid1, i, 0))
                 {
-                    index = i; // Sätter index till for loopens i
+                    //Sätter index till for loopens i
+                    index = i;
                     break;
                 }
             }
 
-            dataGrid1.SelectedIndex = index; // Markerar den valda personen i listan som index
+            //Markerar den valda personen i listan som index
+            dataGrid1.SelectedIndex = index;
         }
 
-        // Plockar ut ett värde från en specifik rad och kolumn
+        //Plockar ut ett värde från en specifik rad och kolumn
         public static String GetCell(DataGrid dataGrid, int row, int column)
         {
             String cellValue = "";
@@ -117,6 +127,48 @@ namespace KryssGenerator
 
         // ********************************LÄGG TILL DELTAGARE***********************************************
 
+        private void Add_User()
+        {
+            //Kollar först så att rutan inte är tom eller innehållet ordet Endast siffror / Antal uppgifter
+            if (AddUser.Text != "" && AddUser.Text != "Captain Awesome")
+            {
+                //Lägger till deltagare i tabellen Namn, vars namn är ifyllt i textboxen
+                Databas.Command.CommandText = @"INSERT INTO Namn(Deltagare) VALUES ('" + AddUser.Text + "')";
+                Databas.Connection.Open();
+                Databas.Command.ExecuteNonQuery();
+                Databas.Connection.Close();
+                //Laddar om databasen på nytt genom metoden data
+                data();
+                //Gör att man ej kan skriva samma namn flera gånger på raken
+                AddUser.Text = "";
+            }
+
+            else if (NrOfQuestions.Text != "" && NrOfQuestions.Text != "1, 2, 3 osv")
+            {
+                //Inmatat nr
+                inMatNr = Convert.ToInt32(NrOfQuestions.Text);
+
+                //Spärr för att varna om mer än 30 uppgifter
+                if (inMatNr <= 30)
+                {
+                    //Laddar om databasen på nytt genom metoden data
+                    data();
+                }
+                //Varning dyker upp med ja / nej
+                else if (MessageBox.Show("Är du säker på att du vill skapa " + inMatNr + " st uppgifter?", "Kontroll", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    //Laddar om databasen på nytt genom metoden data
+                    data();
+                }
+                NrOfQuestions.Text = "";
+                NrOfQuestionsWarning.Content = "";
+                AcceptAlertImageNrOfQuestions.Visibility = Visibility.Hidden;
+            }
+
+            // Gör att när man klickar på slump så döljs antal uppgift inmating och lägg till person
+            stopChange = true;
+        }
+
         private void AddUser_GotFocus(object sender, RoutedEventArgs e)
         {
             if (AddUser.Text != "")
@@ -127,7 +179,7 @@ namespace KryssGenerator
 
         private void AddUser_KeyDown(object sender, KeyEventArgs e)
         {
-            // Kollar så att man endast matar in bokstäver
+            //Kollar så att man endast matar in bokstäver
             if (Char.IsDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)) && e.Key != Key.Enter && e.Key != Key.Tab)
             {
                 e.Handled = true;
@@ -137,7 +189,7 @@ namespace KryssGenerator
                 AddUserWarning.Foreground = Brushes.Red;
             }
             
-            // Grön bock och text när man matar in text
+            //Grön bock och text när man matar in text
             else if (AddUser.Text != " ")
             {
                 AcceptAlertImageAddUser.Visibility = Visibility.Visible;
@@ -148,7 +200,8 @@ namespace KryssGenerator
 
             if (e.Key == Key.Enter || e.Key == Key.Tab)
             {
-                Uppdatera_Click(null, null); // Tvungen att skicka med sender, KeyEventArgs = orkar inte så null
+                //Anropar metoden Add_User, för att lägga till användare
+                Add_User();
                 AcceptAlertImageAddUser.Visibility = Visibility.Hidden;
                 AddUserWarning.Content = "";
             }
@@ -165,17 +218,19 @@ namespace KryssGenerator
 
         // ********************************ANTAL UPPGIFTER****************************************************
 
-        // Tömmer boxen när man markerar den
+        
         private void NrOfQuestions_GotFocus(object sender, RoutedEventArgs e)
         {
+            // Tömmer boxen när man markerar den
             if (NrOfQuestions.Text != "")
             {
                 NrOfQuestions.Text = String.Empty;
             }
         }
-        // Kollar inmatat värde om det är endast siffror och man trycker på enter
+        
         private void NrOfQuestions_KeyDown(object sender, KeyEventArgs e)
         {
+            //Kollar inmatat värde om det är endast siffror och man trycker på enter
             if (!Char.IsDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)) && e.Key != Key.Enter && e.Key != Key.Tab)
             {
                 e.Handled = true;
@@ -184,10 +239,11 @@ namespace KryssGenerator
                 NrOfQuestionsWarning.Content = "Endast siffor!";
                 NrOfQuestionsWarning.Foreground = Brushes.Red;
             }
-            // Anropar funktionen Uppdatera_Click vid enter
+            
+            //Anropar metoden Add_User, för att lägga till användare, vid enter
             else if (e.Key == Key.Enter || e.Key == Key.Tab)
             {
-                Uppdatera_Click(null, null); // Tvungen att skicka med sender, KeyEventArgs = orkar inte så null
+                Add_User();
             }
             else
             {
@@ -209,64 +265,44 @@ namespace KryssGenerator
 
         // ********************************GEMENSAM************************************************************
 
-        // Kollar först så att rutan inte är tom eller innehållet ordet Endast siffror / Antal uppgifter
-        private void Uppdatera_Click(object sender, RoutedEventArgs e)
-        {
-            if (AddUser.Text != "" && AddUser.Text != "Captain Awesome")
-            {
-                Databas.Command.CommandText = @"INSERT INTO Namn(Deltagare) VALUES ('" + AddUser.Text + "')";
-                Databas.Connection.Open();
-                Databas.Command.ExecuteNonQuery();
-                Databas.Connection.Close();
-                data();
-                AddUser.Text = ""; // Gör att man ej kan skriva samma namn flera gånger på raken
-            }
-
-            else if (NrOfQuestions.Text != "" && NrOfQuestions.Text != "1, 2, 3 osv")
-            {
-                inMatNr = Convert.ToInt32(NrOfQuestions.Text); // Inmatat nr
-
-                if (inMatNr <= 30) // Spärr för att varna om mer än 30 uppgifter
-                {
-                    data(); // Anropar data metoden
-                }
-                // Varning dyker upp med ja / nej
-                else if (MessageBox.Show("Är du säker på att du vill skapa " + inMatNr + " st uppgifter?", "Kontroll", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
-                {
-                    data(); // Anropar data metoden
-                }
-                NrOfQuestions.Text = "";
-                NrOfQuestionsWarning.Content = "";
-                AcceptAlertImageNrOfQuestions.Visibility = Visibility.Hidden;
-            }
-
-            // Gör att när man klickar på slump så döljs antal uppgift inmating och lägg till person
-            stopChange = true;
-        }
-
-        // Anropar och skriver ut kryssrutor beroende på antalet deltagare och uppgifter
         private void data()
         {
-            dataGrid1.DataContext = load.UpdateDatabase(inMatNr).Tables["Namn"].DefaultView; // Hämtar deltagare och antal kryssrutor igen
-            dataGrid1.Items.Refresh(); // Laddar om dataGrid1
+            //Hämtar deltagare och antal kryssrutor igen
+            dataGrid1.DataContext = d.UpdateDatabase(inMatNr).Tables["Namn"].DefaultView;
+            // Laddar om dataGrid1
+            dataGrid1.Items.Refresh();
         }
 
         // ********************************SLUT GEMENSAM********************************************************
 
+        // ********************************TAR BORT ANVÄNDARE***************************************************
         private void delete_User_Click(object sender, RoutedEventArgs e)
         {
-            Person p = new Person(); //
-            p.ID1 = Convert.ToInt32(GetCell(dataGrid1, dataGrid1.SelectedIndex, 0)); //Hämtar ID:et från databasen, baserat på den markerade raden
+            //Skapar en lokal objekt(p), utav klassen Person
+            Person p = new Person();
+            //Hämtar ID:et från databasen, baserat på den markerade raden
+            p.ID1 = Convert.ToInt32(GetCell(dataGrid1, dataGrid1.SelectedIndex, 0));
 
-            if (p.ID1 > -1) //Ifall det är någon rad som är markerad, så går den in i denna if-sats
+            //Ifall det är någon rad som är markerad, så går den in i denna if-sats
+            if (p.ID1 > -1)
             {
-                d.delete_User(p); //Tar bort markerad rad från databasen
-
-                data(); //Laddar om databasen
+                //Tar bort markerad rad från databasen
+                d.delete_User(p);
+                //Laddar om databasen på nytt genom metoden data
+                data();
             }
         }
 
-        // ********************************BILD KÄLLOR*********************************************************
+        private void delete_AllUser_Click(object sender, RoutedEventArgs e)
+        {
+            //Kör metoden för att ta bort alla användare från databasen
+            d.delete_AllUser();
+            //Laddar om databasen på nytt genom metoden data
+            data(); 
+        }
+        // ********************************SLUT TAR BORT ANVÄNDARE**********************************************
+
+        // ********************************BILD KÄLLOR**********************************************************
 
         // Anger källa för Alert bilden
         private ImageSource AlertImage()
@@ -300,5 +336,7 @@ namespace KryssGenerator
             throw new NotImplementedException();
         }
         #endregion
+
+
     }
 }
