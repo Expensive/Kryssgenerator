@@ -42,8 +42,6 @@ namespace KryssGenerator
         public MainMenu()
         {
             InitializeComponent();
-            UserControl_Loaded(null, null);
-            SaveToExcel.IsEnabled = false;
             Slumpa.IsEnabled = false;
         }
 
@@ -63,11 +61,12 @@ namespace KryssGenerator
             {
                 //Börjar på 1. Ökar med 1 varje gång
                 valkol++;
+                
                 //Kör slumpfunktion
                 doRand();
 
                 // Räknar vilken uppgift man ska slumpa på
-                Slumpa.Content = "Slumpa uppgift " + (valkol +1); 
+                Slumpa.Content = "Slumpa\nUppgift " + (valkol +1);
 
                 //Dölj inmatning och knapp vid första slump
                 NrOfQuestions.Focusable = false;
@@ -79,7 +78,7 @@ namespace KryssGenerator
             if (valkol == inMatNr)
             {
                 // Ändrar texten på knappen
-                Slumpa.Content = "Slumpning klar";
+                Slumpa.Content = "Slumpning\nKlar";
                 Slumpa.IsEnabled = false;
             }
         }
@@ -293,21 +292,6 @@ namespace KryssGenerator
             }
         }
 
-        private void delete_AllUser_Click(object sender, RoutedEventArgs e)
-        {
-            //Varning dyker upp med ja / nej
-            if (MessageBox.Show("OBS! Detta gör att tabellen töms på deltagare", "Kontroll", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
-            {
-                //Kör metoden för att ta bort alla användare från databasen
-                d.delete_AllUser();
-                //Laddar om databasen på nytt genom metoden data
-                data();
-
-                // Startar om hela programmet. 
-                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
-                Application.Current.Shutdown();
-            }
-        }
         // ********************************SLUT TAR BORT ANVÄNDARE**********************************************
 
         // ********************************BILD KÄLLOR**********************************************************
@@ -329,38 +313,27 @@ namespace KryssGenerator
 
         // ********************************SLUT BILD KÄLLOR*****************************************************
 
-        private void SaveToExcel_Click(object sender, RoutedEventArgs e)
+        private void delete_AllUser_Click(object sender, RoutedEventArgs e)
         {
-            //// Skapar en excel applikation
-            //Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
+            //Varning dyker upp med ja / nej
+            if (MessageBox.Show("OBS! Detta gör att tabellen töms på deltagare.", "Kontroll", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                //Kör metoden för att ta bort alla användare från databasen
+                d.delete_AllUser();
+                //Laddar om databasen på nytt genom metoden data
+                data();
+            }
+        }
 
-            //// Skapar en ny Workbook inom exel app som skapades ovan
-            //Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
-
-            //// Skapar ett nytt excelblad
-            //Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
-
-            //// Visar excelbladet bakom programmet
-            //app.Visible = true;
-
-            //// Hämtar referensen från första bladet i excel. Sätter det till aktivt
-            //worksheet = workbook.Sheets["Sheet1"];
-            //worksheet = workbook.ActiveSheet;
-
-            //// Ändrar namn på excelbladet
-            //worksheet.Name = "Exporterade kryssdeltagare";
-
-            //// Skapar rubrikerna för respektive kolumn i excelbladet
-            //for (int i = 1; i < dataGrid1.Columns.Count + 1; i++)
-            //{
-            //    worksheet.Cells[1, i] = dataGrid1.Columns[i - 1].Header;
-            //}
-
-            //dataGrid1.SelectionMode = DataGridSelectionMode.Extended;
-            //dataGrid1.SelectAllCells();
-            //dataGrid1.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
-            //ApplicationCommands.Copy.Execute(null, dataGrid1);
-            //dataGrid1.UnselectAllCells();
+        private void StartaOmProgram_Click(object sender, RoutedEventArgs e)
+        {
+            //Varning dyker upp med ja / nej
+            if (MessageBox.Show("OBS! Programmet startas om, deltagarna sparas.", "Kontroll", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                // Startar om hela programmet. 
+                System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
+                Application.Current.Shutdown();
+            }
         }
 
         // Ignorera.
@@ -378,7 +351,5 @@ namespace KryssGenerator
             throw new NotImplementedException();
         }
         #endregion
-
-
     }
 }

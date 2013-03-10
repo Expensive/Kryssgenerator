@@ -7,31 +7,39 @@
 	x:Class="KryssGenerator.MainMenu"
 	d:DesignWidth="1000" d:DesignHeight="500"
     Loaded="UserControl_Loaded">
-
+    <UserControl.Resources>
+        <FontFamily x:Key="DefaultFont">Segoe UI</FontFamily>
+        <FontFamily x:Key="DefaultHeading">BankGothic Lt BT</FontFamily>
+    </UserControl.Resources>
     <!-- Gör så att allt är centrerat på skärmen oavsett storlekt på fönstret -->
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="500">
+    <StackPanel x:Name="Wrapper" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="500">
+        <StackPanel.Resources>
+            <Storyboard x:Key="dataGrid1">
+                <DoubleAnimation Duration="0:0:0:5"></DoubleAnimation>
+            </Storyboard>
+        </StackPanel.Resources>
         <Border BorderBrush="#FF6C6C6C" BorderThickness="1" Padding="5">
             <DockPanel x:Name="mainMenuLayoutRoot">
                 <!-- Knappar för att ta sig runt på sidan -->
                 <StackPanel Name="StackPanelInMatning" DockPanel.Dock="Bottom" Margin="0, 5">
                     <StackPanel Name="QRow1" Orientation="Horizontal" Margin="0,0,0,5">
-                        <Label Width="150" FontWeight="SemiBold" Padding="5,6,5,5">Lägg till deltagare</Label>
-                        <TextBox Name="AddUser" Text="Captain Awesome" Width="130" Height="30" GotFocus="AddUser_GotFocus" LostFocus="AddUser_LostFocus" Padding="1,5,1,1" Margin="0,0,5,0" KeyDown="AddUser_KeyDown" FontStyle="Italic" Foreground="#FF222222" HorizontalContentAlignment="Center"></TextBox>
+                        <Label Width="150" FontWeight="Black" Padding="5,6,5,5" FontFamily="{StaticResource DefaultHeading}">Lägg till deltagare</Label>
+                        <TextBox Name="AddUser" Text="Captain Awesome" Width="150" Height="30" GotFocus="AddUser_GotFocus" LostFocus="AddUser_LostFocus" Padding="1,5,1,1" Margin="0,0,5,0" KeyDown="AddUser_KeyDown" FontStyle="Italic" Foreground="#FF222222" HorizontalContentAlignment="Center" FontFamily="{StaticResource DefaultFont}"></TextBox>
                         <Image Name="AcceptAlertImageAddUser"  Width="16" Height="16" HorizontalAlignment="Left" Visibility="Collapsed" />
-                        <Label Name="AddUserWarning" Padding="5,7,5,5" />
+                        <Label Name="AddUserWarning" Padding="5,7,5,5" FontFamily="{StaticResource DefaultFont}" />
                     </StackPanel>
                     <StackPanel Name="QRow2" Orientation="Horizontal" Margin="0 5">
-                        <Label Width="150" FontWeight="SemiBold" Padding="5,6,5,5">Hur många uppgifter?</Label>
-                        <TextBox Name="NrOfQuestions" Text="1, 2, 3 osv" Width="130" Height="30" GotFocus="NrOfQuestions_GotFocus" LostFocus="NrOfQuestions_LostFocus" Padding="1,5,1,1" Margin="0,0,5,0" KeyDown="NrOfQuestions_KeyDown" FontStyle="Italic" Foreground="#FF222222" HorizontalContentAlignment="Center"></TextBox>
+                        <Label Width="150" FontWeight="Black" Padding="5,6,5,5" FontFamily="{StaticResource DefaultHeading}">Antal uppgifter?</Label>
+                        <TextBox Name="NrOfQuestions" Text="1, 2, 3 osv" Width="150" Height="30" GotFocus="NrOfQuestions_GotFocus" LostFocus="NrOfQuestions_LostFocus" Padding="1,5,1,1" Margin="0,0,5,0" KeyDown="NrOfQuestions_KeyDown" FontStyle="Italic" Foreground="#FF222222" HorizontalContentAlignment="Center" FontFamily="{StaticResource DefaultFont}"></TextBox>
                         <Image Name="AcceptAlertImageNrOfQuestions"  Width="16" Height="16" HorizontalAlignment="Left" Visibility="Collapsed" />
-                        <Label Name="NrOfQuestionsWarning" Padding="5,7,5,5" />
+                        <Label Name="NrOfQuestionsWarning" Padding="5,7,5,5" FontFamily="{StaticResource DefaultFont}" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                    <Button Content="Slumpa uppgift 1" Height="96" Padding="5" Margin="0,0,30,0"  x:Name="Slumpa" Click="Slumpa_Click" Width="120" />
+                    <Button Content="Slumpa" Height="96" Padding="5" Margin="0,0,30,0"  x:Name="Slumpa" Click="Slumpa_Click" Width="120" FontFamily="{StaticResource DefaultHeading}" FontSize="14" Background="{StaticResource {x:Static SystemColors.ActiveCaptionBrushKey}}" />
                         <StackPanel>
-                            <Button Content="Ta bort användare" Height="30" Padding="5" x:Name="delete_User" Click="delete_User_Click" Margin="0,0,0,2" />
-                            <Button Content="Rensa och börja om" Height="30" Padding="5" x:Name="delete_AllUser" Click="delete_AllUser_Click" Margin="0,0,0,2" />
-                            <Button Content="Spara till Excel" Height="30" Padding="5" x:Name="SaveToExcel" Click="SaveToExcel_Click" Margin="0,0,0,2" />
+                            <Button Content="Ta bort användare" Height="30" Width="150" Padding="5" x:Name="delete_User" Click="delete_User_Click" Margin="0,0,0,2" FontFamily="{StaticResource DefaultHeading}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" />
+                            <Button Content="Rensa tabell" Height="30" Padding="5" x:Name="delete_AllUser" Click="delete_AllUser_Click" Margin="0,0,0,2" FontFamily="{StaticResource DefaultHeading}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" />
+                            <Button Content="Starta om program" Height="30" Padding="5" x:Name="StartaOmProgram" Click="StartaOmProgram_Click" Margin="0,0,0,2" FontFamily="{StaticResource DefaultHeading}" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" />
                         </StackPanel>
                         <Label Name="CurrentRandomValue" FontSize="38" />
                     </StackPanel>
@@ -39,19 +47,19 @@
 
                 <!-- Huvudrubrik -->
                 <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="3,0,0,0">
-                    <Label FontSize="40" HorizontalAlignment="Center" FontWeight="SemiBold">Kryssgenerator</Label>
+                    <Label FontSize="40" HorizontalAlignment="Center" FontWeight="SemiBold" FontFamily="{StaticResource DefaultHeading}">The unlucky</Label>
                 </StackPanel>
                 
                 <!-- Listbox där deltagare hamnar -->
                 <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Margin="0,0,0,3">
-                    <TextBlock FontSize="14" Margin="0,0,0,5" Padding="0,2">
+                    <TextBlock FontSize="14" Margin="0,0,0,5" Padding="0,2" FontFamily="{StaticResource DefaultFont}">
                     Deltagare för dagens kryssuppgift. Markera de uppgifter du vill vara med på. 
                     <LineBreak />
-                    Fyll i för- och efternamn i den tomma rutan längst ner om du ej finns med.
+                    Fyll i för- och efternamn i rutan längre ner om du ej finns med.
                     </TextBlock>
 
                     <!-- Datagrid där deltagare och checkboxar hamnar --><!-- DataContext="{Binding Tables[Namn]}" -->
-                    <DataGrid AutoGenerateColumns="True" Name="dataGrid1"  ItemsSource="{Binding Path=., Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" BorderBrush="Transparent" CanUserDeleteRows="True" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserSortColumns="False">
+                    <DataGrid AutoGenerateColumns="True" Name="dataGrid1" ItemsSource="{Binding Path=., Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" BorderBrush="Transparent" CanUserDeleteRows="True" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserAddRows="False" MaxHeight="500" FontFamily="{StaticResource DefaultFont}">
                         <DataGrid.CellStyle>
                             <Style TargetType="DataGridCell">
                                 <Setter Property="Padding" Value="4"/>
