@@ -27,12 +27,13 @@
                         <Label Name="NrOfQuestionsWarning" Padding="5,7,5,5" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                    <Button Content="Slumpa" Height="96" Padding="5" Margin="0,0,30,0"  x:Name="Slumpa" Click="Slumpa_Click" Width="120" />
+                    <Button Content="Slumpa uppgift 1" Height="96" Padding="5" Margin="0,0,30,0"  x:Name="Slumpa" Click="Slumpa_Click" Width="120" />
                         <StackPanel>
                             <Button Content="Ta bort användare" Height="30" Padding="5" x:Name="delete_User" Click="delete_User_Click" Margin="0,0,0,2" />
                             <Button Content="Rensa och börja om" Height="30" Padding="5" x:Name="delete_AllUser" Click="delete_AllUser_Click" Margin="0,0,0,2" />
                             <Button Content="Spara till Excel" Height="30" Padding="5" x:Name="SaveToExcel" Click="SaveToExcel_Click" Margin="0,0,0,2" />
                         </StackPanel>
+                        <Label Name="CurrentRandomValue" FontSize="38" />
                     </StackPanel>
                 </StackPanel>
 

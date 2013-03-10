@@ -66,6 +66,9 @@ namespace KryssGenerator
                 //Kör slumpfunktion
                 doRand();
 
+                // Räknar vilken uppgift man ska slumpa på
+                Slumpa.Content = "Slumpa uppgift " + (valkol +1); 
+
                 //Dölj inmatning och knapp vid första slump
                 NrOfQuestions.Focusable = false;
                 AddUser.Focusable = false;
@@ -75,7 +78,8 @@ namespace KryssGenerator
             }
             if (valkol == inMatNr)
             {
-                MessageBox.Show("Tag bort deltagare som ej blivit godkända");
+                // Ändrar texten på knappen
+                Slumpa.Content = "Slumpning klar";
                 Slumpa.IsEnabled = false;
             }
         }
